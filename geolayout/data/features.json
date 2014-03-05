@@ -1,0 +1,1250 @@
+{"type":"FeatureCollection","features":[
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833,53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 3,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 2,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 2,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 2,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 1,
+		"date": 1940
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 2,
+		"date": 1945
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd619ce38-5106-425d-976d-e4fbd1b41a22",
+		"size": 1,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-6.25833, 53.3444]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON94aac8c3-6ef2-4ea6-978b-540b6385a389",
+		"size": 1,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 3,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 4,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 2,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 1,
+		"date": 1945
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa3f18d6d-ffdb-49de-9571-74b4ce9b20ff",
+		"size": 2,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.57566, 54.77676]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa89afe99-0d3c-4d05-aa66-0ff884c1ec70",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa89afe99-0d3c-4d05-aa66-0ff884c1ec70",
+		"size": 1,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONc04f7f48-ac3f-4329-acfa-1fee10535d46",
+		"size": 4,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.97113, 51.45625]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONc04f7f48-ac3f-4329-acfa-1fee10535d46",
+		"size": 1,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.97113, 51.45625]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONc04f7f48-ac3f-4329-acfa-1fee10535d46",
+		"size": 2,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.97113, 51.45625]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON3e65c817-19cb-4cde-94e1-f9d9104a22f6",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-103.66775, 50.53336]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1920
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 3,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 2,
+		"date": 1925
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 3,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 2,
+		"date": 1930
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 4,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1905
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 3,
+		"date": 1940
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1910
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 3,
+		"date": 1945
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 1,
+		"date": 1915
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022",
+		"size": 3,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.19648, 55.95206]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONaec21584-9cb0-4a7a-a115-4d51c8a6cc58",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.53953, 51.39808]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON5def8155-b4cb-4743-886e-627fe96d02a3",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON54cb7942-90bb-4109-af5b-5a1b47d23ea7",
+		"size": 2,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONbb2983bb-f5b8-4817-8a7b-d487604285f0",
+		"size": 1,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.1253, 51.521]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONf597b063-bc50-4d02-98eb-1c685e1a1e62",
+		"size": 2,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.94323, 51.62079]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa300b365-6f96-42db-a274-8eb0218a15eb",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-77.10428, 38.88101]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONa300b365-6f96-42db-a274-8eb0218a15eb",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-77.10428, 38.88101]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON963c3555-eef3-42fd-bd13-9cabece591a8",
+		"size": 2,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.17321, 51.49437]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON963c3555-eef3-42fd-bd13-9cabece591a8",
+		"size": 4,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.17321, 51.49437]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON963c3555-eef3-42fd-bd13-9cabece591a8",
+		"size": 1,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.17321, 51.49437]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON963c3555-eef3-42fd-bd13-9cabece591a8",
+		"size": 2,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.17321, 51.49437]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 2,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 5,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 6,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 4,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON75dfc5f7-1e8d-4d8e-aeb6-a9fb90e67eed",
+		"size": 1,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1985
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 2,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1980
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON07134fd0-59c1-4210-ba79-df770401abf8",
+		"size": 1,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-2.59665, 51.45523]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON83e636a6-d8f4-4b55-9ae1-cbaae3834a13",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.51434, 50.46384]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd6b87ad5-a76f-42f7-93f4-c52eabd99251",
+		"size": 3,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.28728, 51.48614]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd6b87ad5-a76f-42f7-93f4-c52eabd99251",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.28728, 51.48614]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd6b87ad5-a76f-42f7-93f4-c52eabd99251",
+		"size": 5,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.28728, 51.48614]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd6b87ad5-a76f-42f7-93f4-c52eabd99251",
+		"size": 1,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.28728, 51.48614]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd987e0eb-9a30-4dd8-8f8b-3dfe5d1209a6",
+		"size": 2,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd987e0eb-9a30-4dd8-8f8b-3dfe5d1209a6",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd987e0eb-9a30-4dd8-8f8b-3dfe5d1209a6",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd987e0eb-9a30-4dd8-8f8b-3dfe5d1209a6",
+		"size": 1,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONd987e0eb-9a30-4dd8-8f8b-3dfe5d1209a6",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-66.66558, 45.94541]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON763c0ffa-830d-4412-9a2a-ce98c969f678",
+		"size": 2,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.12444, 52.62139]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON763c0ffa-830d-4412-9a2a-ce98c969f678",
+		"size": 2,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.12444, 52.62139]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON763c0ffa-830d-4412-9a2a-ce98c969f678",
+		"size": 3,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.12444, 52.62139]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON763c0ffa-830d-4412-9a2a-ce98c969f678",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.12444, 52.62139]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONaaeeb2b6-ba7d-4bb4-96ec-4c95ed441bd3",
+		"size": 1,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.54785, 53.79648]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 1,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 2,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 2,
+		"date": 1940
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 1,
+		"date": 1945
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30",
+		"size": 2,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77b25118-8e2d-46d9-a371-860bd5fda206",
+		"size": 2,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77b25118-8e2d-46d9-a371-860bd5fda206",
+		"size": 5,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77b25118-8e2d-46d9-a371-860bd5fda206",
+		"size": 2,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77b25118-8e2d-46d9-a371-860bd5fda206",
+		"size": 2,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77b25118-8e2d-46d9-a371-860bd5fda206",
+		"size": 4,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-3.52751, 50.7236]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 5,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 6,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 5,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 1,
+		"date": 1935
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 3,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 1,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 2,
+		"date": 1945
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON77ecadbb-de28-46eb-a437-eb619da7f230",
+		"size": 4,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [0.12, 52.203]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 1,
+		"date": 1955
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 3,
+		"date": 1960
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 2,
+		"date": 1965
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 5,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 2,
+		"date": 1975
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 1,
+		"date": 1980
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CON7c85de7f-fc73-4f9c-b987-286098307595",
+		"size": 1,
+		"date": 1950
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-1.48762, 53.38061]
+	}
+},
+{
+	"type": "Feature",
+	"properties": {
+		"id": "http://www.digitalhps.org/concepts/CONc545682c-cfe5-49cc-a2d9-1093eb804659",
+		"size": 2,
+		"date": 1970
+	},
+	"geometry": {
+		"type": "point",
+		"coordinates": [-0.12574, 51.50853]
+	}
+}]
+}
