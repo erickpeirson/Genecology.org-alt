@@ -24,11 +24,13 @@
 		}
 
 		</style>
-		<script src="js/d3.min.js"></script>
-		<script type="text/javascript" src="js/d3.geo.js"></script>
+		<script src="/static/browser/js/d3.min.js"></script>
+		<script type="text/javascript" src="/static/browser/js/d3.geo.js"></script>
 
 	</head>
 	<body>
+	    &nbsp;
+	    <br /><br />
 		<div id="map">
 		
 		</div>
@@ -62,20 +64,18 @@ g.append("rect")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("data/world-countries.json", function(collection) {
+d3.json("/static/browser/data/world-countries.json", function(collection) {
 	feature = g.selectAll("path")
 				 .data(collection.features)
 				 .enter().append("svg:path")
 				 .attr("d", path);	 
 });
 
-d3.json("data/features.json", function(collection) {
+d3.json("/static/browser/data/features.json", function(collection) {
 	feature = g.selectAll("node")
 				 .data(collection.features)
 				 .enter().append("svg:circle")
-				 
-				 //.text(function(d) { console.log(d.geometry.coordinates); } );
-				 .attr("cx", function(d) { return projection(d.geometry.coordinates)[0]; } )
+                 .attr("cx", function(d) { return projection(d.geometry.coordinates)[0]; } )
 				 .attr("cy", function(d) { return projection(d.geometry.coordinates)[1]; } )
 				 .attr("r", "5");
 });
