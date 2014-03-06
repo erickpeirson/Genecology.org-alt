@@ -1,5 +1,44 @@
 from django.db import models
+from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
+
 import urllib2
+import re
+import simplejson
+import xml.etree.ElementTree as ET
+
+import logging
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+
+class LocationAuthority(models.Model):
+    name = models.CharField(max_length=200)
+    host = models.CharField(max_length=500)
+    # http://api.geonames.org
+    namespace = models.CharField(max_length=200, unique=True)
+    
+    queryformat = models.CharField(max_length=200, blank=True, null=True)
+    
+    # /get?geonameId={0}0&username=erickpeirson&style=full
+    retrieveformat = models.CharField(max_length=200)
+    
+    # http://www.geonames.org/(.*?)/
+    id_pattern = models.CharField(max_length=200)
+    
+    def get_id(self, path):
+        r = re.compile(self.id_pattern)
+        m = r.search(path)
+        if not m:
+            logger.error("Provided path does not conform to LocationAuthority"+\
+                         " id_pattern")
+            return None
+        return m.group(1)
+
+class Location(models.Model):
+    name = models.CharField(max_length=200)
+    uri = models.CharField(max_length=500, unique=True)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
 
 class Concept(models.Model):
     uri = models.CharField(max_length=500, unique=True)
@@ -7,7 +46,7 @@ class Concept(models.Model):
     type = models.CharField(max_length=200, blank=True, null=True)
     equalto = models.CharField(max_length=500, blank=True, null=True)
     similarto = models.CharField(max_length=500, blank=True, null=True)
-    location = models.ForeignKey('locations.Location', blank=True, null=True)
+    location = models.ForeignKey('Location', blank=True, null=True)
 
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)

@@ -37,8 +37,7 @@ INSTALLED_APPS = (
 	'concepts',
 	'texts',
 	'annotations',
-    'browser',
-    'locations'
+    'browser'
 )
 
 MIDDLEWARE_CLASSES = (
