@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpRequest, Http404
 from django.db import IntegrityError
 
 import simplejson
-from concepts.managers import retrieve_location
+from concepts.managers import retrieve_location, retrieve_concept
 
 from concepts.models import Concept, ConceptAuthority, \
                             Location, LocationAuthority
@@ -22,8 +22,7 @@ def create_concept_authority():
         name='ASU Conceptpower',
         queryformat='/ConceptLookup/{0}/{1}',
         retrieveformat='/Concept?id={0}',
-        namespace='http://www.digitalhps.org',
-        selected=True   )
+        namespace='http://www.digitalhps.org')
         
     concept_authority.save()
     return concept_authority
@@ -88,14 +87,59 @@ class RetrieveLocationGeonamesTests(TestCase):
         location = retrieve_location(nonexistent_uri)
         self.assertEqual(location, None)
 
+class ConceptsRetrieveTests(TestCase):
+    """
+    tests for concepts.managers.retrieve_concept
+    """
+    def setUp(self):
+        create_concept_authority()
+        create_location_authority()
+
+    def test_retrieve_legit_concept(self):
+        """
+        If a legit concept from the ConceptAuthority is provided, then should
+        get a Concept object with uri = provided uri.
+        """
+
+        concept = retrieve_concept(cp_concept)
+        self.assertIsInstance(concept, Concept)
+        self.assertEqual(concept.uri, cp_concept)
+
+    def test_retrieve_nonsense_concept(self):
+        """
+        If the concept doesn't exist in the ConceptAuthority, should raise
+        a ValueError.
+        """
+
+        self.assertRaises(ValueError, retrieve_concept, cp_concept+'asdf')
+    
+    def test_retrieve_nonamespace(self):
+        """
+        If retrieve_concept can't determine the namespace of the concept, then
+        should raise a ValueError.
+        """
+    
+        self.assertRaises(ValueError, retrieve_concept, 'wtfbbqlolrofl')
+
+    def test_retrieve_without_conceptauthority(self):
+        """
+        If a ConceptAuthority does not exist, or is not selected, should raise
+        a RuntimeError.
+        """
+
+        ConceptAuthority.objects.get().delete()
+        self.assertRaises(RuntimeError, retrieve_concept, cp_concept)
+
 class ConceptsViewRetrieveTests(TestCase):
     """
     tests for concepts.views.retrieve at /concepts/retrieve/
     """
+
     def setUp(self):
         self.factory = RequestFactory()
         create_concept_authority()
         create_location_authority()
+        self.request = self.factory.get('/concepts/retrieve/')
         
     def test_retrieve_legit_concept(self):
         """
@@ -103,8 +147,7 @@ class ConceptsViewRetrieveTests(TestCase):
         get status 200 and some json.
         """
         
-        request = self.factory.get('/concepts/retrieve/')
-        response = retrieve(request, cp_concept)
+        response = retrieve(self.request, cp_concept)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(simplejson.loads(response.content)['uri'], cp_concept)
 
@@ -114,8 +157,25 @@ class ConceptsViewRetrieveTests(TestCase):
         404.
         """
 
-        request = self.factory.get('/concepts/retrieve/')
-        self.assertRaises(Http404, retrieve, request, 'nonsense')
+        self.assertRaises(Http404, retrieve, self.request, cp_concept+'asdf')
+
+    def test_retrieve_nonamespace(self):
+        """
+        If retrieve_concept can't determine the namespace of the concept, then
+        should return 404.
+        """
+        
+        self.assertRaises(Http404, retrieve, self.request, 'wtfbbqlolrofl')
+
+    def test_retrieve_without_conceptauthority(self):
+        """
+        If a ConceptAuthority does not exist, or is not selected, should 
+        return status code 403.
+        """
+
+        ConceptAuthority.objects.get().delete()
+        response = retrieve(self.request, cp_concept)
+        self.assertEqual(response.status_code, 403)
 
 class LocationAuthorityTests(TestCase):
     """
@@ -175,38 +235,14 @@ class ConceptAuthorityTests(TestCase):
             name='ASU Conceptpower',
             queryformat='/ConceptLookup/{0}/{1}',
             retrieveformat='/Concept?id={0}',
-            namespace='http://www.digitalhps.org',
-            selected=True   )
+            namespace='http://www.digitalhps.org')
         ca.save()
         ca2 = ConceptAuthority(
             host='http://chps.asu.edu/conceptpower/rest',
             name='ASU Conceptpower',
             queryformat='/ConceptLookup/{0}/{1}',
             retrieveformat='/Concept?id={0}',
-            namespace='http://www.digitalhps.org',
-            selected=False   )
-        
-        self.assertRaises(IntegrityError, ca2.save)
-
-    def test_selected_unique(self):
-        """
-        the selected column must be unique
-        """
-        ca = ConceptAuthority(
-            host='http://chps.asu.edu/conceptpower/rest',
-            name='ASU Conceptpower',
-            queryformat='/ConceptLookup/{0}/{1}',
-            retrieveformat='/Concept?id={0}',
-            namespace='http://www.digitalhps.org',
-            selected=True   )
-        ca.save()
-        ca2 = ConceptAuthority(
-            host='http://chps.asu.edu/conceptpower/rest',
-            name='ASU Conceptpower',
-            queryformat='/ConceptLookup/{0}/{1}',
-            retrieveformat='/Concept?id={0}',
-            namespace='http://www.digitalhps2.org',
-            selected=True   )
+            namespace='http://www.digitalhps.org')
         
         self.assertRaises(IntegrityError, ca2.save)
 

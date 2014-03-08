@@ -63,4 +63,3 @@ class ConceptAuthority(models.Model):
     
     # e.g. http//www.digitalhps.org/
     namespace = models.CharField(max_length=200, unique=True)
-    selected = models.BooleanField(default=False, unique=True)

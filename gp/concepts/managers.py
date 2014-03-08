@@ -57,3 +57,66 @@ def retrieve_location(uri):
                             longitude=lng)
         location.save()
     return location
+
+def retrieve_concept(uri):
+ 
+    # Determine namespace and find matching ConceptAuthority.
+    o = urlparse(uri)
+    namespace = o.scheme + "://" + o.netloc
+
+    if o.scheme == '' or o.netloc == '':
+        logging.error("Could not determine namespace for concept {0}".format(uri))
+        raise ValueError("Could not determine namespace for concept {0}".format(uri))
+
+    try:
+        authority = ConceptAuthority.objects.filter(namespace=namespace).get()
+    except ObjectDoesNotExist:
+        logging.error("No ConceptAuthority for namespace {0}.".format(namespace))
+        raise RuntimeError("No ConceptAuthority for namespace {0}.".format(namespace))
+    
+    # Check for existing concept before calling the authority.
+    try:
+        concept = Concept.objects.filter(uri=uri).get()
+        logging.debug("Concept already exists.")
+    except ObjectDoesNotExist:
+        logging.debug("Concept does not exist.")
+        querystring = authority.retrieveformat.format(uri)  # "/Concept?id="+uri
+        response = urllib2.urlopen(authority.host+querystring).read()
+
+        root = ET.fromstring(response)
+        data = {}
+        if len(root) > 0:
+            for node in root:
+                if node.tag == '{'+authority.namespace+'/}conceptEntry':
+                    for sn in node:
+                        dkey = sn.tag.replace('{'+authority.namespace+'/}','')
+                        data[dkey] = sn.text
+                        if sn.tag == '{'+authority.namespace+'/}type':
+                            data['type_id'] = sn.get('type_id')
+                            data['type_uri'] = sn.get('type_uri')
+
+        if data == {}:  # Nothing retrieved
+            logging.warning("No such concept in ConceptAuthority for "        +\
+                            " namespace {0}".format(authority.namespace))
+            raise ValueError("No such concept in ConceptAuthority for "       +\
+                            " namespace {0}".format(authority.namespace))
+
+        concept = Concept(uri=uri,
+                    name=data['lemma'],
+                    type=data['type'],
+                    equalto=data['equal_to'],
+                    similarto=data['similar_to'])
+        concept.save()
+        logging.debug("Concept saved.")
+
+        # Check for geonames URI in similar_to field, and get the corresponding
+        #  Location.
+        if data['similar_to'] is not None:
+            logging.debug("similar_to field is not empty.")
+            location = retrieve_location(data['similar_to'])
+            if location is not None:
+                logging.debug("Found a Location based on similar_to field")
+                concept.location_id = location.id
+            else:
+                logging.debug("No Location found.")
+    return concept
