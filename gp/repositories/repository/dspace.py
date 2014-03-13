@@ -14,6 +14,46 @@ class DSpace:
 
     ..
     """
+    
+    def list_collections(self):
+        """
+        Retrieves all of the collections to which the user has access.
+        """
+        
+        root = self.get_element_from_resource('/collections.xml')
+    
+        C = []
+        for node in root:
+            coll = self.dict_from_node(node, True)
+            C.append({
+                        'id': coll['entityId'],
+                        'name': coll['name']
+                    })
+        return C
+
+    def list_items(self, collection):
+        """
+        Retrieves details about all items in a collection.
+
+        Parameters
+        ----------
+        collection : string or int
+            Collection id.
+
+        Returns
+        -------
+        list : a list of nested dictionaries.
+        """
+
+        items = self.collection(collection)['items']['itementity']
+    
+        I = []
+        for item in items:
+            I.append({
+                        'id': item['entityId'],
+                        'name': item['name']
+                     })
+        return I
 
     def __init__(self, public_key, private_key, rest_path):
         """
@@ -166,8 +206,14 @@ class DSpace:
 
         C = []
         for node in root:
-            C.append(self.dict_from_node(node, True))
+            comm = self.dict_from_node(node, True)
+            C.append({
+                        'id': comm['entityId'],
+                        'name': comm['name']
+                    })
         return C
+
+
 
     def community(self, community):
         """
@@ -187,21 +233,22 @@ class DSpace:
         root = self.get_element_from_resource(path)
         return self.dict_from_node(root, True)
 
-    def list_collections(self, community):
-        """
-        Retrieves details about the collections in a community.
 
-        Parameters
-        ----------
-        community : string or int
-            Community id.
-
-        Returns
-        -------
-        list : a list of nested dictionaries.
-        """
-
-        return self.community(community)['collections']['collectionentityid']
+#    def list_collections(self, community):
+#        """
+#        Retrieves details about the collections in a community.
+#
+#        Parameters
+#        ----------
+#        community : string or int
+#            Community id.
+#
+#        Returns
+#        -------
+#        list : a list of nested dictionaries.
+#        """
+#
+#        return self.community(community)['collections']['collectionentityid']
 
     def list_collection_ids(self, community):
         """
@@ -237,22 +284,6 @@ class DSpace:
         path = '/collections/'+str(collection)+'.xml'
         root = self.get_element_from_resource(path)
         return self.dict_from_node(root, True)
-
-    def list_items(self, collection):
-        """
-        Retrieves details about all items in a collection.
-
-        Parameters
-        ----------
-        collection : string or int
-            Collection id.
-
-        Returns
-        -------
-        list : a list of nested dictionaries.
-        """
-
-        return self.collection(collection)['items']['itementity']
 
     def list_item_ids(self, collection):
         """

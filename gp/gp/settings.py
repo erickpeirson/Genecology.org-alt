@@ -34,10 +34,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.formtools',
 	'concepts',
 	'texts',
 	'annotations',
-    'browser'
+    'browser',
+    'repositories'
 )
 
 MIDDLEWARE_CLASSES = (

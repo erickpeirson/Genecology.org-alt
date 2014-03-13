@@ -1,8 +1,13 @@
 from django.contrib import admin
 from texts.models import Text, Creator
 from django import forms
+from django.conf.urls import patterns, include, url
 
-from texts.forms import CreatorForm, AddTextForm, TextFormReadonly
+from texts.forms import CreatorForm, AddTextForm, TextFormReadonly, \
+                        SelectTextMethodForm, TextWizard, \
+                        SelectTextRepositoryForm, \
+                        SelectTextRepositoryCollectionForm, \
+                        SelectTextRepositoryItemsForm
 
 class CreatorInline(admin.TabularInline):
     form = CreatorForm
@@ -12,14 +17,16 @@ class CreatorInline(admin.TabularInline):
 class TextAdmin(admin.ModelAdmin):
     list_display = ('title', 'uri', 'dateCreated')
     inlines = [ CreatorInline, ]
-
-    def get_form(self, request, obj=None, **kwargs):
-        if obj is None:
-            return AddTextForm
-        else:   # TODO: Change this to point to a form that doesn't allow
-                #  editing.
-            return TextFormReadonly
-#            return super(TextAdmin, self).get_form(request, obj, **kwargs)
+    
+    def get_urls(self):
+            
+        urlpatterns = patterns('',
+            url(r'^add/$',
+                TextWizard.as_view(),
+                name='addText')
+        )
+        urlpatterns += super(TextAdmin, self).get_urls()
+        return urlpatterns
 
     def save_model(self, request, obj, form, change):
         if change:

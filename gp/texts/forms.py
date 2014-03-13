@@ -1,6 +1,11 @@
 from django import forms
 from texts.models import Text, Creator
+#from django.contrib.formtools.wizard import FormWizard
+from django.contrib.formtools.wizard.views import SessionWizardView
+
 from concepts.models import Concept
+from repositories.models import Repository
+from repositories.forms import RepositoryChoiceField
 from django.forms.widgets import DateInput
 import os
 
@@ -55,6 +60,7 @@ class TextFormBase(forms.ModelForm):
         self.fields['dateDigitized'].label = 'Date Digitized'
         self.fields['dateDigitized'].help_text = HELP_TEXT['dateDigitized']
 
+
 class AddTextForm(TextFormBase):
     class Meta(TextFormBase.Meta):
         fields = ['method', 'title', 'uri', 'dateCreated', 'dateDigitized',
@@ -62,8 +68,9 @@ class AddTextForm(TextFormBase):
         exclude = ['length', 'content', 'filename', 'creator']
     
     method = forms.ChoiceField(choices=[
-                ('file', 'Upload local file'),
-                ('repo', 'Load file(s) from repository') ])
+                                    ('file', 'Upload local file'),
+                                    ('repo', 'Load file(s) from repository')
+                                ])
     upload = forms.FileField()
 
     def __init__(self, *args, **kwargs):
@@ -87,3 +94,45 @@ class TextFormReadonly(TextFormBase):
             
         # Filename
         self.fields['filename'].widget.attrs['size'] = 200
+
+class SelectTextMethodForm(forms.Form):
+    method_choices = [
+                        ('local', 'Upload file'),
+                        ('remote', 'Load remote file')
+                     ]
+    method = forms.ChoiceField(choices=method_choices)
+#    method = forms.CharField(max_length=200)
+
+    def save(self, commit=False):
+        print 'save'
+        #super(SelectTextMethodForm, self).save(commit=commit)
+
+class SelectTextRepositoryForm(forms.Form):
+    repository = RepositoryChoiceField(queryset=Repository.objects)
+
+class SelectTextRepositoryCollectionForm(forms.Form):
+    collection = forms.ChoiceField()
+
+class SelectTextRepositoryItemsForm(forms.Form):
+    items = forms.MultipleChoiceField(choices=[('a','a'),],
+                                            widget=forms.CheckboxSelectMultiple)
+
+class TextWizard(SessionWizardView):
+    form_list = [   SelectTextMethodForm,
+                    SelectTextRepositoryForm,
+                    SelectTextRepositoryCollectionForm,
+                    SelectTextRepositoryItemsForm]
+    template_name='texts/textwizard.html'
+    
+    def __name__(self):
+        return self.__class__.__name__
+
+    def done(self, request, form_list):
+        print request
+        print form_list
+
+    def get_context_data(self, form, **kwargs):
+        context = super(TextWizard, self).get_context_data(form=form, **kwargs)
+#        if self.steps.current == 'my_step_name':
+        context['opts'] = { 'app_list': ['asdf'],'app_label':'fdsa' }
+        return context
