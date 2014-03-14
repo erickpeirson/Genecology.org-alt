@@ -105,10 +105,10 @@ class SelectTextMethodForm(forms.Form):
 
     def save(self, commit=False):
         print 'save'
-        #super(SelectTextMethodForm, self).save(commit=commit)
+        super(SelectTextMethodForm, self).save(commit=commit)
 
 class SelectTextRepositoryForm(forms.Form):
-    repository = RepositoryChoiceField(queryset=Repository.objects)
+    repository = RepositoryChoiceField(queryset=Repository.objects.all())
 
 class SelectTextRepositoryCollectionForm(forms.Form):
     collection = forms.ChoiceField()
@@ -131,8 +131,20 @@ class TextWizard(SessionWizardView):
         print request
         print form_list
 
-    def get_context_data(self, form, **kwargs):
-        context = super(TextWizard, self).get_context_data(form=form, **kwargs)
-#        if self.steps.current == 'my_step_name':
-        context['opts'] = { 'app_list': ['asdf'],'app_label':'fdsa' }
-        return context
+    def get_form(self, step=None, data=None, files=None):
+        form = super(TextWizard, self).get_form(step, data, files)
+
+        if step is None:
+            step = self.steps.current
+            
+        if step == u'0' and data is not None and self.steps.current == u'0':
+            if data['0-method'] == 'local':
+                return SelectTextRepositoryForm()
+#        try:
+#            print data['0-method']
+#            print step
+#        except TypeError:
+#            pass
+#            print 'fdsa', step
+        return form
+        
