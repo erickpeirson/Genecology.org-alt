@@ -12,7 +12,7 @@ class Text(models.Model):
     dateAdded = models.DateField(auto_now_add=True)
     dateModified = models.DateField(auto_now=True)
 
-    creator = models.ManyToManyField('concepts.Concept', through='Creator') # Presumably a person.
+    creator = models.ManyToManyField('concepts.Concept') # Presumably a person., through='Creator'
 
     content = models.TextField()
     length = models.IntegerField(default=0)

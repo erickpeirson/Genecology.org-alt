@@ -1,3 +1,6 @@
+import autocomplete_light
+autocomplete_light.autodiscover()
+
 from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
@@ -10,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^browser/', include('browser.urls')),
     url(r'^concepts/', include('concepts.urls', namespace='concepts')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^autocomplete/', include('autocomplete_light.urls')),
 )

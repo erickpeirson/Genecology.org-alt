@@ -50,7 +50,7 @@ class DSpace:
         I = []
         for item in items:
             I.append({
-                        'id': item['entityId'],
+                        'id': item['id'],
                         'name': item['name']
                      })
         return I

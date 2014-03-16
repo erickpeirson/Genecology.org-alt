@@ -25,6 +25,13 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+    }
+}
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -39,7 +46,8 @@ INSTALLED_APPS = (
 	'texts',
 	'annotations',
     'browser',
-    'repositories'
+    'repositories',
+    'autocomplete_light'
 )
 
 MIDDLEWARE_CLASSES = (

@@ -1,12 +1,14 @@
 from django import forms
 from texts.models import Text, Creator
-#from django.contrib.formtools.wizard import FormWizard
+from django.shortcuts import render_to_response
 from django.contrib.formtools.wizard.views import SessionWizardView
-
+from django.core.files.storage import FileSystemStorage
 from concepts.models import Concept
 from repositories.models import Repository
 from repositories.forms import RepositoryChoiceField
 from django.forms.widgets import DateInput
+from texts.managers import list_collections, list_items
+import autocomplete_light
 import os
 
 HELP_TEXT = {
@@ -21,19 +23,9 @@ HELP_TEXT = {
     'dateDigitized': 'The date when the resouce was converted to a digital'   +\
               ' format. For example, the date when an OCR extraction was'     +\
               ' performed. Must be in YYYY, YYYY-MM, or YYYY-MM-DD format.',
-    'upload': 'Select a file from your computer. Must be a plain text file.'
+    'upload': 'Select a file from your computer. Must be a plain text file.',
+    'creator': 'Choose one or more creators.'
 }
-
-class CreatorChoiceField(forms.ModelChoiceField):
-    def label_from_instance(self, obj):
-        return obj.name
-
-class CreatorForm(forms.ModelForm):
-    class Meta:
-        model = Text.creator.through
-
-    concept = CreatorChoiceField(queryset=Concept.objects \
-                                                     .filter(type='E21 Person'))
 
 class TextFormBase(forms.ModelForm):
     class Meta:
@@ -72,6 +64,7 @@ class AddTextForm(TextFormBase):
                                     ('repo', 'Load file(s) from repository')
                                 ])
     upload = forms.FileField()
+    creator = autocomplete_light.ModelMultipleChoiceField('ConceptAutocomplete')
 
     def __init__(self, *args, **kwargs):
         super(AddTextForm, self).__init__(*args, **kwargs)
@@ -81,6 +74,9 @@ class AddTextForm(TextFormBase):
 
         # Upload
         self.fields['upload'].help_text = HELP_TEXT['upload']
+
+        # Creator
+        self.fields['creator'].help_text = HELP_TEXT['creator']
 
 class TextFormReadonly(TextFormBase):
     class Meta(TextFormBase.Meta):
@@ -101,7 +97,6 @@ class SelectTextMethodForm(forms.Form):
                         ('remote', 'Load remote file')
                      ]
     method = forms.ChoiceField(choices=method_choices)
-#    method = forms.CharField(max_length=200)
 
     def save(self, commit=False):
         print 'save'
@@ -113,38 +108,139 @@ class SelectTextRepositoryForm(forms.Form):
 class SelectTextRepositoryCollectionForm(forms.Form):
     collection = forms.ChoiceField()
 
+    def __init__(self, data=None, *args, **kwargs):
+        choices = None
+        if 'choices' in kwargs:
+            choices = kwargs['choices']
+            del kwargs['choices']
+        
+        super(SelectTextRepositoryCollectionForm, self).__init__(data=data,
+                                                                  *args,
+                                                                  **kwargs)
+        if choices is not None:
+            self.fields['collection'] = forms.ChoiceField(choices=choices)
+
 class SelectTextRepositoryItemsForm(forms.Form):
     items = forms.MultipleChoiceField(choices=[('a','a'),],
                                             widget=forms.CheckboxSelectMultiple)
+    def __init__(self, data=None, *args, **kwargs):
+        choices = None
+        if 'choices' in kwargs:
+            choices = kwargs['choices']
+            del kwargs['choices']
+        
+        super(SelectTextRepositoryItemsForm, self).__init__(data=data,
+                                                                *args,
+                                                                **kwargs)
+        if choices is not None:
+            self.fields['items'] = forms.MultipleChoiceField(choices=choices,
+                                            widget=forms.CheckboxSelectMultiple,
+                                            initial=[c[0] for c in choices])
 
 class TextWizard(SessionWizardView):
-    form_list = [   SelectTextMethodForm,
-                    SelectTextRepositoryForm,
-                    SelectTextRepositoryCollectionForm,
-                    SelectTextRepositoryItemsForm]
+    file_storage = FileSystemStorage()
+
     template_name='texts/textwizard.html'
     
     def __name__(self):
         return self.__class__.__name__
 
-    def done(self, request, form_list):
-        print request
-        print form_list
+    def done(self, form_list, **kwargs):
+        if form_list[0].cleaned_data['method'] == 'local':
+            content = form_list[1].cleaned_data['upload'].read()
+            filename = form_list[1].cleaned_data['upload'].name
+            length = len(content)
+            title = form_list[1].cleaned_data['title']
+            uri = form_list[1].cleaned_data['uri']
+            dateCreated = form_list[1].cleaned_data['dateCreated']
+            dateDigitized = form_list[1].cleaned_data['dateDigitized']
+            creator = form_list[1].cleaned_data['creator']
+
+            text = Text(    uri=uri,
+                            title=title,
+                            dateCreated=dateCreated,
+                            dateDigitized=dateDigitized,
+                            content=content,
+                            filename=filename,
+                            length=length)
+            text.save()
+
+            for c in creator:
+                text.creator.add(c.id)
+            text.save()
+    
+        return render_to_response('texts/done.html', {
+            'form_data': [ form.cleaned_data for form in form_list ],
+        })
 
     def get_form(self, step=None, data=None, files=None):
         form = super(TextWizard, self).get_form(step, data, files)
 
         if step is None:
             step = self.steps.current
-            
-        if step == u'0' and data is not None and self.steps.current == u'0':
-            if data['0-method'] == 'local':
-                return SelectTextRepositoryForm()
-#        try:
-#            print data['0-method']
-#            print step
-#        except TypeError:
-#            pass
-#            print 'fdsa', step
-        return form
+
+        kwargs = self.get_form_kwargs(step)
+        form_class = self.form_list[step]
         
+        # Handle Repository selection; generate a list of collections.
+        if step == '2':
+            method_data = self.get_cleaned_data_for_step('0')
+            if method_data['method'] == 'remote':
+                r_data = self.get_cleaned_data_for_step('1')
+                collections = list_collections(r_data['repository'])
+                c_options = [ (c['id'], c['name']) for c in collections ]
+                if form_class.__name__ == 'SelectTextRepositoryCollectionForm':
+                    kwargs.update({ 'choices': c_options })
+
+        if step == '3':
+            method_data = self.get_cleaned_data_for_step('0')
+            if method_data['method'] == 'remote':
+                r_data = self.get_cleaned_data_for_step('1')
+                
+                c_data = self.get_cleaned_data_for_step('2')
+                items = list_items(r_data['repository'], c_data['collection'])
+                i_options = [ (i['id'], i['name']) for i in items ]
+                kwargs.update({'choices': i_options})
+
+        kwargs.update({
+            'data': data,
+            'files': files,
+            'prefix': self.get_form_prefix(step, form_class),
+            'initial': self.get_form_initial(step),
+        })
+
+        if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
+            # If the form is based on ModelForm or InlineFormSet,
+            # add instance if available and not previously set.
+            kwargs.setdefault('instance', self.get_form_instance(step))
+        elif issubclass(form_class, forms.models.BaseModelFormSet):
+            # If the form is based on ModelFormSet, add queryset if available
+            # and not previous set.
+            kwargs.setdefault('queryset', self.get_form_instance(step))
+        return form_class(**kwargs)
+
+def add_remote_text(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('0') or {}
+    try:
+        if cleaned_data['method'] == 'remote':
+            return True
+    except KeyError:
+        pass
+    return False
+
+def add_local_text(wizard):
+    return not add_remote_text(wizard)
+
+def get_text_form_list(request, form_list=None):
+    if form_list is None:
+        form_list = [   SelectTextMethodForm,
+                        SelectTextRepositoryForm,
+                        SelectTextRepositoryCollectionForm,
+                        SelectTextRepositoryItemsForm,
+                        AddTextForm   ]
+
+    return TextWizard.as_view(form_list=form_list,
+                              condition_dict={'1': add_remote_text,
+                                              '2': add_remote_text,
+                                              '3': add_remote_text,
+                                              '4': add_local_text})(request)

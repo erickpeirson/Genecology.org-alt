@@ -21,4 +21,4 @@ class RepositoryManager(object):
         collection : int
             collection entityId
         """
-        return self.manager.list_items()
+        return self.manager.list_items(collection)
