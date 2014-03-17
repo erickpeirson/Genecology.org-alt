@@ -1,5 +1,4 @@
 import autocomplete_light
-from models import Creator
 from concepts.models import Concept
 
 class ConceptAutocomplete(autocomplete_light.AutocompleteModelBase):

@@ -11,8 +11,6 @@ logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
 
 
-from django.contrib.auth.models import Group
-admin.site.unregister(Group)
 
 class ConceptAdmin(admin.ModelAdmin):
     list_display = ('name','type','uri','location')

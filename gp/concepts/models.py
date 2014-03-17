@@ -24,7 +24,10 @@ class LocationAuthority(models.Model):
     
     # http://www.geonames.org/(.*?)/
     id_pattern = models.CharField(max_length=200)
-    
+
+    class Meta:
+        verbose_name_plural = "location authorities"
+
     def get_id(self, path):
         r = re.compile(self.id_pattern)
         m = r.search(path)
@@ -39,6 +42,9 @@ class Location(models.Model):
     uri = models.CharField(max_length=500, unique=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    
+    class Meta:
+        verbose_name_plural = "locations"
 
 class Concept(models.Model):
     uri = models.CharField(max_length=500, unique=True)
@@ -47,6 +53,9 @@ class Concept(models.Model):
     equalto = models.CharField(max_length=500, blank=True, null=True)
     similarto = models.CharField(max_length=500, blank=True, null=True)
     location = models.ForeignKey('Location', blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "concepts"
 
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)
@@ -63,3 +72,6 @@ class ConceptAuthority(models.Model):
     
     # e.g. http//www.digitalhps.org/
     namespace = models.CharField(max_length=200, unique=True)
+
+    class Meta:
+        verbose_name_plural = "concept authorities"    

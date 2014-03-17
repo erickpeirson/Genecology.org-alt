@@ -22,3 +22,9 @@ class RepositoryManager(object):
             collection entityId
         """
         return self.manager.list_items(collection)
+
+    def item_primary_bitstream(self, item):
+        return self.manager.item_primary_bitstream(item)
+
+    def item(self, item):
+        return self.manager.item(item)

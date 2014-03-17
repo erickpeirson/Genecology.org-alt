@@ -1,5 +1,5 @@
 from django import forms
-from texts.models import Text, Creator
+from texts.models import Text
 from django.shortcuts import render_to_response
 from django.contrib.formtools.wizard.views import SessionWizardView
 from django.core.files.storage import FileSystemStorage
@@ -7,7 +7,7 @@ from concepts.models import Concept
 from repositories.models import Repository
 from repositories.forms import RepositoryChoiceField
 from django.forms.widgets import DateInput
-from texts.managers import list_collections, list_items
+from texts.managers import list_collections, list_items, list_bitstreams
 import autocomplete_light
 import os
 
@@ -52,25 +52,16 @@ class TextFormBase(forms.ModelForm):
         self.fields['dateDigitized'].label = 'Date Digitized'
         self.fields['dateDigitized'].help_text = HELP_TEXT['dateDigitized']
 
-
 class AddTextForm(TextFormBase):
     class Meta(TextFormBase.Meta):
-        fields = ['method', 'title', 'uri', 'dateCreated', 'dateDigitized',
-                  'upload']
+        fields = ['title', 'uri', 'dateCreated', 'dateDigitized', 'upload']
         exclude = ['length', 'content', 'filename', 'creator']
-    
-    method = forms.ChoiceField(choices=[
-                                    ('file', 'Upload local file'),
-                                    ('repo', 'Load file(s) from repository')
-                                ])
+
     upload = forms.FileField()
     creator = autocomplete_light.ModelMultipleChoiceField('ConceptAutocomplete')
 
     def __init__(self, *args, **kwargs):
         super(AddTextForm, self).__init__(*args, **kwargs)
-        
-        # Method
-        self.fields['method'].help_text = HELP_TEXT['method']
 
         # Upload
         self.fields['upload'].help_text = HELP_TEXT['upload']
@@ -145,7 +136,22 @@ class TextWizard(SessionWizardView):
     def __name__(self):
         return self.__class__.__name__
 
+    def parse_params(self, request, admin=None, *args, **kwargs):
+        self._model_admin = admin # Save this so we can use it later.
+        opts = admin.model._meta # Yes, I know we could've done Employer._meta, but this is cooler :)
+        self.extra_context.update({
+            'title': u'Add %s' % force_unicode(opts.verbose_name),
+            'current_app': admin.admin_site.name,
+            'has_change_permission': admin.has_change_permission(request),
+            'add': True,
+            'opts': opts,
+            'root_path': admin.admin_site.root_path,
+            'app_label': opts.app_label,
+        })
+
     def done(self, form_list, **kwargs):
+    
+        # Handle upload from local file.
         if form_list[0].cleaned_data['method'] == 'local':
             content = form_list[1].cleaned_data['upload'].read()
             filename = form_list[1].cleaned_data['upload'].name
@@ -168,6 +174,14 @@ class TextWizard(SessionWizardView):
             for c in creator:
                 text.creator.add(c.id)
             text.save()
+    
+        # Handle selection of remote files.
+        elif form_list[0].cleaned_data['method'] == 'remote':
+            from pprint import pprint
+            repo = form_list[1].cleaned_data['repository']
+            coll = form_list[2].cleaned_data['collection']
+            items = form_list[3].cleaned_data['items']
+            pprint(list_bitstreams(repo, coll, '11468'))
     
         return render_to_response('texts/done.html', {
             'form_data': [ form.cleaned_data for form in form_list ],
@@ -192,11 +206,11 @@ class TextWizard(SessionWizardView):
                 if form_class.__name__ == 'SelectTextRepositoryCollectionForm':
                     kwargs.update({ 'choices': c_options })
 
+        # Handle Collection selection; generate a list of items.
         if step == '3':
             method_data = self.get_cleaned_data_for_step('0')
             if method_data['method'] == 'remote':
                 r_data = self.get_cleaned_data_for_step('1')
-                
                 c_data = self.get_cleaned_data_for_step('2')
                 items = list_items(r_data['repository'], c_data['collection'])
                 i_options = [ (i['id'], i['name']) for i in items ]

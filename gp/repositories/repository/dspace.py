@@ -318,6 +318,10 @@ class DSpace:
         path = '/items/' + str(item) + '.xml'
         root = self.get_element_from_resource(path)
         return self.dict_from_node(root, True)
+    
+    def item_primary_bitstream(self, item):
+        return self.item(item)['bitstreams']['bitstreamentity'][0]['bundles'] \
+                              ['bundleentity']['primaryBitstreamId']
 
     def item_metadata(self, item):
         """
