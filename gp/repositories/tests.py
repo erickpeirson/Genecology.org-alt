@@ -22,8 +22,7 @@ def create_credential(repo):
     credential.save()
     return credential
 
-
-class DSpaceManagerTests(TestCase):
+class DSpaceRepositoryTests(TestCase):
     """
     tests for repositories.repository.dspace
     """
@@ -44,11 +43,23 @@ class RepositoryManagerTests(TestCase):
         self.repo = create_repository()
         self.cred = create_credential(self.repo)
         self.RepositoryManager = RepositoryManager(self.cred)
+        self.collections = self.RepositoryManager.list_collections()
+        self.items = self.RepositoryManager.list_items(self.collections[0]['id'])
 
     def test_init(self):
         self.assertIsInstance(self.RepositoryManager.manager, DSpace)
 
     def test_list_collections(self):
-        collections = self.RepositoryManager.list_collections()
-        self.assertIsInstance(collections, list)
-        self.assertIsInstance(collections[0], dict)
+        self.assertIsInstance(self.collections, list)
+        self.assertIsInstance(self.collections[0], dict)
+
+    def test_list_items(self):
+        self.assertIsInstance(self.items, list)
+        self.assertIsInstance(self.items[0], dict)
+
+#    def test_item_primary_bitstream(self):
+#        print self.RepositoryManager.item_primary_bitstream(self.items[0])
+
+#    def test_item(self):
+#        print self.RepositoryManager.item(self.items[0])
+

@@ -161,7 +161,7 @@ class TextWizard(SessionWizardView):
             dateCreated = form_list[1].cleaned_data['dateCreated']
             dateDigitized = form_list[1].cleaned_data['dateDigitized']
             creator = form_list[1].cleaned_data['creator']
-
+            print type(form_list[1].cleaned_data['upload'])
             text = Text(    uri=uri,
                             title=title,
                             dateCreated=dateCreated,
@@ -174,7 +174,7 @@ class TextWizard(SessionWizardView):
             for c in creator:
                 text.creator.add(c.id)
             text.save()
-    
+
         # Handle selection of remote files.
         elif form_list[0].cleaned_data['method'] == 'remote':
             from pprint import pprint

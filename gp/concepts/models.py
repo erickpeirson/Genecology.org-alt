@@ -74,4 +74,4 @@ class ConceptAuthority(models.Model):
     namespace = models.CharField(max_length=200, unique=True)
 
     class Meta:
-        verbose_name_plural = "concept authorities"    
+        verbose_name_plural = "concept authorities"
