@@ -1,7 +1,5 @@
 import xml.parsers.expat
 
-from pprint import pprint
-
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
