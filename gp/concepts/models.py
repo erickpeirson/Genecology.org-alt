@@ -57,6 +57,9 @@ class Concept(models.Model):
     class Meta:
         verbose_name_plural = "concepts"
 
+    def __unicode__(self):
+        return unicode(self.name)
+
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)
     name = models.CharField(max_length=200)

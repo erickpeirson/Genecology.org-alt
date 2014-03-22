@@ -1,19 +1,0 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1187\cocoasubrtf400
-{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-\margl1440\margr1440\vieww10800\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
-
-\f0\fs24 \cf0 REFERENCES\
-aiton, w. 1789.   Hortus Kewensis. 3: 458, London.\
-baker, J. o. 1890.   New or noteworthy plants.   Pteris ensiformis Burm, var. victoriae Hort.\
-Bull. Gard. Chron. 1890: 576.\
-Britten, J. 18811882.   European ferns.  London.\
-Holland, s. 1968.   Plant records.  J. N. Glouc. Nat. Soc. 19: 318.\
-jarrett, f. m. 1968.   Plant notes.  Proc. Bot. Soc. Br. IsL 7: 387.\
-KENT, D. h. 1963.   Plant notes.   Proc. Bot. Soc. Br. Isl, S\\ 121.\
-lousley, 3. e. 1964.   Plant notes.   Proc. Bot. Soc. Br. Isl. 5: 336.\
-lowe, e. j. 1858.   Ferns: British and Exotic 3 & 4.   London.\
-1868. A natural history of new and rare ferns.   London.\
-moore, t. 1859.  New garden ferns.   Gard. Chron. 1859:671.\
-palmer, r. C. 1965    Plant records.   Proc. Bot. Soc. Br. Isl. 6: 55.}

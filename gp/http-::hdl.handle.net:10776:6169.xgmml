@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="This is my first graph" directed="1">
+
+	<node label="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" id="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0">
+    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+ 	</node>
+	<node label="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" id="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300">
+    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+ 	</node>
+	<node label="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" id="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1">
+    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+ 	</node>
+	<node label="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" id="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6">
+    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+ 	</node>
+	<node label="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" id="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8">
+    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+ 	</node>
+
+	<edge source="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" target="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+	 </edge>
+	<edge source="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" target="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+	 </edge>
+	<edge source="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" target="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+	 </edge>
+	<edge source="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" target="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+	 </edge>
+	<edge source="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" target="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+	 </edge>
+	<edge source="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" target="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" start="1982">
+	   	<att name="date" type="string" value="1982" />
+	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+	 </edge>
+
+</graph>

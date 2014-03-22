@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.formtools',
 	'concepts',
 	'texts',
-	'annotations',
+	'networks',
     'browser',
     'repositories',
     'autocomplete_light'
