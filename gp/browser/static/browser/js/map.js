@@ -1,6 +1,6 @@
 var node_radius = 8;
 
-var map = new L.Map("map", {center: [54.5, -4.5], zoom: 6})
+var map = new L.Map("map", {center: [53.5, -4.5], zoom: 6})
     .addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
 var svg = d3.select(map.getPanes().overlayPane).append("svg"),
