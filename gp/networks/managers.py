@@ -66,7 +66,9 @@ class DatasetManager(object):
                                                           .format(concept.name))
             node = Node(concept=concept)
             node.save()
-            node.appellations.add(appellation.id)
+        node.appellations.add(appellation.id)
+        node.save()
+        
         self.these_nodes[datum['id']] = node
         
         # Check to see whether Node is in Network. If not, add it.
@@ -121,6 +123,8 @@ class DatasetManager(object):
                         target=target_node,
                         concept=predicate_concept)
             edge.save()
+        edge.relations.add(relation.id)
+        edge.save()
         
         if edge not in network.edges.all():
             logger.debug('Edge not in Network {0}; adding.'
