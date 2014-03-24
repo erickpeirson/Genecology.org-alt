@@ -4,6 +4,7 @@ from concepts.models import Concept
 class Node(models.Model):
     appellations = models.ManyToManyField('networks.Appellation')
     concept = models.ForeignKey('concepts.Concept')
+    type = models.ForeignKey('networks.NodeType')   # Should be optional?
 
     def __unicode__(self):
         return unicode(self.concept.name)
@@ -15,6 +16,21 @@ class Network(models.Model):
 
     def __unicode__(self):
         return self.name
+
+class NodeType(models.Model):
+    """
+    e.g. E40 Legal Body
+    """
+
+    name = models.CharField(max_length='200')
+    uri = models.CharField(max_length='500', null=True, blank=True)
+
+class NetworkProjection(models.Model):
+    name = models.CharField(max_length='200')
+    network = models.ForeignKey('networks.Network')
+    
+    nodes = models.ForeignKey('networks.NodeType')                  # Displayed.
+    collapse = models.ManyToManyField('networks.NodeType')
 
 class Edge(models.Model):
     source = models.ForeignKey('networks.Node', related_name='edge_source')
