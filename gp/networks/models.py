@@ -29,8 +29,10 @@ class NetworkProjection(models.Model):
     name = models.CharField(max_length='200')
     network = models.ForeignKey('networks.Network')
     
-    nodes = models.ForeignKey('networks.NodeType')                  # Displayed.
-    collapse = models.ManyToManyField('networks.NodeType')
+    nodeType = models.ForeignKey('networks.NodeType', 
+                                 related_name='projection_nodeType')
+    collapse = models.ManyToManyField('networks.NodeType',
+                                      related_name='projection_collapse')
 
 class Edge(models.Model):
     source = models.ForeignKey('networks.Node', related_name='edge_source')

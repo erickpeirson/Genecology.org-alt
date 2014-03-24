@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpRequest, Http404
 from django.db import IntegrityError
 
 import simplejson
-from concepts.managers import retrieve_location, retrieve_concept
+from concepts.managers import retrieve_location, retrieve_concept, \
+                              get_concept_type
 
 from concepts.models import Concept, ConceptAuthority, \
                             Location, LocationAuthority
@@ -246,3 +247,13 @@ class ConceptAuthorityTests(TestCase):
         
         self.assertRaises(IntegrityError, ca2.save)
 
+class GetConceptTypeTests(TestCase):
+    """
+    """
+    
+    def setUp(self):
+        create_concept_authority()
+        create_location_authority()
+    
+    
+        

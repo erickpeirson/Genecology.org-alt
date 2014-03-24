@@ -49,7 +49,8 @@ class Location(models.Model):
 class Concept(models.Model):
     uri = models.CharField(max_length=500, unique=True)
     name = models.CharField(max_length=200)
-    type = models.CharField(max_length=200, blank=True, null=True)
+    type = models.ForeignKey('ConceptType')
+#    type = models.CharField(max_length=200, blank=True, null=True)
     equalto = models.CharField(max_length=500, blank=True, null=True)
     similarto = models.CharField(max_length=500, blank=True, null=True)
     location = models.ForeignKey('Location', blank=True, null=True)
@@ -59,6 +60,14 @@ class Concept(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+class ConceptType(models.Model):
+    """
+    e.g. E40 Legal Body
+    """
+    
+    name = models.CharField(max_length='200')
+    uri = models.CharField(max_length='200', null=True, blank=True)
 
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)
