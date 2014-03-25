@@ -64,10 +64,8 @@ class Concept(models.Model):
 class ConceptTypeManager(models.Manager):
     def get_unique(self, name, uri=None):
         """
-        If ConceptType already exists with that URI, return it. Otherwise create a
-        new one.
-        
-        TODO: tests for this modeled on networks.tests
+        If ConceptType already exists with that URI, return it. Otherwise create
+        a new one.
         """
         try:
             instance = ConceptType.objects.filter(uri=uri).get()
@@ -75,8 +73,7 @@ class ConceptTypeManager(models.Manager):
         except ObjectDoesNotExist:
             logger.debug('ConceptType for {0} does not exist. Creating.'
                                                                    .format(uri))
-            instance = ConceptType(name=name,
-                                uri=uri)
+            instance = ConceptType(name=name, uri=uri)
             instance.save()
         return instance
 
@@ -88,6 +85,7 @@ class ConceptType(models.Model):
     name = models.CharField(max_length='200', unique=True)
     uri = models.CharField(max_length='200', null=True, blank=True, unique=True)
 
+    objects = ConceptTypeManager()
 
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)

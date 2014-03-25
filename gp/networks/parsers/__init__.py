@@ -7,6 +7,14 @@ logger.setLevel('DEBUG')
 
 class BaseParser(object):
     def parse(self, input):
+        """
+        
+        Arguments
+        ---------
+        input : File-like
+            Contains XML data to be parsed.
+        """
+        
         if hasattr(input, 'read'):
             result = self.ParseFile(input)
             return result

@@ -3,7 +3,7 @@ managers for Networks app
 """
 
 
-from networks.models import Appellation, Relation, Network, Node, Edge
+from networks.models import Appellation, Relation, Network, Node, Edge, NetworkLink
 from concepts.managers import retrieve_concept
 import networks.parsers as parsers #import parserFactory
 from concepts.managers import retrieve_concept
@@ -11,7 +11,7 @@ from concepts.managers import retrieve_concept
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel('DEBUG')
+logger.setLevel('ERROR')
 
 class DatasetManager(object):
     these_appellations = {}
@@ -21,7 +21,11 @@ class DatasetManager(object):
         self.instance = instance
 
     def add_dataset(self, cleaned_data, formdata):
+        # Link network to dataset.
         network = Network.objects.get(pk=formdata['linked_dataset-0-network'])
+        networklink = NetworkLink(network=network,
+                                  dataset=self.instance)
+        networklink.save()
 
         # Send data to parser based on specified format.
         format = cleaned_data['format']
@@ -38,6 +42,7 @@ class DatasetManager(object):
             relation = self._add_relation(datum, network)
             self.instance.relations.add(relation.id)
 
+        self.instance.save()
         return self.instance
 
     def _add_appellation(self, datum, network):
@@ -54,23 +59,15 @@ class DatasetManager(object):
         
         # TODO: check for text position.
 
-         # TODO: this is going to cause problems when editing. ID? Prevent?
+        # TODO: this is going to cause problems when editing. ID? Prevent?
         appellation = Appellation(concept=concept)
         appellation.save()
         
         # TODO: better way to do this (see relations block, below).
         self.these_appellations[datum['id']] = appellation
-    
-        # Check for Node. If it doesn't exist for that concept, create it
-        #  and associate the appellation with it.
-        try:
-            node = Node.objects.get(concept=concept.id)
-            logger.debug('Found node for {0}'.format(concept.name))
-        except Node.DoesNotExist:
-            logger.debug('Node does not exist for {0}, creating.'
-                                                          .format(concept.name))
-            node = Node(concept=concept)
-            node.save()
+        
+        # Get Node and attach Appellation.
+        node = Node.objects.get_unique(concept)
         node.appellations.add(appellation.id)
         node.save()
         

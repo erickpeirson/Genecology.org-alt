@@ -37,5 +37,5 @@ class DatasetAdminForm(forms.ModelForm):
         d_manager = DatasetManager(instance)
         instance = d_manager.add_dataset(self.cleaned_data, self.data)
         instance.save()
-        
+
         return instance

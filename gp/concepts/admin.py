@@ -10,8 +10,6 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel('DEBUG')
 
-
-
 class ConceptAdmin(admin.ModelAdmin):
     list_display = ('name','type','uri','location')
     

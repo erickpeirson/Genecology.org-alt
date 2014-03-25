@@ -1,10 +1,8 @@
 from django.contrib import admin
 from networks.models import Network, Node, Edge, TextPosition, Appellation, \
-                            Relation, Dataset, NetworkLink
+                            Relation, Dataset, NetworkLink, NetworkProjection
 from networks.forms import DatasetAdminForm
 from django.forms.models import inlineformset_factory
-
-from pprint import pprint
 
 import logging
 logging.basicConfig()
@@ -42,3 +40,4 @@ admin.site.register(Node)
 admin.site.register(Edge)
 admin.site.register(Appellation)
 admin.site.register(Relation)
+admin.site.register(NetworkProjection)

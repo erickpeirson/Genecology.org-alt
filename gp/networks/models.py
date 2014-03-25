@@ -7,13 +7,37 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 logger.setLevel('ERROR')
 
+class NodeManager(models.Manager):
+    def get_unique(self, concept):
+        """
+        Get or create Node.
+        """
+        try:
+            node = Node.objects.get(concept=concept.id)
+            logger.debug('Found node for {0}'.format(concept.name))
+        except Node.DoesNotExist:
+            logger.debug('Node does not exist for {0}, creating.'
+                                                          .format(concept.name))
+            node = Node(concept=concept)
+            node.save()
+
+        return node
+
 class Node(models.Model):
     appellations = models.ManyToManyField('networks.Appellation')
     concept = models.ForeignKey('concepts.Concept')
-    type = models.ForeignKey('networks.NodeType')
+    type = models.ForeignKey('networks.NodeType', blank=True, null=True)
+
+    objects = NodeManager()
 
     def __unicode__(self):
         return unicode(self.concept.name)
+
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.type = NodeType.objects.get_unique(self.concept.name,
+                                                    self.concept.type.uri)
+        super(Node, self).save(*args, **kwargs)
 
 class Network(models.Model):
     name = models.CharField(max_length='200')
@@ -102,8 +126,7 @@ class NetworkLink(models.Model):
 
     def __unicode__(self):
         return unicode('Network: {0}; Dataset: {1}'.format(self.network.name,
-                                                           self.dataset.name))
-
+                                                             self.dataset.name))
 
 class Appellation(models.Model):
     concept = models.ForeignKey('concepts.Concept')

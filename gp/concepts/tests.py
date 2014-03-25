@@ -8,8 +8,7 @@ from django.http import HttpResponse, HttpRequest, Http404
 from django.db import IntegrityError
 
 import simplejson
-from concepts.managers import retrieve_location, retrieve_concept, \
-                              get_concept_type
+from concepts.managers import retrieve_location, retrieve_concept
 
 from concepts.models import Concept, ConceptAuthority, ConceptType, \
                             Location, LocationAuthority
@@ -279,7 +278,7 @@ class GetConceptTypeTests(TestCase):
         ConceptType with that name/uri.
         """
 
-        ctype = get_concept_type(self.testname, self.testuri)
+        ctype = ConceptType.objects.get_unique(self.testname, self.testuri)
         self.assertIsInstance(ctype, ConceptType)
         self.assertEqual(ctype.name, self.testname)
         self.assertEqual(ctype.uri, self.testuri)
@@ -290,8 +289,8 @@ class GetConceptTypeTests(TestCase):
         But should not create a new ConceptType.
         """
 
-        ctype_ = get_concept_type(self.testname, self.testuri)
-        ctype = get_concept_type(self.testname, self.testuri)
+        ctype_ = ConceptType.objects.get_unique(self.testname, self.testuri)
+        ctype = ConceptType.objects.get_unique(self.testname, self.testuri)
         self.assertIsInstance(ctype, ConceptType)
         self.assertEqual(ctype.name, self.testname)
         self.assertEqual(ctype.uri, self.testuri)
@@ -304,7 +303,7 @@ class GetConceptTypeTests(TestCase):
         Should create/retrieve a ConceptType with uri == None
         """
 
-        ctype = get_concept_type(self.testname)
+        ctype = ConceptType.objects.get_unique(self.testname)
         self.assertEqual(ctype.name, self.testname)
         self.assertEqual(ctype.uri, None)
 
@@ -313,8 +312,8 @@ class GetConceptTypeTests(TestCase):
         Should behave just as if uri != None.
         """
 
-        ctype_ = get_concept_type(self.testname)
-        ctype = get_concept_type(self.testname)
+        ctype_ = ConceptType.objects.get_unique(self.testname)
+        ctype = ConceptType.objects.get_unique(self.testname)
         self.assertEqual(ctype.name, self.testname)
         self.assertEqual(ctype.uri, None)
 

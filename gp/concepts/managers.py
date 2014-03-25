@@ -108,7 +108,7 @@ def _remote_concept(uri, authority):
         raise ValueError("No such concept in ConceptAuthority for "           +\
                         " namespace {0}".format(authority.namespace))
     # Get Concept type.
-    ctype = get_concept_type(data['type'], data['type_uri'])
+    ctype = ConceptType.objects.get_unique(data['type'], data['type_uri'])
 
     concept = Concept(uri=uri,
                 name=data['lemma'],
@@ -162,15 +162,3 @@ def _remote_location(uri, authority):
     location.save()
     
     return location
-    
-def get_concept_type(name, uri=None):
-    """
-    Retrieve a ConceptType by URI, or create a new ConceptType.
-    """
-    try:
-        ctype = ConceptType.objects.filter(uri=uri).get()
-    except ObjectDoesNotExist:
-        ctype = ConceptType(name=name,
-                            uri=uri)
-        ctype.save()
-    return ctype
