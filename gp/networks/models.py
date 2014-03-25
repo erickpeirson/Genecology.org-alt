@@ -1,10 +1,16 @@
 from django.db import models
 from concepts.models import Concept
+from django.core.exceptions import ObjectDoesNotExist
+
+import logging
+logging.basicConfig()
+logger = logging.getLogger(__name__)
+logger.setLevel('ERROR')
 
 class Node(models.Model):
     appellations = models.ManyToManyField('networks.Appellation')
     concept = models.ForeignKey('concepts.Concept')
-    type = models.ForeignKey('networks.NodeType')   # Should be optional?
+    type = models.ForeignKey('networks.NodeType')
 
     def __unicode__(self):
         return unicode(self.concept.name)
@@ -17,6 +23,24 @@ class Network(models.Model):
     def __unicode__(self):
         return self.name
 
+class NodeTypeManager(models.Manager):
+    def get_unique(self, name, uri=None):
+        """
+        If NodeType already exists with that URI, return it. Otherwise create a
+        new one.
+        """
+
+        try:
+            instance = NodeType.objects.filter(uri=uri).get()
+            logger.debug('NodeType for {0} exists.'.format(uri))
+        except ObjectDoesNotExist:
+            logger.debug('NodeType for {0} does not exist. Creating.'
+                                                                   .format(uri))
+            instance = NodeType(name=name,
+                                uri=uri)
+            instance.save()
+        return instance
+
 class NodeType(models.Model):
     """
     e.g. E40 Legal Body
@@ -24,6 +48,8 @@ class NodeType(models.Model):
 
     name = models.CharField(max_length='200')
     uri = models.CharField(max_length='500', null=True, blank=True)
+
+    objects = NodeTypeManager()
 
 class NetworkProjection(models.Model):
     name = models.CharField(max_length='200')

@@ -1,3 +1,7 @@
+"""
+tests for Concepts module
+"""
+
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.http import HttpResponse, HttpRequest, Http404
@@ -7,7 +11,7 @@ import simplejson
 from concepts.managers import retrieve_location, retrieve_concept, \
                               get_concept_type
 
-from concepts.models import Concept, ConceptAuthority, \
+from concepts.models import Concept, ConceptAuthority, ConceptType, \
                             Location, LocationAuthority
 from concepts.views import retrieve
 
@@ -15,6 +19,7 @@ import logging
 logging.disable(logging.CRITICAL)
 
 cp_concept = 'http://www.digitalhps.org/concepts/CON397335ef-1870-46ff-82ff-346328dc6375'
+cp_concept_type_uri = 'http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3'
 gn_uri = 'http://www.geonames.org/6946760/penglais-campus-university-of-wales-aberystwyth.html'
 
 def create_concept_authority():
@@ -130,6 +135,16 @@ class ConceptsRetrieveTests(TestCase):
 
         ConceptAuthority.objects.get().delete()
         self.assertRaises(RuntimeError, retrieve_concept, cp_concept)
+
+    def test_concept_has_type(self):
+        """
+        When creating a new Concept, should also create a ConceptType and 
+        associate it via Concept.type.
+        """
+
+        concept = retrieve_concept(cp_concept)
+        self.assertIsInstance(concept.type, ConceptType)
+        self.assertEqual(concept.type.uri, cp_concept_type_uri)
 
 class ConceptsViewRetrieveTests(TestCase):
     """
@@ -255,5 +270,53 @@ class GetConceptTypeTests(TestCase):
         create_concept_authority()
         create_location_authority()
     
-    
-        
+        self.testname  = 'testname'
+        self.testuri = 'testuri'
+
+    def test_first_call_returns_ctype(self):
+        """
+        When a name/uri pair are passed for the first time, should return a
+        ConceptType with that name/uri.
+        """
+
+        ctype = get_concept_type(self.testname, self.testuri)
+        self.assertIsInstance(ctype, ConceptType)
+        self.assertEqual(ctype.name, self.testname)
+        self.assertEqual(ctype.uri, self.testuri)
+
+    def test_second_call_returns_ctype(self):
+        """
+        On the second call, should also return a ConceptType with that name/uri.
+        But should not create a new ConceptType.
+        """
+
+        ctype_ = get_concept_type(self.testname, self.testuri)
+        ctype = get_concept_type(self.testname, self.testuri)
+        self.assertIsInstance(ctype, ConceptType)
+        self.assertEqual(ctype.name, self.testname)
+        self.assertEqual(ctype.uri, self.testuri)
+
+        # Should be only one ConceptType.
+        self.assertEqual(len(ConceptType.objects.all()), 1)
+
+    def test_call_without_uri(self):
+        """
+        Should create/retrieve a ConceptType with uri == None
+        """
+
+        ctype = get_concept_type(self.testname)
+        self.assertEqual(ctype.name, self.testname)
+        self.assertEqual(ctype.uri, None)
+
+    def test_second_call_without_uri(self):
+        """
+        Should behave just as if uri != None.
+        """
+
+        ctype_ = get_concept_type(self.testname)
+        ctype = get_concept_type(self.testname)
+        self.assertEqual(ctype.name, self.testname)
+        self.assertEqual(ctype.uri, None)
+
+        # Should be only one ConceptType.
+        self.assertEqual(len(ConceptType.objects.all()), 1)

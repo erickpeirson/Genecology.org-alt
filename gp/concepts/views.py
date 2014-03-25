@@ -27,7 +27,7 @@ def retrieve(request, uri):
     # Return the Concept as JSON.
     response_data = { 'id': concept.id,
                       'uri': concept.uri,
-                      'type': concept.type,
+                      'type': concept.type.uri,
                       'location': concept.location_id,
                       'equalto': concept.equalto,
                       'similarto': concept.similarto }

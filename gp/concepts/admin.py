@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from concepts.models import Concept, ConceptAuthority, \
+from concepts.models import Concept, ConceptAuthority, ConceptType, \
                             Location, LocationAuthority
 from concepts.forms import AddConceptForm
 from concepts.managers import retrieve_concept
@@ -75,3 +75,5 @@ admin.site.register(Concept, ConceptAdmin)
 admin.site.register(ConceptAuthority, ConceptAuthorityAdmin)
 admin.site.register(Location, LocationAdmin)
 admin.site.register(LocationAuthority, LocationAuthorityAdmin)
+
+admin.site.register(ConceptType)

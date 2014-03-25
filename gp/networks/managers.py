@@ -1,3 +1,8 @@
+"""
+managers for Networks app
+"""
+
+
 from networks.models import Appellation, Relation, Network, Node, Edge
 from concepts.managers import retrieve_concept
 import networks.parsers as parsers #import parserFactory

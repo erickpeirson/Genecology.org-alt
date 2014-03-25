@@ -1,7 +1,12 @@
+"""
+managers for Concepts app
+"""
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
-from concepts.models import Concept, ConceptAuthority, \
+from concepts.models import Concept, ConceptAuthority, ConceptType, \
                             Location, LocationAuthority
+
 from urlparse import urlparse
 import urllib2
 import xml.etree.ElementTree as ET
@@ -35,7 +40,7 @@ def retrieve_location(uri):
         location = Location.objects.filter(uri=uri).get()
     except ObjectDoesNotExist:
         # Retrieve the Location from the LocationAuthority.
-        location = remote_location(uri, authority)
+        location = _remote_location(uri, authority)
 
     return location
 
@@ -59,7 +64,7 @@ def retrieve_concept(uri):
         logging.debug("Concept already exists.")
     except ObjectDoesNotExist:
         logging.debug("Concept does not exist.")
-        concept = remote_concept(uri, authority)
+        concept = _remote_concept(uri, authority)
 
     return concept
 
@@ -76,7 +81,7 @@ def get_namespace(uri):
     
     return namespace
 
-def remote_concept(uri, authority):
+def _remote_concept(uri, authority):
     """
     Retrieve a Concept from a remote authority service.
     """
@@ -103,11 +108,11 @@ def remote_concept(uri, authority):
         raise ValueError("No such concept in ConceptAuthority for "           +\
                         " namespace {0}".format(authority.namespace))
     # Get Concept type.
-    ctype = get_concept_type(data['type_uri'])
+    ctype = get_concept_type(data['type'], data['type_uri'])
 
     concept = Concept(uri=uri,
                 name=data['lemma'],
-                type=data['type'],
+                type=ctype,
                 equalto=data['equal_to'],
                 similarto=data['similar_to'])
     concept.save()
@@ -127,7 +132,7 @@ def remote_concept(uri, authority):
     
     return concept
 
-def remote_location(uri, authority):
+def _remote_location(uri, authority):
     """
     Retrieve a Location from a remote authority service.
     """
@@ -158,4 +163,14 @@ def remote_location(uri, authority):
     
     return location
     
-def 
+def get_concept_type(name, uri=None):
+    """
+    Retrieve a ConceptType by URI, or create a new ConceptType.
+    """
+    try:
+        ctype = ConceptType.objects.filter(uri=uri).get()
+    except ObjectDoesNotExist:
+        ctype = ConceptType(name=name,
+                            uri=uri)
+        ctype.save()
+    return ctype
