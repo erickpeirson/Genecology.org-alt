@@ -1,45 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<graph label="This is my first graph" directed="1">
+<graph>
+    <node id="http://www.digitalhps.org/concepts/CON397335ef-1870-46ff-82ff-346328dc6375" label="Welsh Plant Breeding Station">
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="http://test/testtext1" />
+        <att name="startposition" type="integer" value="39" />
+        <att name="endposition" type="integer" value="47" />
+    </node>
 
-	<node label="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" id="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0">
-    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
- 	</node>
-	<node label="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" id="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300">
-    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
- 	</node>
-	<node label="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" id="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1">
-    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
- 	</node>
-	<node label="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" id="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6">
-    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
- 	</node>
-	<node label="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" id="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8">
-    	<att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
- 	</node>
+    <node id="http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022" label="Scottish Plant Breeding Station">
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="http://test/testtext1" />
+        <att name="startposition" type="integer" value="239" />
+        <att name="endposition" type="integer" value="247" />
+    </node>
 
-	<edge source="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" target="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
-	 </edge>
-	<edge source="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" target="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
-	 </edge>
-	<edge source="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" target="http://www.digitalhps.org/concepts/CON530bfa40-c2d3-4bbb-ba85-ea4dfc452300" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
-	 </edge>
-	<edge source="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" target="http://www.digitalhps.org/concepts/CON166a05c9-7ed3-4c58-8db4-db28119398a1" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
-	 </edge>
-	<edge source="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" target="http://www.digitalhps.org/concepts/CON106cc019-f4c6-4a95-bb75-c0a7c683a8e0" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
-	 </edge>
-	<edge source="http://www.digitalhps.org/concepts/CON30dad2d6-b81e-47ba-abb9-b6285c0403e8" target="http://www.digitalhps.org/concepts/CONaa2e1240-d5e4-4ecc-b1c6-53c3e43eafd6" start="1982">
-	   	<att name="date" type="string" value="1982" />
-	   	<att name="label" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
-	 </edge>
+    <node id="http://www.digitalhps.org/concepts/CON6544887b-9452-4b67-8148-fb4429ca9b54" label="J.W. Gregor">    
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="http://test/testtext1" />
+        <att name="startposition" type="integer" value="139" />
+        <att name="endposition" type="integer" value="147" />
 
+    </node>
+
+    <node id="http://www.digitalhps.org/concepts/066efc74-8710-4a1f-9111-3a27d880438e" label="Anthony David Bradshaw (1926-2008)">
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="http://test/testtext1" />
+        <att name="startposition" type="integer" value="102" />
+        <att name="endposition" type="integer" value="112" />
+    </node>
+
+    <edge source="http://www.digitalhps.org/concepts/CON397335ef-1870-46ff-82ff-346328dc6375" target="http://www.digitalhps.org/concepts/066efc74-8710-4a1f-9111-3a27d880438e">
+        <att name="predicate" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+        <att name="text" type="string" value="http://test/testtext1" />
+        <att name="startposition" type="integer" value="202" />
+        <att name="endposition" type="integer" value="212" />        
+        <att name="date" type="integer" value="1948" />
+    </edge>
+
+    <edge source="http://www.digitalhps.org/concepts/CON400fa186-5061-4d7e-93fa-6e49d0bdd022" target="http://www.digitalhps.org/concepts/CON6544887b-9452-4b67-8148-fb4429ca9b54">
+        <att name="predicate" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+        <att name="date" type="integer" value="1948" />
+    </edge>
+
+    <edge source="http://www.digitalhps.org/concepts/066efc74-8710-4a1f-9111-3a27d880438e" target="http://www.digitalhps.org/concepts/CON6544887b-9452-4b67-8148-fb4429ca9b54">
+        <att name="predicate" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+        <att name="date" type="integer" value="1948" />
+    </edge>
 </graph>

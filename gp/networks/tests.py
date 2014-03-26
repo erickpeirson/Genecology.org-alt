@@ -1,4 +1,10 @@
-from django.test import TestCase
+import datetime
+import simplejson
+from pprint import pprint
+
+from django.test import TestCase, RequestFactory
+from django.http import Http404
+
 from models import NodeType
 
 from concepts.models import Concept, ConceptAuthority, ConceptType, \
@@ -6,7 +12,12 @@ from concepts.models import Concept, ConceptAuthority, ConceptType, \
 from concepts.managers import retrieve_concept
 
 from networks.models import Node, NodeType, Appellation, Relation, Dataset, \
-                            Network, Edge, NetworkLink
+                            Network, Edge, NetworkLink, TextPosition
+
+from networks.views import dataset_endpoint, network_endpoint
+
+from texts.models import Text
+
 from networks.managers import DatasetManager
 
 cp_concept = 'http://www.digitalhps.org/concepts/CON397335ef-1870-46ff-82ff-346328dc6375'
@@ -33,6 +44,27 @@ def create_location_authority():
         id_pattern='http://www.geonames.org/(.*?)/' )
     location_authority.save()
     return location_authority
+
+def create_text():
+    textpath = './networks/testdata/testtext1.txt'
+    text = Text(uri='http://test/testtext1',
+                filename='testtext1.txt',
+                title='The Test Text',
+                dateCreated = datetime.date(2003,05,01),
+                dateDigitized = datetime.date(2005, 02, 03),
+                content = open(textpath, 'rb').read())
+    text.save()
+    return text
+    
+def create_dataset(network):
+    dataset = Dataset(name='TestDataset')
+    dataset.save()
+    return dataset
+
+def create_network():
+    network = Network(name='TestNetwork')
+    network.save()
+    return network
 
 class NodeTypeTests(TestCase):
     def setUp(self):
@@ -114,14 +146,11 @@ class DatasetManagerTests(TestCase):
         create_concept_authority()
         create_location_authority()
 
-        self.dataset = Dataset(name='TestDataset')
-        self.dataset.save()
+        self.network = create_network()
+        self.dataset = create_dataset(self.network)
 
         self.manager = DatasetManager(self.dataset)
         
-        self.network = Network(name='TestNetwork')
-        self.network.save()
-    
         # Mimick form data.
         datapath = './networks/testdata/testnetwork.xgmml'
         self.cleaned_data = { 'format': 'XGMML',
@@ -130,9 +159,25 @@ class DatasetManagerTests(TestCase):
     
         # Mimick data from parsed dataset.
         self.app_datum = { 'id': cp_concept }
+        
+        self.text_uri = 'http://test/testtext1'
+        self.startpos = 5
+        self.endpos = 10
+        
+        self.app_datum_text = { 'id': cp_concept,
+                                'attributes': { 'text': self.text_uri,
+                                                'startposition': self.startpos,
+                                                'endposition': self.endpos } }                                                
         self.rel_datum = { 'source': cp_concept,
                            'target': cp_concept,
-                           'attributes': { 'label': cp_concept } }
+                           'attributes': { 'predicate': cp_concept } }
+                           
+        self.rel_datum_text = { 'source': cp_concept,
+                                'target': cp_concept,
+                                'attributes': { 'predicate': cp_concept,
+                                                'text': self.text_uri,
+                                                'startposition': self.startpos,
+                                                'endposition': self.endpos } }
 
     def test_add_appellation(self):
         """
@@ -160,6 +205,28 @@ class DatasetManagerTests(TestCase):
 
         # Node is in Network?
         self.assertIn(node, self.network.nodes.all())
+    
+    def test_add_appellation_text_position(self):
+        """
+        tests for DatasetManager._add_appellation(), where text, startposition,
+        and endposition are provided.
+        """    
+        # If text does not exist, create appellation without it.
+        appellation = self.manager._add_appellation(self.app_datum_text,
+                                                    self.network)
+        self.assertIsInstance(appellation, Appellation)
+        
+        # If text exists, create a TextPosition.        
+        create_text()
+        appellation = self.manager._add_appellation(self.app_datum_text,
+                                                    self.network)
+        self.assertIsInstance(appellation.textposition, TextPosition)
+        
+        # TextPosition should have correct Text URI, start and end positions.
+        self.assertEqual(appellation.textposition.text.uri, self.text_uri)
+        self.assertEqual(appellation.textposition.startposition, self.startpos)
+        self.assertEqual(appellation.textposition.endposition, self.endpos)
+
 
     def test_add_relation(self):
         """
@@ -187,22 +254,168 @@ class DatasetManagerTests(TestCase):
         # Edge is in Network?
         self.assertIn(edge, self.network.edges.all())
 
+    def test_add_relation_text(self):
+        """
+        tests for DatasetManager._add_relation(), where text, startposition,
+        and endposition are provided.
+        """        
+        # If text does not exist, create appellation without it.
+        relation = self.manager._add_relation(self.rel_datum_text,
+                                              self.network)
+        self.assertIsInstance(relation.predicate, Appellation)
+        
+        # If text exists, create a TextPosition.        
+        create_text()
+        relation = self.manager._add_relation(self.rel_datum_text,
+                                              self.network)
+        self.assertIsInstance(relation.predicate.textposition, TextPosition)
+        
+        # TextPosition should have correct Text URI, start and end positions.
+        self.assertEqual(relation.predicate.textposition.text.uri, 
+                         self.text_uri)
+        self.assertEqual(relation.predicate.textposition.startposition, 
+                         self.startpos)
+        self.assertEqual(relation.predicate.textposition.endposition, 
+                         self.endpos)        
+
     def test_add_dataset(self):
         """
         tests for DatasetManager.add_dataset()
         """
 
+        create_text()
         dataset = self.manager.add_dataset(self.cleaned_data, self.formdata)
         
-        # Dataset has 5 appellations.
+        # Dataset has 7 appellations (4 nodes + 3 edges).
         appellations = dataset.appellations.all()
-        self.assertEqual(len(appellations), 5)
+        self.assertEqual(len(appellations), 7)
+        
+        # Dataset Appellations have TextPositions
+        self.assertIsInstance(appellations[0].textposition, TextPosition)
 
-        # Dataset has 6 relations.
+        # Dataset has 3 relations.
         relations = dataset.relations.all()
-        self.assertEqual(len(relations), 6)
+        self.assertEqual(len(relations), 3)
 
         # Dataset has 1 network, with pk==1.
         networks = dataset.networks.all()
         self.assertEqual(len(networks), 1)
         self.assertEqual(networks[0].id, self.network.id)
+
+class DatasetEndpointView(TestCase):
+    """
+    The Dataset Endpoint view provides JSON describing Appellations and 
+    Relations for a specified dataset.
+    """
+    
+    def setUp(self):
+        self.factory = RequestFactory()
+        
+        create_concept_authority()
+        create_location_authority()
+        self.text = create_text()
+
+        self.network = create_network()
+        self.dataset = create_dataset(self.network)
+
+        self.manager = DatasetManager(self.dataset)
+        
+        # Mimick form data.
+        datapath = './networks/testdata/testnetwork.xgmml'
+        self.cleaned_data = { 'format': 'XGMML',
+                              'upload': open(datapath, 'rb') }
+        self.formdata = { 'linked_dataset-0-network': self.network.id }
+        
+        self.dataset = self.manager.add_dataset(self.cleaned_data,
+                                                self.formdata)
+
+    def test_nonexistent_dataset(self):
+        """
+        should raise a 404 if dataset with specified id doesn't exist
+        """
+        request = self.factory.get('/networks/dataset/')
+        self.assertRaises(Http404, dataset_endpoint, request, 2)
+        
+    def test_dataset_exists(self):
+        """
+        should return status 200 if dataset does exist.
+        """
+        request = self.factory.get('/networks/dataset/')
+        response = dataset_endpoint(request, self.dataset.id)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_returns_json(self):
+        request = self.factory.get('/networks/dataset/')
+        response = dataset_endpoint(request, self.dataset.id)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+        
+        # Dataset id is correct?
+        rdata = simplejson.loads(response.content)
+        self.assertEqual(rdata['dataset']['id'], self.dataset.id)
+
+        # Appellations provided?
+        self.assertIn('appellations', rdata['dataset'])
+        
+        # Relations provided?
+        self.assertIn('relations', rdata['dataset'])
+        
+class NetworkEndpointView(TestCase):
+    """
+    The Network Endpoint view provides JSON describing Nodes and Edges for a 
+    specified Network.
+    """
+    
+    def setUp(self):
+        self.factory = RequestFactory()
+        
+        create_concept_authority()
+        create_location_authority()
+        self.text = create_text()
+
+        self.network = create_network()
+        self.dataset = create_dataset(self.network)
+
+        self.manager = DatasetManager(self.dataset)
+        
+        # Mimick form data.
+        datapath = './networks/testdata/testnetwork.xgmml'
+        self.cleaned_data = { 'format': 'XGMML',
+                              'upload': open(datapath, 'rb') }
+        self.formdata = { 'linked_dataset-0-network': self.network.id }
+        
+        self.dataset = self.manager.add_dataset(self.cleaned_data,
+                                                self.formdata)
+
+    def test_nonexistent_network(self):
+        """
+        should raise a 404 if network with specified id doesn't exist
+        """
+        request = self.factory.get('/networks/network/')
+        self.assertRaises(Http404, network_endpoint, request, 2)
+    
+    def test_network_exists(self):
+        """
+        should return 200 if network does exist.
+        """
+        
+        request = self.factory.get('/networks/network/')
+        response = network_endpoint(request, self.network.id)
+        self.assertEqual(response.status_code, 200)
+
+    def test_returns_json(self):
+        request = self.factory.get('/networks/network/')
+        response = network_endpoint(request, self.network.id)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+        
+        # Network id is correct?
+        rdata = simplejson.loads(response.content)
+        self.assertEqual(rdata['network']['id'], self.network.id)
+
+        # Nodes provided?
+        self.assertIn('nodes', rdata['network'])
+        
+        # Edges provided?
+        self.assertIn('edges', rdata['network'])        
+                

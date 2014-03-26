@@ -3,7 +3,10 @@ managers for Networks app
 """
 
 
-from networks.models import Appellation, Relation, Network, Node, Edge, NetworkLink
+from networks.models import Appellation, Relation, Network, Node, Edge, \
+                            NetworkLink, TextPosition
+from texts.models import Text
+
 from concepts.managers import retrieve_concept
 import networks.parsers as parsers #import parserFactory
 from concepts.managers import retrieve_concept
@@ -41,6 +44,7 @@ class DatasetManager(object):
         for datum in data['relations']:
             relation = self._add_relation(datum, network)
             self.instance.relations.add(relation.id)
+            self.instance.appellations.add(relation.predicate.id)
 
         self.instance.save()
         return self.instance
@@ -56,8 +60,6 @@ class DatasetManager(object):
 
         concept = retrieve_concept(datum['id'])
         logger.debug('Found concept {0}'.format(concept.name))
-        
-        # TODO: check for text position.
 
         # TODO: this is going to cause problems when editing. ID? Prevent?
         appellation = Appellation(concept=concept)
@@ -65,6 +67,9 @@ class DatasetManager(object):
         
         # TODO: better way to do this (see relations block, below).
         self.these_appellations[datum['id']] = appellation
+
+        # Check for, and attach, a TextPosition.
+        instance = self._handle_text_position(appellation, datum)
         
         # Get Node and attach Appellation.
         node = Node.objects.get_unique(concept)
@@ -100,9 +105,12 @@ class DatasetManager(object):
         target = self.these_appellations[datum['target']]
         
         # Create appellation for predicate.
-        predicate_concept = retrieve_concept(datum['attributes']['label'])
+        predicate_concept = retrieve_concept(datum['attributes']['predicate'])
         predicate = Appellation(concept=predicate_concept)
         predicate.save()
+        
+        # Check for text position.
+        predicate = self._handle_text_position(predicate, datum)
 
         logger.debug('Relation: {0} - {1} - {2}'
                                              .format(source, predicate, target))
@@ -134,3 +142,34 @@ class DatasetManager(object):
             network.edges.add(edge.id)
 
         return relation
+
+    def _handle_text_position(self, instance, datum):
+        try:    # There may not be any attributes, which is fine.
+            if 'text' in datum['attributes'].keys():
+                text_uri = datum['attributes']['text']
+                # Get matching text.
+                try:
+                    text = Text.objects.get(uri=text_uri)
+                except Text.DoesNotExist:
+                    logger.warning('Text not found for {0}.'.format(text_uri))
+                    text = None
+                
+                if text is not None:    # Can't have TextPsotion without Text.
+                    position = TextPosition(text=text)
+                    position.save()
+
+                    # Start and end positions are not required.
+                    if 'startposition' in datum['attributes'].keys()\
+                     and 'endposition' in datum['attributes'].keys():
+                        position.startposition = datum['attributes']\
+                                                      ['startposition']
+                        position.endposition = datum['attributes']\
+                                                    ['endposition']
+                        position.save()
+                    instance.textposition = position
+                    instance.save()
+
+        except KeyError:
+            pass
+
+        return instance
