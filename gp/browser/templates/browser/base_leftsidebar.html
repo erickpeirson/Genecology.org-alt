@@ -1,0 +1,102 @@
+{% extends "browser/base.html" %}
+
+{% block bodyclass %}left-sidebar{% endblock %}
+
+{% block bodycontent %}
+		<!-- Main Wrapper -->
+			<div id="main-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="4u">
+						
+							<!-- Sidebar -->
+								<div id="sidebar">
+                                    {% block sidebar %}
+                                    {% if leftlist %}
+									<section>
+										<h3>{{ leftlist.title }}</h3>
+                                        <ul class="style2">
+                                            {% for item in leftlist.items %}
+											<li>{% for i in item %}<span>{% if i.link %}<a href="{{ item.link }}">{% endif %}{{ i.text }}{% if i.link %}</a>{% endif %}</span>{% endfor %}</li>
+                                            {% endfor %}
+										</ul>
+										{% if leftlist.footer %}
+										<footer>
+											<a href="{{ leftlist.footer.link }}" class="button fa fa-info-circle">{{ leftlist.footer.text }}</a>
+										</footer>
+										{% endif %}
+
+									</section>
+								    {% endif %}
+
+	<!-- 
+								<section>
+										<h3>Subheading</h3>
+										<ul class="style2">
+											<li><a href="#">Amet turpis, feugiat et sit amet</a></li>
+											<li><a href="#">Ornare in hendrerit in lectus</a></li>
+											<li><a href="#">Semper mod quis eget mi dolore</a></li>
+											<li><a href="#">Quam turpis feugiat sit dolor</a></li>
+											<li><a href="#">Amet ornare in hendrerit in lectus</a></li>
+											<li><a href="#">Semper mod quisturpis nisi</a></li>
+										</ul>
+									</section>
+ -->
+                                    {% endblock %}
+								</div>
+						
+						</div>
+						<div class="8u skel-cell-important">
+
+							<!-- Content -->
+								<div id="content">
+									<article class="last">
+                                        {% block maincontent %}
+                                            <h2>{{ title }}</h2>
+                                            {% if subtitle %}<h3>{{ subtitle }}</h3>{% endif %}
+                                            <pre id="textcontent">{{ text }}</pre>
+                                        {% endblock %}
+									</article>
+								</div>
+                                <script>
+                                
+var highlightRange = function(node, startposition, endposition) {
+    var range = rangy.createRange();
+    range.setStart(node.firstChild, startposition);
+    range.setEnd(node.firstChild, endposition);
+
+    var highlightNode = document.createElement('span');
+    highlightNode.className = 'highlight';
+    range.surroundContents(highlightNode);
+}
+
+rangy.init();
+var textcontent = document.getElementById('textcontent');
+
+
+$.get("/networks/dataset/1/", function(data) {
+    console.log(data.dataset);
+
+    var mappable = Array();
+    data.dataset.appellations.forEach(function(item) {
+        if ('textposition' in item) mappable.push(item)
+    });
+    
+
+    mappable.sort(function (a,b) {
+        if (a.textposition.startposition < b.textposition.startposition) return 1;
+        if (a.textposition.startposition > b.textposition.startposition) return -1;
+    });
+    
+    mappable.forEach(function(item) {
+        console.log(textcontent);
+        highlightRange(textcontent, item.textposition.startposition, item.textposition.endposition);
+    });
+});
+
+                                </script>
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}

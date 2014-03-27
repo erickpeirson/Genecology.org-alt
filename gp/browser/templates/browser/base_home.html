@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block bodyclass %}homepage{% endblock %}
+
+{% block bodycontent %}
+	
+		<!-- Banner Wrapper -->
+			<div id="banner-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Banner -->
+								<div id="banner" class="box">
+
+									<div>
+										<div class="row">
+											<div class="7u">
+											    {% block bannerleft %}
+												<h2>Hi. This is Verti.</h2>
+												<p>It's a free responsive HTML5 site template by HTML5 UP</p>
+												{% endblock %}
+											</div>
+											<div class="5u">
+											    {% block bannerright %}
+												<ul>
+													<li><a href="#" class="button big fa fa-arrow-circle-right">Ok let's go</a></li>
+													<li><a href="#" class="button alt big fa fa-question-circle">More info</a></li>
+												</ul>
+											    {% endblock %}
+											</div>
+										</div>
+									</div>
+								
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}

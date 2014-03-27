@@ -417,5 +417,5 @@ class NetworkEndpointView(TestCase):
         self.assertIn('nodes', rdata['network'])
         
         # Edges provided?
-        self.assertIn('edges', rdata['network'])        
+        self.assertIn('edges', rdata['network'])
                 

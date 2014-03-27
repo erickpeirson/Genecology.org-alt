@@ -31,10 +31,7 @@ def get_network(request, network_id):
                         'predicate': e.concept.id,
                         'strength': len(e.relations.all()) } for e in edges ]
     
-    print edges[0].relations.all()
-    
     return HttpResponse(str(features) + str(linestrings))
-
 
 def dataset_endpoint(request, dataset_id):
     """
@@ -53,7 +50,7 @@ def dataset_endpoint(request, dataset_id):
             ad['textposition'] = { 
                 'text': app.textposition.text.uri,
                 'startposition': app.textposition.startposition,
-                'endposition': app.textposition.startposition       
+                'endposition': app.textposition.endposition       
                 }
         app_data.append(ad)
     

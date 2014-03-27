@@ -1,0 +1,30 @@
+{% extends "browser/base.html" %}
+
+{% block bodyclass %}no-sidebar{% endblock %}
+
+{% block bodycontent %}
+
+		<!-- Main Wrapper -->
+			<div id="main-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u skel-cell-important">
+
+							<!-- Content -->
+								<div id="content">
+									<article class="last">
+                                        <h2>{{ title }}</h2>
+                                        {% block maincontent %}
+
+                                        {% for par in paragraphs %}
+										<p>{{ par.text }}</p>
+										{% endfor %}
+                                        {% endblock %}
+									</article>
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock %}
