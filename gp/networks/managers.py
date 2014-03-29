@@ -2,7 +2,7 @@
 managers for Networks app
 """
 
-
+from django.utils.encoding import smart_text
 from networks.models import Appellation, Relation, Network, Node, Edge, \
                             NetworkLink, TextPosition
 from texts.models import Text
@@ -56,10 +56,10 @@ class DatasetManager(object):
         check if the node is in network
         if not, add it.
         """
-        logger.debug('Handling appellation for {0}'.format(datum['id']))
+        logger.debug(u'Handling appellation for {0}'.format(datum['id']))
 
         concept = retrieve_concept(datum['attributes']['concept'])
-        logger.debug('Found concept {0}'.format(concept.name))
+        logger.debug(u'Found concept {0}'.format(concept.name))
 
         # TODO: this is going to cause problems when editing. ID? Prevent?
         appellation = Appellation(concept=concept)
@@ -80,7 +80,7 @@ class DatasetManager(object):
         
         # Check to see whether Node is in Network. If not, add it.
         if node not in network.nodes.all():
-            logger.debug('Node for {0} not in Network {1}'
+            logger.debug(u'Node for {0} not in Network {1}'
                                             .format(concept.name, network.name))
             network.nodes.add(node.id)
 
@@ -93,7 +93,7 @@ class DatasetManager(object):
         check if the node is in network
         if not, add it.
         """
-        logger.debug('Handling relation with source {0}.'
+        logger.debug(u'Handling relation with source {0}.'
                                                    .format(datum['source']))
 
         # TODO: Problem. How to tell which appellations are referenced by
@@ -112,7 +112,7 @@ class DatasetManager(object):
         # Check for text position.
         predicate = self._handle_text_position(predicate, datum)
 
-        logger.debug('Relation: {0} - {1} - {2}'
+        logger.debug(u'Relation: {0} - {1} - {2}'
                                              .format(source, predicate, target))
         relation = Relation(source=source,
                             target=target,
@@ -137,7 +137,7 @@ class DatasetManager(object):
         edge.save()
         
         if edge not in network.edges.all():
-            logger.debug('Edge not in Network {0}; adding.'
+            logger.debug(u'Edge not in Network {0}; adding.'
                                                           .format(network.name))
             network.edges.add(edge.id)
 

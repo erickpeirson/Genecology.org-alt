@@ -48,11 +48,10 @@ def display_text(request, text_id):
                     'link': '/browser/texts/'
                 },
                 'items': [ [ 
-                            { 'link': '/browser/texts/{0}/'.format(text.id),
-                              'text': text.title }, 
-                            { 'text': text.dateCreated } ] for text in texts ] }
+                            { 'link': '/browser/texts/{0}/'.format(t.id),
+                              'text': t.title }, 
+                            { 'text': t.dateCreated } ] for t in texts ] }
 
-            
     data = {    'title': text.title,
                 'text_id': text.id,
                 'subtitle': text.uri,

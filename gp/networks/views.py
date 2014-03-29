@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseNotFound
 from networks.models import Network, Node, Edge, Dataset, Appellation, Relation
 
 import simplejson
+from pprint import pprint
 
 def index(request):
     return HttpResponse('Woohoo!')
@@ -170,11 +171,12 @@ def text_network(request, text_id=None, network_id=None):
     relations = Relation.objects.filter(predicate__textposition__text__id=text_id)
     appellations = Appellation.objects.filter(textposition__text__id=text_id)
     
-    nodes = Node.objects.filter(appellations__textposition__text__id__contains=text_id)
-    edges = Edge.objects.filter(relations__predicate__textposition__text__id__contains=text_id)
+    nodes = set(Node.objects.filter(appellations__textposition__text__id__contains=text_id))
+    edges = set(Edge.objects.filter(relations__predicate__textposition__text__id__contains=text_id))
+    
+    pprint(nodes);
     
     if network_id is not None:
-        print 'asdf'
         nodes = nodes.filter(network__id=network_id)
         edges = edges.filter(network__id=network_id)
     

@@ -1,3 +1,7 @@
+"""
+Models for Networks app.
+"""
+
 from django.db import models
 from concepts.models import Concept
 from django.core.exceptions import ObjectDoesNotExist
@@ -16,7 +20,7 @@ class NodeManager(models.Manager):
             node = Node.objects.get(concept=concept.id)
             logger.debug('Found node for {0}'.format(concept.name))
         except Node.DoesNotExist:
-            logger.debug('Node does not exist for {0}, creating.'
+            logger.debug(u'Node does not exist for {0}, creating.'
                                                           .format(concept.name))
             node = Node(concept=concept)
             node.save()
@@ -92,7 +96,7 @@ class Edge(models.Model):
     concept = models.ForeignKey('concepts.Concept')
 
     def __unicode__(self):
-        return unicode('{0} - {1} - {2}'.format(self.source.concept.name,
+        return unicode(u'{0} - {1} - {2}'.format(self.source.concept.name,
                                                 self.concept.name,
                                                 self.target.concept.name))
 
@@ -125,7 +129,7 @@ class NetworkLink(models.Model):
     added = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return unicode('Network: {0}; Dataset: {1}'.format(self.network.name,
+        return unicode(u'Network: {0}; Dataset: {1}'.format(self.network.name,
                                                              self.dataset.name))
 
 class Appellation(models.Model):
@@ -148,6 +152,6 @@ class Relation(models.Model):
         verbose_name_plural = "relations"
 
     def __unicode__(self):
-        return unicode('{0} - {1} - {2}'.format(self.source.concept.name,
+        return unicode(u'{0} - {1} - {2}'.format(self.source.concept.name,
                                                 self.predicate.concept.name,
                                                 self.target.concept.name))

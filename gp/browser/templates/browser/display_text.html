@@ -21,7 +21,7 @@
 										<h3>{{ leftlist.title }}</h3>
                                         <ul class="style2">
                                             {% for item in leftlist.items %}
-											<li>{% for i in item %}<span>{% if i.link %}<a href="{{ item.link }}">{% endif %}{{ i.text }}{% if i.link %}</a>{% endif %}</span>{% endfor %}</li>
+											<li>{% for i in item %}<span>{% if i.link %}<a href="{{ i.link }}">{% endif %}{{ i.text }}{% if i.link %}</a>{% endif %}</span>{% endfor %}</li>
                                             {% endfor %}
 										</ul>
 										{% if leftlist.footer %}
@@ -87,6 +87,7 @@ var predicates_relations = {};
 var relations_lookup = {};	// Relations -> Edge.
 var edges_lookup = {}; // Edge -> Relations.
 var nodes_lookup = {}; // Node -> Appellations.
+var appellations_lookup = {}; // Appellations -> Node.
 
 // Force-directed layout.
 var force = d3.layout.force()
@@ -119,7 +120,6 @@ function redraw() {
 
 // The /networks/network/text endpoint retrieves network data for a specific text.
 d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
-
 	// Index nodes by id, and index types (for color-coding).
 	graph.network.nodes.forEach(function(d, i) {
 		hash_lookup[d.id] = d;
@@ -132,6 +132,7 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 		nodes_lookup[d.id] = Array();
 		d.appellations.forEach(function(b, j) {
 			nodes_lookup[d.id].push(b);
+			appellations_lookup[b] = d;
 		});
 	});
 	
@@ -198,8 +199,8 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 
 	// Add labels to nodes.
 	node.append("text")
-		.attr("dx", 10)
-		.attr("dy", -4)
+		.attr("dx", function(d) { return -d.label.length*3 } )
+		.attr("dy", -12)
 		.text(function(d) { return d.label; });
 
   // Update node and edge positions based on force-directed layout.
@@ -236,15 +237,20 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 
 	// Adds an anchor element around each appellation's text-position.
 	var add_appellation = function(node, item) {
-		var range = rangy.createRange();
-		range.setStart(node.firstChild, item.textposition.startposition);
-		range.setEnd(node.firstChild, item.textposition.endposition);
+	    try {
+            var range = rangy.createRange();
+            range.setStart(node.firstChild, item.textposition.startposition);
+            range.setEnd(node.firstChild, item.textposition.endposition);
 
-		var highlightNode = document.createElement('a');
-		highlightNode.className = 'appellation';
-		highlightNode.id = item.id;
-		highlightNode.style.color = color(types[item.type]);
-		range.surroundContents(highlightNode);
+            var highlightNode = document.createElement('a');
+            highlightNode.className = 'appellation';
+            highlightNode.id = item.id;
+            highlightNode.style.color = color(types[item.type]);
+            range.surroundContents(highlightNode);
+        } catch (err) {
+            // Ignore appellations that ignore with those already added to the text.
+            //  (handles cases wehre Rangy gets confused)
+        }
 	}
 
 	// The /networks/appellations/ endpoint provides data for a specific text.
@@ -278,7 +284,7 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 			if (relations_predicates[e.target.id]) {
 				activate_edge(relations_lookup[relations_predicates[e.target.id]], Array(e.target));
 			} else {
-				activate_node(hash_lookup[e.target.id], [e.target]);
+				activate_node(appellations_lookup[e.target.id], [e.target]);
 			}
 		});
 	});
@@ -298,7 +304,6 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 	// Highlights node, and corresponding appellations.
 	//	intext is a list of appellation elements in the text.	
 	function activate_node(d, intext) {
-		//console.log(d);
 		d.fixed = 1;
 		deselect_all();
 
@@ -309,7 +314,9 @@ d3.json("/networks/network/text/{{ text_id }}/", function(error, graph) {
 			.attr("r", 15);
 		
 		intext.forEach( function(i) {
-			d3.select('a[id="' + i.id + '"]').classed("focal", true);
+		    if (i) {    // Not all appellations are found in this text.
+    			d3.select('a[id="' + i.id + '"]').classed("focal", true);
+    		}
 		});
 		
 		show_node_details(d);
