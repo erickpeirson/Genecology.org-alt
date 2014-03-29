@@ -58,7 +58,7 @@ class DatasetManager(object):
         """
         logger.debug('Handling appellation for {0}'.format(datum['id']))
 
-        concept = retrieve_concept(datum['id'])
+        concept = retrieve_concept(datum['attributes']['concept'])
         logger.debug('Found concept {0}'.format(concept.name))
 
         # TODO: this is going to cause problems when editing. ID? Prevent?

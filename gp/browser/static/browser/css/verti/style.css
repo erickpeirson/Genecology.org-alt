@@ -105,7 +105,7 @@
 	section,
 	article
 	{
-		margin-bottom: 5em;
+		margin-bottom: 2em;
 	}
 	
 	section > :last-child,
@@ -240,7 +240,7 @@
 
 	header
 	{
-		margin: 0 0 2em 0;
+		margin: 0 0 0 0;
 	}
 	
 		header h2, header h3
@@ -272,11 +272,6 @@
      white-space: -pre-wrap;      /* Opera 4-6 */
      white-space: -o-pre-wrap;    /* Opera 7 */
      word-wrap: break-word;       /* Internet Explorer 5.5+ */
-    }
-    
-    span.highlight
-    {
-        color: red;
     }
 
 /*********************************************************************************/
@@ -779,6 +774,7 @@
 
 	#header-wrapper
 	{
+		border-bottom: 3px solid rgba(0,0,0,0.05);
 	}
 	
 	#banner-wrapper
@@ -818,7 +814,7 @@
 			background: #ff4486;
 			color: #fff;
 			border-radius: 6px;
-			font-family: 'Oleo Script', serif;
+			font-family: 'Georgia', serif;
 			font-weight: 400;
 		}
 		
@@ -826,6 +822,32 @@
 		{
 			font-weight: 800;
 		}
+	
+		#logo img
+		{
+
+		}
+
+	#logo span.red
+	{
+		color: #ff7f0e;
+		font-size: 1.2em;
+	}
+	
+	#logo div#tagline
+	{
+		font-family: Georgia;
+		font-size: 1.1em;
+		display: inline-block;
+		width: 300px;
+		text-wrap: normal;
+		margin: 0 0 0.5em 2em;
+		text-align: top;
+		position: absolute;
+		top: 0.5em;
+		right: 0;
+		text-align: right;
+	}
 	
 /*********************************************************************************/
 /* Banner                                                                        */
@@ -859,4 +881,56 @@
 			color: inherit;
 		}
 		
+/*********************************************************************************/
+/* Annotations                                                                   */
+/*********************************************************************************/		
 		
+    a.appellation
+    {
+    }
+    
+    a.appellation.focal
+    {
+		background-color: rgba(0,0,0,0.15);
+		font-weight: 800;
+    }
+    
+
+/*********************************************************************************/
+/* Network	                                                                     */
+/*********************************************************************************/	
+
+	div#network-visualization
+	{
+		/*border: 1px solid black;*/
+	}
+
+	line
+	{
+		stroke: #999;
+		stroke-width: 4px;
+		opacity: 0.5;
+	}
+
+	line.focal
+	{
+		stroke-width: 6px;
+		opacity: 1;
+	}
+	
+	.node
+	{
+
+	}
+	
+	.node.focal
+	{
+		stroke: rgba(255,0,0,0.5);
+		stroke-width: 3px;
+	}
+	
+	.node text {
+		pointer-events: none;
+		font: 10px sans-serif;
+		color: red;
+	}

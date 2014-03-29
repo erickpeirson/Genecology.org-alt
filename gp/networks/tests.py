@@ -14,7 +14,8 @@ from concepts.managers import retrieve_concept
 from networks.models import Node, NodeType, Appellation, Relation, Dataset, \
                             Network, Edge, NetworkLink, TextPosition
 
-from networks.views import dataset_endpoint, network_endpoint
+from networks.views import dataset_endpoint, network_endpoint, list_datasets, \
+                            list_networks, text_appellations
 
 from texts.models import Text
 
@@ -65,6 +66,25 @@ def create_network():
     network = Network(name='TestNetwork')
     network.save()
     return network
+
+def view_test_setup(self):
+    self.factory = RequestFactory()
+
+    create_concept_authority()
+    create_location_authority()
+
+    self.network = create_network()
+    self.dataset = create_dataset(self.network)
+
+    self.manager = DatasetManager(self.dataset)
+    
+    # Mimick form data.
+    datapath = './networks/testdata/testnetwork.xgmml'
+    self.cleaned_data = { 'format': 'XGMML',
+                          'upload': open(datapath, 'rb') }
+    self.formdata = { 'linked_dataset-0-network': self.network.id }
+
+    self.dataset = self.manager.add_dataset(self.cleaned_data, self.formdata)
 
 class NodeTypeTests(TestCase):
     def setUp(self):
@@ -158,22 +178,24 @@ class DatasetManagerTests(TestCase):
         self.formdata = { 'linked_dataset-0-network': self.network.id }
     
         # Mimick data from parsed dataset.
-        self.app_datum = { 'id': cp_concept }
+        self.app_datum = { 'id': 1,
+                           'attributes': { 'concept': cp_concept } }
         
         self.text_uri = 'http://test/testtext1'
         self.startpos = 5
         self.endpos = 10
         
-        self.app_datum_text = { 'id': cp_concept,
+        self.app_datum_text = { 'id': 1,
                                 'attributes': { 'text': self.text_uri,
                                                 'startposition': self.startpos,
-                                                'endposition': self.endpos } }                                                
-        self.rel_datum = { 'source': cp_concept,
-                           'target': cp_concept,
+                                                'endposition': self.endpos,
+                                                'concept': cp_concept } }
+        self.rel_datum = { 'source': 1,
+                           'target': 1,
                            'attributes': { 'predicate': cp_concept } }
                            
-        self.rel_datum_text = { 'source': cp_concept,
-                                'target': cp_concept,
+        self.rel_datum_text = { 'source': 1,
+                                'target': 1,
                                 'attributes': { 'predicate': cp_concept,
                                                 'text': self.text_uri,
                                                 'startposition': self.startpos,
@@ -302,32 +324,19 @@ class DatasetManagerTests(TestCase):
         self.assertEqual(len(networks), 1)
         self.assertEqual(networks[0].id, self.network.id)
 
+#########################
+#                       #
+#   Tests for Views     #
+#                       #
+#########################
+
 class DatasetEndpointView(TestCase):
     """
     The Dataset Endpoint view provides JSON describing Appellations and 
     Relations for a specified dataset.
     """
     
-    def setUp(self):
-        self.factory = RequestFactory()
-        
-        create_concept_authority()
-        create_location_authority()
-        self.text = create_text()
-
-        self.network = create_network()
-        self.dataset = create_dataset(self.network)
-
-        self.manager = DatasetManager(self.dataset)
-        
-        # Mimick form data.
-        datapath = './networks/testdata/testnetwork.xgmml'
-        self.cleaned_data = { 'format': 'XGMML',
-                              'upload': open(datapath, 'rb') }
-        self.formdata = { 'linked_dataset-0-network': self.network.id }
-        
-        self.dataset = self.manager.add_dataset(self.cleaned_data,
-                                                self.formdata)
+    setUp = view_test_setup
 
     def test_nonexistent_dataset(self):
         """
@@ -350,8 +359,11 @@ class DatasetEndpointView(TestCase):
         content_type = response._headers['content-type'][1]
         self.assertEqual(content_type, 'application/json')
         
-        # Dataset id is correct?
+        # Readable JSON?
         rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
+        
+        # Dataset id is correct?
         self.assertEqual(rdata['dataset']['id'], self.dataset.id)
 
         # Appellations provided?
@@ -366,26 +378,7 @@ class NetworkEndpointView(TestCase):
     specified Network.
     """
     
-    def setUp(self):
-        self.factory = RequestFactory()
-        
-        create_concept_authority()
-        create_location_authority()
-        self.text = create_text()
-
-        self.network = create_network()
-        self.dataset = create_dataset(self.network)
-
-        self.manager = DatasetManager(self.dataset)
-        
-        # Mimick form data.
-        datapath = './networks/testdata/testnetwork.xgmml'
-        self.cleaned_data = { 'format': 'XGMML',
-                              'upload': open(datapath, 'rb') }
-        self.formdata = { 'linked_dataset-0-network': self.network.id }
-        
-        self.dataset = self.manager.add_dataset(self.cleaned_data,
-                                                self.formdata)
+    setUp = view_test_setup
 
     def test_nonexistent_network(self):
         """
@@ -408,9 +401,12 @@ class NetworkEndpointView(TestCase):
         response = network_endpoint(request, self.network.id)
         content_type = response._headers['content-type'][1]
         self.assertEqual(content_type, 'application/json')
-        
-        # Network id is correct?
+
+        # Readable JSON?
         rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
+
+        # Network id is correct?
         self.assertEqual(rdata['network']['id'], self.network.id)
 
         # Nodes provided?
@@ -418,4 +414,114 @@ class NetworkEndpointView(TestCase):
         
         # Edges provided?
         self.assertIn('edges', rdata['network'])
-                
+
+class ListNetworksViewTests(TestCase):
+    setUp = view_test_setup
+
+    def test_returns_200(self):
+        request = self.factory.get('/networks/network/')
+        response = list_networks(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_returns_json(self):
+        request = self.factory.get('/networks/network/')
+        response = list_networks(request)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+        
+        # Readable JSON?
+        rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
+        
+        # Network id is correct?
+        self.assertEqual(rdata['networks'][0]['id'], self.network.id)
+
+        # N Nodes provided?
+        self.assertEqual(rdata['networks'][0]['nodes'], 4)
+        
+        # N Edges provided?
+        self.assertEqual(rdata['networks'][0]['edges'], 3)
+
+
+class ListDatasetsViewTests(TestCase):
+    setUp = view_test_setup
+
+    def test_returns_200(self):
+        request = self.factory.get('/networks/dataset/')
+        response = list_datasets(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_returns_json(self):
+        request = self.factory.get('/networks/dataset/')
+        response = list_datasets(request)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+
+        # Readable JSON?
+        rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
+
+        # Network id is correct?
+        self.assertEqual(rdata['datasets'][0]['id'], self.dataset.id)
+
+        # N Nodes provided?
+        self.assertEqual(rdata['datasets'][0]['appellations'], 7)
+        
+        # N Edges provided?
+        self.assertEqual(rdata['datasets'][0]['relations'], 3)
+
+
+class TextAppellationsViewTest(TestCase):
+    """
+    tests for views.text_appellations
+    """
+    
+    setUp = view_test_setup
+    
+    def test_returns_200(self):
+        """
+        If there are appellations for that text, returns 200.
+        """
+        self.text = create_text()
+
+        request = self.factory.get('/networks/appellations/')
+        response = text_appellations(request, self.text.id)
+        self.assertEqual(response.status_code, 200)
+
+    def test_returns_200_wrong_id(self):
+        """
+        If no appellations for that text exist, return 200 with empty dataset.
+        """
+        
+        self.text = create_text()
+
+        request = self.factory.get('/networks/appellations/')
+        response = text_appellations(request, 5)
+        self.assertEqual(response.status_code, 200)
+    
+        rdata = simplejson.loads(response.content)
+        self.assertEqual(len(rdata['appellations']), 0)
+
+    def test_returns_json(self):
+        """
+        should return readable JSON
+        """
+
+        self.text = create_text()
+        request = self.factory.get('/networks/appellations/')
+        response = text_appellations(request, self.text.id)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+
+        # Readable JSON?
+        rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
+
+        self.assertIn('appellations', rdata)
+
+class TextNetworkViewTest(TestCase):
+    """
+    tests for views.text_appellations
+    """
+    
+    setUp = view_test_setup

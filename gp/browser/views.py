@@ -19,7 +19,7 @@ def list_texts(request):
     data = {    'title': 'Texts',
                 'headers': [ 'Title', 'Length', 'Created', 'Added' ],
                 'items': [ [ 
-                            { 'link': '/browser/texts/{0}'.format(text.id),
+                            { 'link': '/browser/texts/{0}/'.format(text.id),
                               'text': text.title }, 
                             { 'text': text.length },
                             { 'text': text.dateCreated }, 
@@ -48,14 +48,20 @@ def display_text(request, text_id):
                     'link': '/browser/texts/'
                 },
                 'items': [ [ 
-                            { 'link': '/browser/texts/{0}'.format(text.id),
+                            { 'link': '/browser/texts/{0}/'.format(text.id),
                               'text': text.title }, 
                             { 'text': text.dateCreated } ] for text in texts ] }
 
             
     data = {    'title': text.title,
+                'text_id': text.id,
                 'subtitle': text.uri,
                 'text': text.content,
                 'leftlist': tdata }
-    return render_to_response('browser/base_leftsidebar.html', data)
+
+    return render_to_response('browser/display_text.html', data)
+
+def display_network(request, network_id):
+
+    return render_to_response('browser/network.html', {'network_id': network_id})
                 
