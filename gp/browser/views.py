@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from texts.models import Text
 
 def index(request):
-    return HttpResponse("Yup");
+    return render_to_response('browser/base_home.html', {})
     
 def geographic(request):
     return render(request, 'browser/geographic.html')
@@ -60,7 +60,7 @@ def display_text(request, text_id):
 
     return render_to_response('browser/display_text.html', data)
 
-def display_network(request, network_id):
+def display_network(request, network_id=1):
 
     return render_to_response('browser/network.html', {'network_id': network_id})
                 

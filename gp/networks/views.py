@@ -23,7 +23,9 @@ def appellation_data(appellations):
                'type': app.concept.type.uri,
                'id': app.id     }
         if app.textposition is not None:
-            ad['textposition'] = { 
+            ad['textposition'] = {
+                'text_id': app.textposition.text.id,
+                'text_title': app.textposition.text.title,
                 'text': app.textposition.text.uri,
                 'startposition': app.textposition.startposition,
                 'endposition': app.textposition.endposition       
@@ -55,11 +57,17 @@ def relation_data(relations):
                 'source': rel.source.id,
                 'target': rel.target.id,
                 'predicate': { 'id': rel.predicate.id }}
-        for field in [ 'text', 'startposition', 'endposition' ]:
+        for field in [ 'startposition', 'endposition' ]:
             try:
                 rd['predicate'][field] = rel.predicate.textposition.__dict__[field]
             except (KeyError, AttributeError):
                 pass
+        try:
+            rd['predicate']['text'] = rel.predicate.textposition.text.uri
+            rd['predicate']['text_id'] = rel.predicate.textposition.text.id
+            rd['predicate']['text_title'] = rel.predicate.textposition.text.title
+        except AttributeError:
+            pass
         rel_data.append(rd)
 
     return {'relations': rel_data}

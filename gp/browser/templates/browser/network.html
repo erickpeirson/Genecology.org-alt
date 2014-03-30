@@ -1,166 +1,53 @@
-{% extends "browser/base_leftsidebar.html" %}
+{% extends "browser/base_rightsidebar.html" %}
+
+{% block sidebar %}
+
+<section>
+    <div id="network-visualization"></div>
+</section>
+
+<section>
+    <div id="instructions">Click on a node or edge for more information.</div>
+    <div id="element_details">
+        <h3 class="element_details_title"></h3>
+        <ul class="element_details_list">
+            <li class="element_details_uri"></li>
+            <li class="element_details_type"></li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <div id="element_texts">
+        <h3 class="element_texts_title"></h3>
+        <ul class="element_texts_list"></ul>
+    </div>
+</section>
+ 
+ {% endblock %}
 
 {% block maincontent %}
-		<div id="network">
-			<div id="network-visualization" style="border: 1px solid black;"></div>
-			<div id="stop-layout" paused="no"><span>(Un)Pause</span></div>
-			<div id="node-types"><span id="node-types-span">Node Types: <select multiple id="node-types-select"><option selected="selected">People</option><option selected="selected">Institutions</option></select></span>
-			</div>
-		</div>
+			<div id="network-visualization"></div>
+			<!-- 
+<div id="stop-layout" paused="no"><span>(Un)Pause</span></div>
+			
+<div id="node-types"><span id="node-types-span">Node Types: <select multiple id="node-types-select"><option selected="selected">People</option><option selected="selected">Institutions</option></select></span>
+ -->
 {% endblock %}
 
 {% block endscripts %}
 <script type="text/javascript">
+
+// Disable text-specific functionality.
+var text_present = false;
+
+// Dimensions of the network visualization.
 var width = 600,
-    height = 400;
-
-var color = d3.scale.category10();
-
-var types = [];
-var t_index = 0;
-
-var force = d3.layout.force()
-    .charge(-400)
-    .linkDistance(200)
-    .size([width, height]);
-
-var svg = d3.select("#network-visualization")
-	.append("svg")
-    .attr("width", width)
-    .attr("height", height)
-    .attr("pointer-events", "all")
-	.append('svg:g')
-    .call(d3.behavior.zoom()
-    .scaleExtent([0.2, 3.5])
-    .on("zoom", redraw))
-	.append('svg:g');
-
-svg.append('svg:rect')
-    .attr('width', width)
-    .attr('height', height)
-    .attr('fill', 'white');
-
-function redraw() {
-	console.log("here", d3.event.translate, d3.event.scale);
-	svg.attr("transform",
-		"translate(" + d3.event.translate + ")"
-		+ " scale(" + d3.event.scale + ")");
-}
-
-d3.json("/networks/network/{{ network_id }}/", function(error, graph) {
-	var hash_lookup = [];
-	graph.network.nodes.forEach(function(d, i) {
-		hash_lookup[d.id] = d;
-		if (!types[d.type]) {
-			types[d.type] = t_index*3;
-			t_index++;		
-		}
-	});
-	graph.network.edges.forEach(function(d, i) {
-		d.source = hash_lookup[d.source];
-		d.target = hash_lookup[d.target];
-	});
-
-	force
-		.nodes(graph.network.nodes)
-		.links(graph.network.edges)
-		.start();
-
-	var link = svg.selectAll(".link")
-		.data(graph.network.edges)
-		.enter()
-		.append("line")
-		.attr("class", "link")
-		.style("stroke", "#999")
-		.style("stroke-width", function(d) {
-			return d.relations.length;
-		})
-		.attr("ids", function(d) {
-			return d.source.id;
-		})
-		.on("click", function(d) { 
-			console.log (d);
-			link
-				.classed("focal_edge", false)
-				.style("stroke-width", function(f) {
-					return f.relations.length;
-				})
-			d.focal = true;
-			d3.select("[ids=" + d.source.id)
-				.classed("focal_edge", true)
-				.style("stroke-width", function(e) {
-					return e.relations.length + 2;
-				});
-		
-		 });
-
-	var node = svg.selectAll(".node")
-		.data(graph.network.nodes)
-		.enter().append("circle")
-		.attr("class", "node")
-		.attr("r", 10)
-		.attr("id", function (d) { return d.id; })
-		.style("fill", function(d) { 
-			return color(types[d.type]);
-		})
-		.call(force.drag);
-
-	node.on("click", function (d) {
-		console.log(d.concept);
-		d.fixed = 1;
-		// De-select all
-		node
-			.classed("focal", false)
-			.attr("r", 10);
-			
-		// Select the focal node
-		d.focal = true;
-		d3.select("[id=\"" + d.id + "\"]")
-			.classed("focal", true)
-			.attr("r", 15);
-		
-		// load tabbed content
-	});
-
-  node.append("title")
-      .text(function(d) { return d.name; });
-
-  force.on("tick", function() {
-    link.attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("cx", function(d) { return d.x; })
-        .attr("cy", function(d) { return d.y; });
-  });
-  
-  var stop = d3.select("#stop-layout").on("click", function () { 
-		if (d3.select("#stop-layout").attr("paused") == 'no') {
-			force.stop(); 
-			d3.selectAll(".node").attr("fixed", function (d) {
-				d.fixed = 1;
-			});
-			d3.select("#stop-layout").attr("paused", 'yes')
-		} else {
-			d3.selectAll(".node").attr("fixed", function (d) {
-				d.fixed = 0;
-			});
-			force.start();
-			d3.select("#stop-layout").attr("paused", 'no')
-		}
-	});
-
-	function activate (d) {
-		if (d.focal == 1) {
-			console.log(d.concept);
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-});
+    height = 500;
+    
+var network_id = "{{ network_id }}";
 
 </script>
+
+<script src="/static/browser/js/network.js"></script>
 {% endblock %}
