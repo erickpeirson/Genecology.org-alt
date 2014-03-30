@@ -234,32 +234,38 @@ d3.json(data_path, function(error, graph) {
                 }
             });
         
-            // An 'active' node may have been passed from another page. If so, activate it.
-            var active_node = $.urlParam('active_node');
-            if (active_node) {
-                var this_node = hash_lookup[active_node];
-                var these_appellations = [];
-                this_node.appellations.forEach(function(a) {
-                    these_appellations.push( d3.select('a.appellation[id="'+a+'"]')[0][0] );
-                });
-                activate_node(this_node, these_appellations);
-            }
-        
-            var active_edge = $.urlParam('active_edge');
-            if (active_edge) {
-                console.log(active_edge);
-                var this_edge = edge_hash_lookup[active_edge];
-                var these_relations = this_edge.relations;
-                var these_appellations = [];
-                these_relations.forEach( function(r) {
-                    these_appellations.push( d3.select('a.appellations[id="'+predicates_relations[r]+'"]')[0][0] );
-                });
-                activate_edge(this_edge, these_appellations);
+			check_active();
             
-            }
         });
+    } else {
+    	check_active();
     }
 
+	function check_active() {
+		// An 'active' node or edge may have been passed from another page. If so, activate it.
+		var active_node = $.urlParam('active_node');
+		if (active_node) {
+			var this_node = hash_lookup[active_node];
+			var these_appellations = [];
+			this_node.appellations.forEach(function(a) {
+				these_appellations.push( d3.select('a.appellation[id="'+a+'"]')[0][0] );
+			});
+			activate_node(this_node, these_appellations);
+		}
+	
+		var active_edge = $.urlParam('active_edge');
+		if (active_edge) {
+			console.log(active_edge);
+			var this_edge = edge_hash_lookup[active_edge];
+			var these_relations = this_edge.relations;
+			var these_appellations = [];
+			these_relations.forEach( function(r) {
+				these_appellations.push( d3.select('a.appellations[id="'+predicates_relations[r]+'"]')[0][0] );
+			});
+			activate_edge(this_edge, these_appellations);
+		
+		}	
+	}
 
 	// Clears all 'focal' classes from nodes, edges, appellations.
 	function deselect_all() {
@@ -332,7 +338,7 @@ d3.json(data_path, function(error, graph) {
                 return texts[key];
             });
     
-            $('.element_texts_title').text('Concept appears in...');
+            $('.element_texts_title').text(d.label + ' appears in...');
             var element_texts = d3.select('.element_texts_list');
             $('.element_texts_list').empty();
             var text = element_texts
@@ -387,7 +393,10 @@ d3.json(data_path, function(error, graph) {
 		d3.select('.element_details_title').text(d.label);
 		d3.select('.element_details_uri').text(d.concept);
 		d3.select('.element_details_type').text(d.type);
-        show_node_texts(d);		
+        show_node_texts(d);
+        
+		$('[id="network-link"]').empty();
+		$('[id="network-link"]').append('<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>');
 	}
 	
 	function show_edge_details(d) {
@@ -395,5 +404,8 @@ d3.json(data_path, function(error, graph) {
 		d3.select('.element_details_title').text(d.source.label + ' [' + d.label + '] ' + d.target.label);
 		d3.select('.element_details_uri').text(d.concept);
         show_edge_texts(d);
+        
+		$('[id="network-link"]').empty();
+		$('[id="network-link"]').append('<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>');        
 	}
 });

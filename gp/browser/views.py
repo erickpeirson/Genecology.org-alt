@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from texts.models import Text
 
 def index(request):
-    return render_to_response('browser/base_home.html', {})
+    return render_to_response('browser/base_home.html', {'nav_active': 'home'})
     
 def geographic(request):
     return render(request, 'browser/geographic.html')
@@ -23,7 +23,8 @@ def list_texts(request):
                               'text': text.title }, 
                             { 'text': text.length },
                             { 'text': text.dateCreated }, 
-                            { 'text': text.dateAdded } ] for text in texts ] }
+                            { 'text': text.dateAdded } ] for text in texts ],
+                'nav_active': 'texts' }
     
     return render_to_response('browser/list_nosidebar.html', data)
 
@@ -56,11 +57,38 @@ def display_text(request, text_id):
                 'text_id': text.id,
                 'subtitle': text.uri,
                 'text': text.content,
-                'leftlist': tdata }
+                'leftlist': tdata,
+                'nav_active': 'texts' }
 
     return render_to_response('browser/display_text.html', data)
 
 def display_network(request, network_id=1):
 
-    return render_to_response('browser/network.html', {'network_id': network_id})
-                
+    return render_to_response('browser/network.html', {'network_id': network_id,
+                                                        'nav_active': 'network'})
+
+
+def data(request):
+    data = {'nav_active': 'data',
+            'paragraphs': [
+                { 'text': 'This page describes how you can access and use'    +\
+                          ' our data for your own research.' },
+                { 'text': '[ Downloading network datasets ]' },
+                { 'text': '[ Connecting to our RESTful API ]' },
+                { 'text': '[ Downloading our corpus model ]' },
+                { 'text': '' } ] }
+                          
+    return render_to_response('browser/base_nosidebar.html', data)
+
+def participate(request):
+    data = {'nav_active': 'participate',
+            'paragraphs': [
+                { 'text': 'This page describes how you can contribute to the' +\
+                          ' Genecology Project.' },
+                { 'text': '[ Annotated texts ]' },
+                { 'text': '[ Archival materials ]' },
+                { 'text': '[ Oral histories ]' },
+                { 'text': '[ Comments & suggestions ]' },
+                { 'text': '' } ] }
+                          
+    return render_to_response('browser/base_nosidebar.html', data)

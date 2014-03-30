@@ -9,4 +9,6 @@ urlpatterns = patterns('',
     url(r'networks/(?P<network_id>.*?)/$', views.display_network, name='display_network'),
     url(r'networks/$', views.display_network, name='display_network'),    
     url(r'geographic', views.geographic, name='geographic'),
+    url(r'data/$', views.data, name='data'),
+    url(r'participate/$', views.participate, name='participate'),
 )

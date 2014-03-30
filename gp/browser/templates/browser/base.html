@@ -48,10 +48,11 @@
 										<nav id="nav">
 										    {% block headernav %}
 											<ul>
-												<li><a href="/browser/">Home</a></li>
-												<li><a href="/browser/networks/">Network</a></li>
-												<li class="current_page_item"><a href="/browser/texts/">Texts</a></li>
-												<li><a href="/browser/data/">Data</a></li>
+												<li{% if nav_active == 'home' %} class="current_page_item"{% endif %}><a href="/browser/">Home</a></li>
+												<li{% if nav_active == 'network' %} class="current_page_item"{% endif %}><a href="/browser/networks/">Network</a></li>
+												<li{% if nav_active == 'texts' %} class="current_page_item"{% endif %}><a href="/browser/texts/">Texts</a></li>
+												<li{% if nav_active == 'data' %} class="current_page_item"{% endif %}><a href="/browser/data/">Data</a></li>
+												<li{% if nav_active == 'participate' %} class="current_page_item"{% endif %}><a href="/browser/participate/">Participate</a></li>												
 											</ul>
                                             {% endblock %}
 										</nav>
@@ -95,14 +96,8 @@
 							<!-- Links -->
 								<section class="widget-links">
                                     {% block widgetlinks2 %}
-									<h2>Random Stuff</h2>
-									<ul class="style2">
-										<li><a href="#">Etiam feugiat condimentum</a></li>
-										<li><a href="#">Aliquam imperdiet suscipit odio</a></li>
-										<li><a href="#">Sed porttitor cras in erat nec</a></li>
-										<li><a href="#">Felis varius pellentesque potenti</a></li>
-										<li><a href="#">Nullam scelerisque blandit leo</a></li>
-									</ul>
+									<h2>Digital & Computational HPS</h2>
+									<p>We participate in the international <a href="http://digitalhps.org/">Digital History & Philosophy of Science Consortium</a>. The Genecology Project is part of a constellation of digital and computational HPS projects in the <a href="http://devo-evo.lab.asu.edu">Laubichler Lab</a> and the <a href="http://devo-evo.lab.asu.edu/diging">ASU Digital Innovation Group</a>.</p>
 									{% endblock %}									
 								</section>
 						
@@ -112,14 +107,12 @@
 							<!-- Links -->
 								<section class="widget-links">
 								    {% block widgetlinks3 %}
-									<h2>Random Stuff</h2>
-									<ul class="style2">
-										<li><a href="#">Etiam feugiat condimentum</a></li>
-										<li><a href="#">Aliquam imperdiet suscipit odio</a></li>
-										<li><a href="#">Sed porttitor cras in erat nec</a></li>
-										<li><a href="#">Felis varius pellentesque potenti</a></li>
-										<li><a href="#">Nullam scelerisque blandit leo</a></li>
-									</ul>
+									<h2>Funding</h2>
+									<img src="/static/browser/images/logos/nsf1.gif" width="70" style="float:right;margin-left: 5px;" />
+									<p>This material is based upon work supported by the National Science Foundation Graduate Research Fellowship Program under Grant No. 2011131209, and NSF Doctoral Dissertation Research Improvement Grant No. 1256752.<br /><br />
+									<img src="/static/browser/images/logos/gpsa_logo.gif" width="70" style="float:left;margin-right: 5px;" />
+									Funded in part by the ASU Graduate and Professional Students Association, under a Graduate Research Support grant, "Models of Phenotypic Plasticity in Ecology," and under multiple conference and research travel grants.</p>
+								
 									{% endblock %}
 								</section>
 						
@@ -138,9 +131,7 @@
 										<li><a href="#" class="fa fa-google-plus solo"><span>Google+</span></a></li>
  -->
 									</ul>
-									<p>1234 Fictional Road Suite #5432<br />
-									Nashville, Tennessee 00000-0000<br />
-									(800) 555-0000</p>
+									<p><a href="http://devo-evo.lab.asu.edu/diging">ASU Digital Innovation Group</a></p>
 								    {% endblock %}
 								</section>
 						
@@ -151,7 +142,7 @@
 						<div class="12u">
 							<div id="copyright">
 							    {% block copyright %}
-								&copy; Untitled. All rights reserved. | Images: <a href="http://fotogrph.com/">fotogrph</a> | Design: <a href="http://html5up.net/">HTML5 UP</a>
+								&copy; <a href="http://gradinfo.cbs.asu.edu/?page_id=49">Erick Peirson</a>, 2014. All rights reserved.
 								{% endblock %}
 							</div>
 						</div>

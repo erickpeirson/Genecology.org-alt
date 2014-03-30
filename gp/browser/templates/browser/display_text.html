@@ -4,6 +4,7 @@
 
     <section>
         <div id="network-visualization"></div>
+        <div id="network-link"></div>
     </section>
 
     <section>
@@ -67,15 +68,11 @@
 
 {% block endscripts %}
 <script type="text/javascript">
-
 // Dimensions of the network visualization.
 var width = 300,
     height = 300;
-
 var text_id = "{{ text_id }}";
-
 var text_present = true;
-
 </script>
 
 <script src="/static/browser/js/network.js"> </script>

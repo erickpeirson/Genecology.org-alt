@@ -934,3 +934,11 @@
 		font: 10px sans-serif;
 		color: red;
 	}
+	
+	#network-link {
+		width: 100%;
+		text-align:center;
+	}
+	
+	#network-link a {
+	}
