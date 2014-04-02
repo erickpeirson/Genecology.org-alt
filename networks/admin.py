@@ -36,8 +36,4 @@ class DatasetAdmin(admin.ModelAdmin):
 
 admin.site.register(Dataset, DatasetAdmin)
 admin.site.register(Network, NetworkAdmin)
-admin.site.register(Node)
-admin.site.register(Edge)
-admin.site.register(Appellation)
-admin.site.register(Relation)
 admin.site.register(NetworkProjection)

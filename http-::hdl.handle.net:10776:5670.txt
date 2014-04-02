@@ -1,0 +1,718 @@
+BRAUNTON BURROWS: THE EFFECTS ON THE VEGETATION OF THE ADDITION OF MINERAL NUTRIENTS TO THE DUNESOILS
+By A. J. WILLIS
+Department of Botany, University of Bristol
+
+INTRODUCTION
+In earlier publications of this series (Willis, Folkes, Hope-Simpson & Yemm 1959a; Willis & Yemm 1961) it was shown that the vegetation of the dune system of Braunton Burrows, N. Devon, may be severely limited by the supply of mineral nutrients. The results of turf transplant cultures and the growth of tomato as an indicator plant in the sand suggested that the major nutrients, nitrogen, phosphorus and potassium, were
+the chief deficiencies, minor minerals being present in adequate amounts.
+A second approach is to add nutrients, in various combinations, to the soils of the
+Burrows and to determine the effects of these additions on the growth and floristic
+composition of the vegetation. Thus the influence of other factors operating in the
+natural habitat may be Assessed and some of their interactions with the supply of soil
+nutrients revealed. From this standpoint it was of particular interest to investigate the
+effects of treatment with mineral nutrients on the wide range of communities represented
+in the dune system (Willis, Folkes, Hope-Simpson & Yemm 1959b); contrasting sharply,
+for example, is the vegetation of the dune slacks and that of the dry dunes, both in
+respect of the dominant plants and associated species.
+The purpose of the present paper is chiefly to report the effects on various types of
+vegetation of the dunes and the slacks of the addition of mineral nutrients in the field.
+The studies were coupled with those carried out under controlled conditions in a glasshouse on turf transplants, most of the results of which have already been given (Willis
+& Yemm 1961); however, some further results of investigation of the effect of various
+mineral nutrients on transplants from the slacks are included here. In the Burrows
+themselves the effects of a variety of combinations of nutrients were most fully explored
+with reference to the vegetation of the slacks. Successive applications of the nutrient
+salts were made in selected experimental sites, and the components of the vegetation
+assessed on a number of occasions over a period of 2 years. In this way information
+could be gained of the nature and rate of changes in the composition of the vegetation
+and a comparison could be made with the changes observed in the turf transplants,
+in which different nutrient treatments were found to favour different species to different
+extents, resulting in marked changes in their proportions.
+In this series of investigations it was hoped, by the different approaches, to elucidate
+fairly fully the importance of the levels of the various mineral nutrients in controlling
+the vigour, distribution and relative abundance of the plants of the dune system.
+
+EXPERIMENTAL METHODS
+(1) Field experiments
+The effects on the vegetation of the addition of mineral nutrients were studied in six
+sites, chosen to represent the chief communities of the Burrows. These areas were as
+follows: a low 'fixed' dune, bearing dry dune pasture type vegetation containing relict
+Ammophila armaria; typical dry dune pasture (containing Festuca rubra with abundant
+Thymus drucei and Camptothecium lutescens); lichen-type dry dune pasture; a belt
+ranging from dry dune pasture to slack vegetation; and two samples of slack vegetation.
+In each site care was taken to select, by subjective judgment, a plot of sufficient size in
+which the vegetation was as nearly as possible uniform, and the surface of the ground
+fairly level. (Mineral nutrients were also added to pure marram on a high dune but the
+results of the study on marram will, however, be presented in a subsequent paper.)
+In all, the experiments covered the period from June 1957 to June 1961, the individual
+experiments being run for 2 years. During the whole of this period there was no evidence
+of the existence on the Burrows of appreciable numbers of rabbits, and there was very
+little indication that rabbit-grazing had any significant effect on the results. It may be
+noted, however, that previous attempts (in 1948-49) to conduct investigations on the
+effects of mineral nutrients on the vegetation had to be abandoned because it was found
+impossible to fence off areas of the Burrows effectively from the very abundant rabbit
+population.
+(a) Lay-out of the experiments
+In each site, replicate treatments with mineral nutrients were given, for most of the
+experimental plots the lay-out being based on a Latin Square.
+For three of the areas (dry dune pasture with marram, typical dry dune pasture and
+lichen-type pasture) the effects of the treatment with a mixture of salts containing the
+major nutrients, and of a similar mixture but with trace elements in addition, were
+assessed by means of a 3x3 Latin Square. Plots of 11x11 ft (3-35x3-35 m), selected
+for uniformity of the vegetation, were gridded so as to give three rows and three columns,
+each of the nine units so formed being 3x3 ft (91-4x91-4 cm); between the rows and
+columns were strips 1 ft (30-5 cm) wide which were used for access and which reduced
+the possibility of spread of nutrients from one small square to another. For reference,
+the corners of these small squares were permanently marked; wooden labels inserted
+flush with the sand surface were found to be satisfactory for this. In each row and column
+of the Latin Square there was one control area, to which no nutrients were added, one
+area which received major nutrients only and one area to which were added both major
+and minor nutrients. In the site in which relict marram was present, it was thought
+appropriate, in view of the extensive rhizome system of the plant, to increase the size
+of the Latin Square to 12-5x 12-5 ft (3-81 x 3-81 m), the small squares being of 3-5 ft
+(1-07 m) side.
+In one of the sites of the slack vegetation a very simple experimental lay-out involving
+only four small squares was adopted, and the comparison was confined to that between
+the control vegetation (no treatment) and the vegetation receiving complete nutrients.
+The small squares were of 4-5 ft (1-37 m) side, and the access strips here 3 ft (91-4 cm)
+wide, because of the possibility of lateral movement of nutrients in this damp
+habitat.
+
+In the second site where the vegetation of the slacks was studied, a level area of 31
+xll ft (9-45x3-35 m) was selected, and gridded to give twenty-four squares of 3 ft
+(91-4 cm) side, so as to allow a three-fold replication of seven treatments with mineral
+nutrients and also controls.
+The belt of vegetation investigated was 30 ft (9-14 m) long and 1-5 ft (45-7 cm) wide;
+for convenience in the addition of salts and for assessing the vegetation the transect
+was treated as a series of units 3 ft (91-4 cm) long. A mixture of complete nutrients was
+added to the whole of the belt, and an adjoining belt of vegetation served as a control.
+(b) Treatment with mineral nutrients
+The mineral salts were applied to the experimental plots on three occasions during
+the year, usually in mid-June, October, and late April. All the experiments were started
+in June; as each ran for 2 years, the areas received altogether six applications of salts.
+The salts were crushed, thoroughly mixed, and spread by hand in powder form as
+evenly as possible over the appropriate areas.
+Table 1. The composition of the mixtures of salts
+The figures represent the weight in grammes for treatment of 1 of vegetation.
+
+
+The amounts of salts added were based, in general, on the levels often used in agricultural practice for correcting deficiencies of nutrients in the soil. As three applications
+of salts were made each year, the quantities of nutrients added were substantial. The
+composition of the mixtures of salts applied is shown in Table 1; analytical grade
+chemicals were used throughout the present study. In most of the experimental areas
+the effects of a combination of all the major and minor nutrients listed were studied,
+and in some of the areas the effects of a mixture of the major nutrients only were also
+investigated. No additions of calcium were made, as this is present in abundance in
+the sandy soils (Willis et al. 1959a).
+
+Table 2. The composition of the various mixtures of mineral salts used in the
+experiment on slack vegetation
+
+The figures represent quantities (grammes) added per square yard for the seven treatments.
+A more detailed investigation was carried out on the vegetation of one of the slacks;
+the effects of the addition of nitrogen, phosphorus and potassium were studied alone
+and in various combinations. Details of the salt mixtures are given in Table 2. In order
+to avoid possible unfavourable effects of the addition of single salts, some degree of
+ionic balance was obtained by the use of magnesium sulphate. No additions of any of
+the minor nutrients were made in this experiment.
+(c) Assessments of the vegetation
+The vegetation of the experimental sites was scored subjectively by the methods
+described by Willis et al. (1959a) and by Willis & Yemm (1961). As the areas in which
+the vegetation was assessed were usually 1 yd2 (0-84 m2) or larger, in the estimation of
+the relative contribution of the various species to the total bulk of the vegetation it was
+in some instances appropriate to count more than ten 'traces' as the equivalent of one
+unit, because some plants were present in only the most minute quantities.
+In order to obtain evidence of rates of change of the vegetation, complete assessments
+were made at the start of each experiment, at the end of the first year, and when the
+experiments were terminated after treatment for 2 years. In addition, scores of all the
+major components were made in April and in October. As well as the scores of relative
+bulk at these times, the average height of the vegetation was estimated.
+At the end of the experiments the vegetation was cut off at ground level, and separated
+into the various components which were weighed to provide an objective assessment.
+Usually the vegetation was cut from the central 2x2 ft (61 x61 cm) of the small squares
+in order to avoid any edge effect. The vegetation was sorted, immediately after cutting,
+into the chief species which were collected in a series of polythene bags; plants present
+as 'traces' only were all bulked together (referred to as 'remainder'). The bags were
+weighed, as soon as sorting was complete, by means of a spring balance, protected
+from wind, on the site. In this way a record was obtained of the fresh weights of the
+total vegetation and of its major components. For convenience of comparison with the
+subjective estimates, the weights for each species (and the 'remainder') were converted
+into the appropriate mark equivalent out of a total of 10, an allowance being made for
+bare ground. It must be realised, however, that the subjective scores refer to the complete
+small squares, and the estimates based on weight to only the central portions of these
+squares. Nevertheless, edge effects were usually fairly small, and in the considerable
+number of checks which were made in the course of the present investigations the
+agreement between the two sets of results proved to be very close. There was, however,
+some tendency to underestimate, by the subjective method, small trailing plants such as
+Anagallis tenella, and also bryophytes and lichens when these form a thick mat.
+
+(2) Transplant experiment
+The experimental procedure was the same as that adopted in previous investigations,
+a full account of which has already been given (Willis & Yemm 1961).
+Ten round turves, selected for similarity of their vegetation, were collected on 12
+April 1960 from a large slack between the dunes (c/. site S5, Table 9, Willis et al. 1959b),
+and transferred to the greenhouse. The transplant cultures were treated with deionized
+water, as necessary, until 4 May; subsequently additions of mineral nutrient solutions
+were made. Two transplants were treated with a complete mineral nutrient solution,
+two with a solution lacking nitrogen, two with a solution lacking phosphorus, two with
+a solution lacking potassium and two with a solution lacking nitrogen, phosphorus
+and potassium.
+The composition of the solutions is as detailed by Willis & Yemm (1961, pp. 378-9),
+except that the nutrient solution lacking nitrogen contained, in addition to the salts
+listed, 8-76gCaCl2.6H2O/10 1., and the solution lacking potassium contained in addition
+1 -70 g NaNO3/101. The solution lacking nitrogen, phosphorus and potassium contained
+1 -17 g NaCl, 4-38 g CaCl2.6H20 and 1 -84 g MgS04.7H20 per 10 1. as well as the usual
+supply of minor nutrients. Normally the transplant cultures were given 200 ml of culture
+solution and 200 ml of deionized water on alternate days.
+The vegetation was assessed initially on 30 April, again on 21 July and finally on
+8 December 1960 when all of the plants were cut off at the sand surface and the fresh
+weights determined.
+
+Table 3. The composition of the vegetation of lichen-type pasture initially and after treatment with mineral nutrients
+Assessments of the vegetation are given for the nine units of the Latin Square as follows: /, at the start of the experiment (19 June 1958); 2S, subjective scores
+made finally (20 June 1960), and 2W, scores based on the fresh weight of the shoot systems at the end of the experiment. The chief components of the vegetation
+are listed first; 'other' species, details of which are not given, occurring as traces (T) only in not more than three of the units, are Aphanes arvensis, Cerastium
+semidecandrum, Cynoglossum officinale, Desmazeria rigida, Echium vulgare, Erigeron acris, Geranium molle, Phleum arenarium, Sonchus asper, S. oleraceus, Veronica
+arvensis, Viola riviniana, Barbula cylindrica, B.fallax and Nostoc sp. The treatments were: A, major nutrients only; B, major and minor nutrients. C are control
+areas (no addition of nutrients).
+
+EXPERIMENTAL DETAILS AND RESULTS
+(1) The effects on the vegetation of the addition of nutrients in natural habitats
+The addition of mineral nutrients to the vegetation of various parts of the Burrows
+resulted in a pronounced increase in height and fresh weight of the plants. Especially
+well marked were the changes in the floristic composition of the vegetation, treatment
+with nutrients leading to greater abundance, in the dry dune pasture sites, of Festuca
+rubra and Poapratensis ssp. subcaerulea and a corresponding loss of mosses and lichens;
+in the wetter areas Agrostis stolonifera often became a clear dominant.
+The increase in fresh weight of the vegetation resulting from the addition of nutrients
+has been shown to be statistically significant, but the differences in respect of yield between
+the effects of major nutrients and of a combination of major and minor nutrients are
+small and do not reach the level of statistical significance (it may be noted, however,
+that the yields resulting from major plus minor nutrients are consistently somewhat
+greater than those of vegetation receiving only major nutrients). Further, the inclusion
+of minor with the major nutrients did not lead to any detectable differences in the
+composition of the vegetation.
+A fairly full set of results is presented for one site (lichen-type pasture), but for the
+other sites treated similarly the data are, for simplicity, given in less detail, the vegetation
+records for the areas receiving major and major plus minor nutrients being averaged
+together in view of the close agreement of the findings.
+
+(a) Lichen-type pasture
+The area studied was of stable low dune in the inland region of the system, near to
+and having vegetation somewhat similar to that of site D15, shown in Table 7 of Willis
+et al. (1959b). The composition of the vegetation before and after treatment with mineral
+nutrients is listed in Table 3, in which details are given of each unit of the Latin Square.
+It may be seen from Table 3 that initially the vegetation was of a uniform nature,
+and that lichens dominated; especially abundant was Cladonia rangiformis, among
+which grew small amounts of C. furcata; Peltigera canina was also plentiful. Mosses,
+particularly Hypnum cupressiforme, were frequent, and together with lichens made up
+nearly 65% of the vegetation, which reached only 1 -5 cm in height. Festuca rubra and
+Poa pratensis ssp. subcaerulea, although present throughout, were distributed very
+sparsely.
+No clear trends of change were detected over the 2 year period in the control areas,
+but in the treated areas the vegetation showed many differences during this time. The
+lichens and mosses, notably Cladonia rangiformis and Hypnum cupressiforme, were
+much reduced in importance, some forms being eliminated. On the other hand, Festuca
+rubra and Poa pratensis ssp. subcaerulea were considerably favoured, and together
+made up about half of the vegetation at the end of the experiment. These changes were
+common to the areas treated with major nutrients and with major plus minor nutrients;
+the similarity of the effects of these treatments, both in respect of the nature of the changes
+and their magnitude may be seen in Table 3 by comparison of the records for the A
+(major nutrients only) and B (major and minor nutrients) squares. Also shown in
+Table 3 are the much greater height and yield (fresh weight) of the vegetation in the
+treated areas. The more complete cover and the reduction in numbers of species here
+may well be attributed to the luxuriant growth, chiefly of the grasses, and to a lesser
+extent of Sedum acre. Adversely affected by this competition, sometimes to the point of
+Table 4. The rate of change of composition of the vegetation of lichen-type pasture resulting from treatment with mineral nutrients
+Average figures, based on three units of the Latin Square, are given of the subjective estimates of the chief components of the vegetation for seven occasions as
+follows: a, 19 June 1958; b, 26 Oct. 1958; c, 22 April 1959; d, 18 June 1959; e, 24Oct. 1959;/, 12-April 1960; g, 20 June 1960. A, B and C are as listed in Table 3.
+
+Table 5. The effect of the addition of mineral nutrients on the vegetation of lichen-type pasture
+Average scores for the main constituents of the vegetation of the control and treated areas are shown for the seven occasions, a-g, listed in Table 4. The figures
+for the control areas are based on three units of the Latin Square, and for the treated areas on six units, three of which received major nutrients only and three
+both major and minor nutrients. The estimates obtained from the fresh weights of the components of the vegetation are also given (gm), as well as the final subjective assessments (gs). At the foot of the table is shown the average fresh weight yield/unit of the Latin Square.
+extinction, were Hypochaeris glabra, Cladonia pyxidata, Collema and Leptogium spp.,
+Diploschistes scruposus, Placodium fulgens, Tortula ruraliformis and Trichostomum spp.
+Assessments of the vegetation made at various occasions during the 2 year period
+provide information on the rate at which the composition of the vegetation changed.
+The results are given for the main species in Table 4, from which it is evident that only
+minor fluctuations were observed in the control areas. It can also be seen that substantial
+changes occurred in the vegetation of the treated plots and that these changes were
+very similar for the A and B treatments, the records only rarely differing by more than
+J mark. The first application of mineral nutrients resulted in distinctive differences
+between the vegetation of the treated and control areas. Records made 4 months after
+the initial treatment show that the average height of the vegetation receiving nutrients
+was much greater than that of the control, and that the contribution of Festuca rubra
+and Poa pratensis ssp. subcaerulea to the relative bulk was increased whereas that of the
+lichens was smaller. With subsequent additions of nutrients these changes became
+more marked, the grasses ultimately dominating. There is an indication that Crepis
+capillaris was favoured by the treatment at first, but later, like Leontodon leysseri,
+persisted only in trace quantities, probably because of suppression largely by the grasses.
+The major effects of the addition of nutrients are summarized in Table 5, where the
+contrast between the control and treated areas is readily seen. The vegetation of the control areas remained fairly constant, showing only little seasonal variation in height or
+composition of the chief plants; it may be noted that the assessment by weight accorded
+closely with the subjective scores of relative bulk, lichens and mosses making up about
+two-thirds of the weight of4he total vegetation. Table 5 also indicates clearly, as already
+noted, that in the treated areas the increase of Festuca and the somewhat slower increase
+of Poa was associated with a decrease of lichens and mosses; Carex arenaria was
+apparently only little affected by the nutrients. The number of species showed a progressive decline, in contrast to the steady number in the control areas, but the total weight
+of the treated vegetation at the end of the experiment was about twice that of the control.
+An analysis of variance showed that this difference is significant at approximately the
+5% level, but that there were no significant differences due to row or column effects in
+the Latin Square, nor any significant effect of the inclusion of minor nutrients with the
+major.
+It may be seen from Table 5 that the vegetation was shorter in the second year (June
+1960) than in the first year (June 1959) after treatment, in spite of continued application
+of nutrients. This difference is probably a reflection of the drier conditions on the
+Burrows in the early summer of 1960 (rainfall at Chivenor March-June, 6-16 in.) as
+compared with 1959 (rainfall March-June, 7-82 in.), the vegetation being limited by
+lack of moisture; some of the plants in the treated area were in a partially wilted condition during mid June 1960.
+
+(b) Typical dry dune pasture
+The site investigated was a fairly stable low dune (30-5 ft O.D.) just landward of the
+main ridge, and initially bore a closed mossy turf containing plentiful Camptothecium
+lutescens, Hypnum cupressiforme, Peltigera canina, Thymus drucei and Carex arenaria
+together with somewhat smaller amounts of Festuca rubra.
+The chief effects of the application of mineral nutrients are shown in Table 6. No
+substantial changes were observed in the control areas throughout the period of the
+experiment (June 1957 to June 1959), but in the treated areas differences soon became
+evident; by October 1957 enhanced growth was shown by Festuca rubra, Car ex arenaria,
+Erodium cicutarium, Galium verum, Plantago coronopus, Sedum acre and Viola spp.
+The continued increase of Festuca rubra, and to a smaller extent of Sedum acre, was
+accompanied by a reduction in mosses and lichens, and by June 1958 these cryptogams
+were of subsidiary importance whereas Festuca and Poa pratensis ssp. subcaerulea
+made up half of the vegetation. The rise of the grasses was associated with a decrease of
+Thymus drucei, as well as of some of the plants which were earlier favoured by the
+nutrients.
+
+Table 6. The effect of mineral nutrients on the vegetation of dry dune pasture
+The table is constructed in a similar manner to Table 5, average scores for the main components of
+the vegetation being shown for four occasions: a, 15 April 1958, b, 15 June 1958, c, 22 April 1959,
+ds and dm, 15 June 1959, subjective assessments and estimates based on fresh weight. 'Other' species are:
+Aira praecox, Anagallis arvensis, Arenaria serpyllifolia, Cerastium semidecandrum, C. tetrandrum,
+Cladonia rangiformis, Desmazeria rigida, Erigeron acris, Erodium cicutarium, Euphorbia portlandica,
+Galium verum, Geranium molle, Hypochaeris glabra, Phleum arenarium, Plantago coronopus, Senecio
+jacobaea, Sonchus oleraceus, Taraxacum laevigatum, Tortula ruraliformis, Veronica arvensis, Viola canina, V. riviniana.
+
+
+Ultimately the treated areas were very strongly dominated by a thick, tall growth of
+Festuca rubra which contrasted sharply with the low mossy vegetation of the control
+areas. The number of species surviving amongst the thick Festuca was small; eliminated
+or much reduced in occurrence were Aira praecox, Arenaria serpyllifolia, Cerastium spp.,
+Desmazeria rigida, Erodium cicutarium, Euphorbia portlandica, Geranium molle, Hypochaeris glabra, Phleum arenarium and Veronica arvensis. The fresh weight of the vegetation of the treated areas was nearly twjce that of the untreated, this difference being
+statistically significant at approximately the 1 % level.
+
+(c) Dry dune pasture with relict marram
+The vegetation of this site differed chiefly from that of the previous area in containing
+fairly sparse marram of low vigour, rather less Carex arenaria and Festuca rubra, no
+Poa pratensis ssp. subcaerulea, but more Tortula ruraliformis. There was also more bare
+sand than in the adjoining typical dry dune pasture already described.
+The most pronounced effects of the treatment with mineral nutrients are shown in
+
+Fig. 1. Whereas there were no substantial changes in the vegetation of the control areas,
+in the treated parts there was a marked progressive increase of Festuca rubra, and a
+pronounced decline of mosses (chiefly Tortula ruraliformis, Camptotecium lutescens and
+Hypnum cupressiforme) and of Thymus drucei, although the latter was more vigorous
+and flowered more freely in the treated areas in October 1957 (first application of
+nutrients was in June 1957) than in the controls. Also temporarily favoured by the
+nutrients, before the Festuca assumed complete dominance, were Arenaria serpyllifolia,
+Phleum arenarium, Cardamine hirsuta, Senecio jacobaea and Viola riviniana. The addition
+of nutrients led to increased growth and vigour of Ammophila arenaria; the results
+show that greater numbers of shoots were produced of greater average height and of
+greater fresh weight than those of plants in the control areas. However, because of the
+much enhanced growth of Festuca, the relative contribution of Ammophila to the total
+bulk of the vegetation declined slightly.
+
+Fig. 1. The chief changes in the vegetation of dry dune pasture resulting from the application
+of mineral nutrients. The results, given for five successive occasions, are shown in histogram
+form and are based on the average assessments of the six treated areas of the Latin Square.
+After a period of 2 years Festuca dominated the treated areas, there was only very
+little bare sand, and the number of species occurring was reduced to nearly a half of
+those initially present. The average height of the vegetation was finally about 35 cm
+(see Fig. 1) as compared with c. 2 cm in the control, and the fresh weight of the vegetation
+was nearly three times that of the control.
+
+(d) Belt transect
+The belt, situated inland of the main dunes, passed from dry dune pasture into a
+damp hollow. Strongly contrasting types of vegetation were consequently included
+within a short distance of one another.
+The chief points of interest are illustrated in Fig. 2. Although the eastern end (0 ft)
+of the transect was less than 3 ft (0-91 m) higher than the western end (30 ft, 9-14 m),
+it can be seen from Fig. 2 that there was a marked gradation of vegetation; this is
+largely attributable to the influence of the water table (Willis et al. 1959b). Initially,
+at the higher end, mosses and Thymus drucei were the most important components
+of the vegetation, in the lower areas Agrostis stolonifera, Anagallis tenella, Bryum
+pseudotriquetrum, Hydrocotyle vulgaris and Leontodon leysseri were plentiful, and in
+the intermediate zone Festuca rubra and Juncus acutus were abundant; almost everywhere there was a complete cover of vegetation with very little bare sand.
+
+Fig. 2. The changes in the vegetation of a belt transect brought about by the application of mineral
+nutrients. On the left is shown the vegetation initially (June 1958) and on the right after treatment for
+2 years (June 1960). The initial results are based on subjective scores of relative bulk and the final ones
+on both the fresh weights of the plants and the subjective estimates (which were in close agreement).
+Only the most important components of the vegetation are shown. The areas harvested for weight
+determinations were 3 x 1 ft (91 x 30 cm). All of the results apply to the treated transect, except for the
+weights of total vegetation shown on the left of the figure; the values given here were obtained in June
+1960 from the control strip of vegetation which was parallel to the treated strip and about a metre away.
+The profile is shown at the bottom of the figure (water level in mid-June 1960 was 28-2 ft O.D.).
+Treatment with complete nutrients led to the overwhelming dominance of Festuca
+rubra in the higher parts of the transect, and of Agrostis stolonifera in the lower areas
+(see Fig. 2). Poet pratensis ssp. subcaerulea also showed a substantial increase in the
+higher parts, but was somewhat reduced where in competition with very thick Agrostis.
+Holcus lancttus was scanty initially but became more widespread and plentiful as a result
+of the treatment. All these grasses flowered freely in the treated areas, but poorly or
+not at all outside the transect.
+The dense growth of Festuca rubra on the higher ground led to the reduction or
+elimination of mosses, such as Tortula ruraliformis, Camptothecium lutescens, Bryum
+pendulum, Hypnum cupressiforme and Trichostomum flavovirens; lichens, e.g. Peltigera
+canina; Thymus drucei; and small annuals such as Aira praecox and Desmazeria rigida.
+In the wetter areas there was a decline or complete loss of Anagallis tenella, Bellis
+perennis, Bryum pseudotriquetrum, Epipactis palustris, Hydrocotyle vulgaris, Lotus
+corniculatus and Prunella vulgaris, but Carexflacca showed an increase, producing tall
+shoots in the thick Agrostis stolonifera. The mineral nutrients appeared to have little
+effect, however, on Carex arenaria or on Juncus acutus. As found elsewhere on the
+Burrows, and as shown in Fig. 2, treatment with nutrients resulted in few species occurring, much greater height of the vegetation and approximately a doubling of its weight.
+
+Table 7. The effect of complete mineral nutrients on the vegetation of a dune slack
+The assessments of the chief components of the vegetation are given for three occasions: a, 20 June
+1958; b, 18 June 1959; c, 24 June 1960. The results are the averages for two control and two treated
+areas, and for the last occasion are based on the mean of the subjective scores and fresh weight determinations. The figures for total fresh weight refer to an area of 2 x 2 ft (61 x 61 cm). 'Other' species
+include: Blackstonia perfoliata, Carex serotina, Cirsium arvense, C. dissectum, Epipactis palustris,
+Euphrasia confusa, Glaux maritima, Juncus acutus, J. articulatus, Mentha aquatica, Plantago coronopus,
+Prunella vulgaris, Sagina nodosa, Sonchus arvensis, Taraxacum laevigatum, Bryum pseudotriquetrum,
+Campylium polygamum, Leiocolea badensis, Lophocolea bidentata, Moerckia flotoviana, Nostoc sp. and
+Preissia quadrata.
+
+
+(e) The vegetation of dune slacks
+Investigations were made in two parts of a large interdunal slack near the south end
+of the Burrows; in one area the effect of complete nutrients was studied, but in the
+other a more extensive investigation of different nutrient treatments was undertaken.
+In the first of these areas the natural vegetation was open and very short, as shown
+in Table 7, which gives the main features of the vegetation initially, and after treatment
+with complete nutrients. There was little change in the control plots during the 2 years
+of the study, the most important species being Carex flacca, Anagallis tenella, Hydrocotyle vulgaris and rosette plants such as Bellis perennis and Leontodon leysseri. Liverworts, notably Leiocolea badensis, Lophocolea bidentata, Preissia quadrata and Riccardia
+jpinguis, and mosses such as Bryum pseudotriquetrum and Campylium polygonum,
+although making up only a small proportion of the total bulk of the vegetation, were
+widespread and fairly plentiful.
+Treatment with nutrients resulted in the development of much taller and thicker
+vegetation, all the bare sand being quickly covered. Agrostis stolonifera became a
+clear dominant, although Poa pratensis ssp. subcaerulea also increased substantially.
+In addition, Pulicaria dysenterica and Trifolium repens were favoured by the treatment.
+The bryophytes were considerably reduced; for example, Leiocolea badensis and
+Lophocolea bidentata, which in some seasons together formed a mat covering about
+10% of the area of the control plots, were completely eliminated. Many of the lowgrowing dicotyledons were also reduced, especially Anagallis tenella, Bellis perennis,
+Leontodon leysseri and Plantago coronopus. The relative importance of some plants
+was, however, not much altered: among these were Carex arenaria, Glaux maritima,
+Hydrocotyle vulgaris and Juncus articulatus. After 2 years the vegetation of the treated
+areas was not only about fifteen times the height of the untreated vegetation, but was
+more than seven times its fresh weight (see Table 7).
+The second area studied was close to the first and supported similar vegetation, but
+was wetter, the water table being generally about 2 in. (6 cm) nearer to the sand surface
+here than in the first site, and the vegetation subject to flooding during wet seasons
+(the water table in June 1961 was 11 in. (28 cm) below the surface).
+The effects of seven mineral nutrient treatments on the vegetation are shown in
+Table 8, together with the assessments of the vegetation made in the control (untreated)
+areas. It may be seen that the initial composition of the vegetation resembled, in all its
+chief features, that already described; no clear trends of change were detected in the
+vegetation of the untreated squares. Where complete nutrients were added, however,
+extensive changes were soon noticeable; after 2 years the sand surface was almost
+completely covered by the vegetation, Agrostis stolonifera had become dominant, Poa
+pratensis ssp. subcaerulea had increased, but Anagallis tenella was much reduced and
+some bryophytes eliminated. The low-growing dicotyledons were not, however, quite
+so adversely affected as in the previous site, probably because of the rather less tall and
+less dense growth of the Agrostis here (cf. Tables 7 and 8). The fresh weight of the
+vegetation was, nevertheless, finally more than three times that of the control areas.
+In the squares where all the major nutrients, with the exception of nitrogen, were
+added, the vegetation remained short and sparse, although the amount of bare sand
+was somewhat reduced, and the fresh weight of the vegetation finally was about 25%
+greater than that of the control areas. The chief change in the vegetation was an increase
+in Agrostis stolonifera, but this was a much smaller increase than in the areas receiving
+complete nutrients. Most of the other plants were not affected to any marked extent
+and the number of species was maintained at a steady value. Somewhat similar results
+were found in the squares to which only phosphate was added, although here the increase
+of Agrostis was smaller still, and the fresh weight of the total vegetation very similar to
+that of the control.
+Distinctive changes resulted when nutrients complete except for phosphate were
+added to the vegetation. Growth was promoted to some extent, the plants being taller
+Table 8. The effect of different combinations of mineral nutrients on the vegetation of a dune slack
+Scores for the relative bulk of the most important species are given for three occasions: a, 19 June 1959; b, 24 June 1960; c, 19-23 June 1961. The final assessments are based on both the subjective scores and the fresh weight determinations, and the figures for total fresh weights refer to an area of 2 x 2 ft (61 x 61
+cm). All of the results are the means for three replicate squares. Details of the composition of the various mixtures of mineral salts are given in Table 2. 'Other'
+species include: Anagallis arvensis, Cirsium arvense, Epilobium lanceolatum, E. parviflorum, Epipactispalustris, Erigeron acris, Euphrasia confusa, Glaux maritima,
+Holoschoenus vulgaris, Hypericum tetrapterum, Mentha aquatica, Sagina nodosa, Samolus valerandi, Sonchus arvensis, Taraxacum laevigatum, Bryum pseudotriquetrum, Campylium polygamum, Leiocolea badensis, Lophocolea bidentata, Nostqc sp., Preissia quadrata and Riccardia pinguis.
+and heavier than in the untreated plots, but symptoms of phosphorus deficiency were
+evident, much of the foliage being blue-green. The vegetation cover increased a little,
+largely because of a spread of Carices and Junci, which increased from less than a
+quarter of the vegetation initially to more than a half of it. finally (see Table 8). The
+greatest increases were of Juncus gerardii and Car ex serotina, the latter, in spite of its
+small size, making up about one-twentieth of the total vegetation. Agrostis stolonifera
+was relatively little affected by the nutrient addition and became dominated by the
+sedges and rushes. On the other hand, several of the low-growing dicotyledonous plants
+were adversely affected, Plantago coronopus and Prunella vulgaris being eliminated and
+Anagallis tenella, Bellis perennis and Leontodon leysseri severely reduced. Field observations suggested that this loss of certain species was more a direct result of the mixture
+of salts applied than a competitive effect, although the latter was probably also involved.
+It seems possible that the unbalance, in relation to phosphorus, of the high dose of
+salts applied may be very unfavourable for some species, but clearly further investigation
+of this problem is needed. In general, the results obtained for the areas where only
+nitrate was added (+N only in Table 8) were similar to those for the phosphate deficient
+areas just described. Juncus articulatus and /. gerardii were appreciably favoured by the
+treatment, and the low-growing dicotyledonous plants previously noted were reduced,
+some to the point of extinction. There was evidence that Agrostis stolonifera, however,
+here increased in its importance.
+The addition of the major nutrients except for potassium resulted in changes in the
+vegetation similar to those found when complete nutrients were applied. For example,
+A stolonifera was much increased, Poa pratensis ssp. subcaerulea was also favoured,
+the amount of bare sand was considerably diminished, and Anagallis tenella and
+Leontodon leysseri were adversely affected. The vegetation was, however, a little shorter
+than that receiving complete nutrients, and the fresh weight yield was also lower,
+probably indications that potassium deficiency was to some extent limiting growth.
+Where potassium was the only addition made, however, the vegetation was not appreciably different from that of the untreated areas (see Table 8), remaining very short and
+forming only a sparse cover.
+The results shown in Table 8 allow some assessment to be made of the influence
+of the relative deficiencies of nitrogen, phosphorus and potassium on the vegetation,
+apart from the effects on the floristic composition already described. Clearly the greatest
+deficiencies are of nitrogen and of phosphorus, especially of nitrogen, as without added
+nitrate the vegetation stayed short and the fresh weight yield was not much higher
+than that of the control areas. When phosphate was limiting in instances where the other
+major nutrients were applied the yield of the vegetation was on average only about
+50% higher than that of the controls, whereas almost three times the yield of the controls
+was given by the plots receiving major nutrients except for potassium.
+One of the most striking results of this study of the effect of different nutrient regimes
+on the vegetation of the slacks is the success of certain Carices and Junci under conditions
+of phosphorus deficiency. In view of the healthy growth of Carex flacca in the areas
+lacking phosphate it was of interest to assay the level of phosphorus in the tissues to
+try to distinguish whether this plant has only a small requirement for phosphorus or a
+highly efficient absorptive system. Shoots of C. flacca, collected in June 1961 from
+control areas, areas receiving complete nutrients, and from areas treated with complete
+nutrients except for phosphorus, were analysed in respect of their phosphorus content.
+The plant material was digested with a mixture of nitric, hydrochloric and perchloric
+Table 9. The initial composition of turf transplants from a dune slack, and the composition after treatment with various nutrient solutions
+Record a refers to the initial composition (on 30 April 1960); b, to the composition after treatment for about 12 weeks (on 21 July 1960); and c to the final
+composition (after about 32 weeks, on 8 December 1960). The figures give subjective estimates of the relative bulk of the component plants, except for the final
+record which is based on both subjective assessments and fresh weight determinations. The most important species are listed first, and finally those usually present
+but in trace quantities only. Other species, not listed, which occur in some of the transplants as traces are: Bryum pseudotriquetrum, Campy Hum polygamum,
+Car ex serotina, Centaurium minus, Epipactis palustris, Eupatorium cannabinum, Euphrasia confusa, Festuca rubra, Hypericum tetrapterum, Juncus acutus, J. gerardii,
+Linum catharticum, Moerckia flotoviana, Nostoc sp., Preissia quadrata, Sagina nodosa and Sedum acre. All of the records refer to the means of two transplant
+cultures for each treatment (for details of treatments see p. 356).
+acids, and the phosphate estimated using ammonium molybdate and stannous chloride
+by a procedure based on the method of Deniges (1921). Results were obtained as follows:
+
+
+There was clearly a considerable uptake of phosphate by C. flacca when complete
+nutrients were applied, but in the other instances the uptake was small; the difference in
+level of phosphorus (expressed in terms of dry weight of tissue) in control plants and in
+P-treated plants is at least in part due to the greater growth made by the latter.
+(2) The influence of nutrient supply on the growth and composition of turf transplants
+from a dune slack
+As the turf transplants were collected from the slack in which the effect of mineral
+nutrients on the natural vegetation was studied, and close to the two sites involved, the
+vegetation initially was fairly similar to that already described.
+Table 9 shows the chief effects on the transplants of the various treatments. In spite
+of the shelter of a greenhouse, the vegetation stayed short and similar to that of the
+natural habitat when a nutrient solution lacking in nitrogen, phosphorus and potassium
+was applied. There was, however, some evidence of a more complete plant cover. In
+contrast, when complete nutrients were added, the vegetation became quickly dominated
+by a dense growth of Agrostis stolonifera which stifled many of the other species; for
+example, Anagallis tenella was much diminished, Leontodon leysseri, although favoured
+at first, was eliminated, and also eliminated were several bryophytes, Bellis perennis,
+Hydrocotyle vulgaris and Plantago coronopus. Apart from Agrostis, the only plants
+finally present in notable quantity were the relatively tall-growing Carex flacca and
+Pulicaria dysenterica. The much enhanced growth is indicated by the fact that the fresh
+weight of the shoot systems of these transplants was more than eight times that of the
+transplants lacking nitrogen, phosphorus and potassium.
+The vegetation of the transplants receiving nutrients complete except for nitrogen
+was only little affected. Growth was, however, greater than that of theN, P, K cultures,
+and the vegetation almost completely covered the sand surface. There were no clear
+trends of change in the composition of the vegetation, most of the differences shown
+for the  N transplants in Table 9 being probably largely attributable to seasonal
+effects on growth. The contrast of the short turf of the N transplants, with many
+species represented, and of the dense growth of Agrostis stolonifera, with little else
+surviving, in the transplants treated with complete nutrients is clear in Phot. 1, which
+also shows the effect of nutrients complete except for phosphorus; the dominance of
+Carex flacca is easily seen, as well as the plentiful Anagallis tenella, mainly trailing over
+the sides of the container. Eliminated from the P transplants were the rosette plants
+Bellis perennis, Leontodon leysseri and Plantago coronopus. Agrostis stolonifera was not
+greatly affected, the vegetation remaining fairly short, and the fresh weight yield low
+(see Table 9); the blue-green appearance of the foliage of all of the plants was very
+noticeable.
+The effect on the turf transplants of nutrients complete except for potassium was very
+similar to that of the complete nutrients. There was a large increase of A. stolonifera,
+accompanied by a reduction or elimination of most of the other species. The Agrostis
+formed a thick, fairly tall mat in which the only other plants of importance were Carex
+Phot. 1. Turf transplants from a dune slack, showing the effect of different treatments with mineral
+nutrients.
+The transplant on the left received complete nutrients, in the middle complete except for phosphorus
+and on the right complete except for nitrogen. The photograph was taken after the treatments had
+been applied for 31 weeks (I December 1960). Note the overwhelming dominance of Agroslis stolonifera
+in the transplant receiving complete nutrients; the abundance of Carex flacca and of overhanging
+Anagallis tenella in the  P culture; and the short turf, with many species, of the  N culture. The scale
+in the background is in inches.
+flacca and Mentha aquatica. Although there was little difference in height between this
+vegetation and that treated with complete nutrients, the fresh weight yield was not quite
+so high, a finding in keeping with the observations made in the natural habitat.
+
+
+DISCUSSION
+The effects of the addition of mineral nutrients to the vegetation in its natural habitat
+parallel fairly closely the findings from turf transplants studied under greenhouse
+conditions. Strong evidence is now available to show, as previously suggested (Willis
+& Yemm 1961), that the sparse growth and open character of the vegetation of the Burrows
+are brought about mainly by the low levels of nitrogen and phosphorus in the sand,
+rather than by the influence of other features of the habitat such as exposure or the
+water table.
+The present investigations confirm the conclusion reached in earlier studies that
+minor mineral nutrients are not in limiting supply. No significant effects of the addition
+of minor nutrients to the vegetation of either the dunes or the slacks were detected;
+the inclusion of trace elements with the major nutrients did not give rise to effects on the
+vegetation, in respect of floristic composition, which were distinguishable from those
+given by the major elements alone. There was some indication of a very small improvement in yield when trace elements were included, and it seems possible that there might
+be marginal effects of minor nutrients when the major nutrients were added to the
+vegetation in very substantial quantities.
+In all of the sites in which the vegetation was treated with complete nutrients, grasses
+ultimately became dominant, and suppressed many of the other plants. In the lichen-type
+pasture both Festuca rubra and Poa pratensis ssp. subcaerulea increased markedly,
+finally being the most important components of the vegetation. Species such as Crepis
+capillaris and Senecio jacobaea were at first favoured by the nutrient treatment, showing
+luxuriant growth compared with that of control (untreated) plants, but they were later
+outgrown by the grasses, the thick mat of the latter resulting in the elimination of many
+of the small forms. This pattern of change, of a temporary increase of certain broadleaved species but finally the grasses dominating, was found in fact in most of the
+sites studied. These results are consistent with the observations on the turf transplants
+previously reported (Willis & Yemm 1961); in theshorter term treatment ofthe transplants
+the increase of the grasses was, however, not quite so large or the differences in yield
+and height of the vegetation quite so striking.
+The rapidity with which the grasses dominate the vegetation, and the relative importance, on the dry dune sites treated with complete nutrients, of Festuca rubra and Poa
+pratensis ssp. subcaerulea, clearly depend to some extent on their abundance initially;
+where the grasses are at first very scanty, dicotyledonous plants may thrive for a
+considerable period before the grasses dominate. Competition between Festuca and Poa
+must be fairly intense, and their relative success may depend to some extent upon their
+water relations. In dry dune pasture sites Festuca usually becomes a clear dominant
+when nutrients are added, the dense shoot system which is developed adversely shading
+the somewhat shorter and sparser shoots of Poa. Not surprisingly, the low-growing
+Thymus drucei and bryophytes, such as Camptothecium lutescens, Hypnum cupressiforme
+and Tortula ruraliformis, are quickly reduced in amount or eliminated entirely from
+such sites.
+Like a number of other grasses, Ammophila armaria shows enhanced vigour when
+treated with mineral nutrients, but in dune pasture it does not spread and increase in
+growth to the extent approaching that shown, for example, by Festuca rubra. In relict
+marram sites, even after treatment for 2 years with mineral nutrients, the vigour of the
+marram was not so great as that of marram in an area receiving much blown sand, and
+the plants did not flower. Further investigations now in progress bearing on the problem
+of the vigour of marram suggest that other considerations than the level of nutrients
+in the sand are of great importance.
+In the dune slacks and the transplants from the slacks, the vegetation became
+dominated by Agrostis stolonifera when treated with complete nutrients, and the variety
+of species represented was appreciably reduced. It is of interest to note in this connection
+that changes in the floristic composition of the vegetation of hill pastures in Wales,
+following manurial treatments, have been recorded by Milton (1940), who showed
+that bent grasses increased, particularly where additions of N, P and K were made, and
+miscellaneous herbs decreased. Furthermore, Milton observed that Poa pratensis
+invaded and spread in manured plots, a finding consistent with the recorded increase
+of this grass in several of the sites on the Burrows treated with complete nutrients.
+In a subsequent study, Milton & Davies (1947) showed that in some pastures receiving
+N, P and K, Festuca rubra became established and increased, whereas F. ovina decreased.
+These findings suggest that certain grasses are considerably favoured by high levels of
+mineral nutrients, and that in fertile sites they may grow so luxuriantly that other species
+cannot survive the severe competition. Experimental evidence that Agrostis stolonifera
+has a fairly high phosphorus requirement for vigorous growth has recently been given
+by Bradshaw, Chadwick, Jowett, Lodge & Snaydon (1960), who showed that this grass
+responds strongly, in respect of dry weight yield, to phosphate up to quite high levels
+as compared with a number of other grasses.
+That the most acute mineral deficiencies in the sand are of nitrogen and phosphorus
+is evident from the results of the investigations on the slack vegetation on the Burrows
+themselves and also from the turf transplants. The deficiency of potassium, although
+readily detected, is clearly less severe. No characteristic changes in the floristic composition of the vegetation were observed when the deficiences of phosphorus and potassium
+were made good, but when nitrogen was lacking; under these conditions the vegetation
+remained short and sparse, and similar to that of the untreated plots, an indication that
+nitrogen deficiency has a major influence on the growth and composition of the vegetation
+since pronounced changes in the relative proportions of the plants and in total growth
+ensue when nitrogen is made available.
+Of particular interest are the changes in the composition of the slack vegetation
+resulting from the addition of nitrogen and potassium, phosphorus being deficient;
+the yield of the vegetation was somewhat greater than that of the control plots, but
+A. stolonifera was not favoured whereas improved growth was shown by Car ex flacca,
+C. serotina, Juncus gerardii and /. articulatus. These plants may have a low phosphate
+requirement, or are efficient in the absorption of phosphate as compared with most
+plants. The level of phosphorus found in the tissue of Carex flacca from the natural
+habitat of the Burrows appears to be below that at which various types of plant show
+deficiency symptons (cf. Goodall & Gregory 1947); furthermore, in the areas where
+nutrients except for phosphorus are added, C. flacca grows quite well, but the level of
+phosphorus in the tissue is even lower. It therefore seems likely that this plant has a low
+phosphate requirement, and is preferentially favoured by the addition of nitrogen and
+potassium.
+The present investigations suggest that in all parts of the Burrows the deficiencies
+of the sandy soils in nitrogen and phosphorus, and to a lesser extent in potassium,
+are the chief reason why the vegetation is short, the communities remain open, and the
+representation of species is so varied; it seems quite probable that these considerations
+may also be applicable to a number of other dune systems. Many of the components
+of the natural vegetation, and especially the annuals, must have an open habitat if they
+are to survive. By treatment with fertilizers, the production can easily be greatly
+increased, especially in the slacks where water supply does not limit, and less so in the
+higher drier parts where the vegetation is liable to become parched in summer. When
+nutrients are abundant, the dense growth of the dune grasses stifles many of the plants
+out of existence, and it is noteworthy that over the 2 year period of study of each experimental area, no invasion by species from other habitats was ever observed. This feature
+is of interest in relation to the observations of Milton (1940) that over a period of some
+years the vegetation of hill pasture plots treated with nutrients was invaded by a range of
+'volunteer' lowland species; it is, however, important to realize that Milton's studies
+extended over a longer time than the present investigations.
+No strongly marked differences in fertility in the different regions of the dune system
+have been detected in either the field or the transplant studies. However, the thick growth
+of Festuca rubra in areas where Carex nigra is plentiful is doubtless related to the somewhat higher nitrogen content there (cf. Willis et al. 1959a, Table 5). It is also noticeable
+that this grass is often tall and thick in the zone where dune slopes merge into the floors
+of depressions, regions which, as a result of seepage, may well be somewhat richer in
+nutrients than elsewhere. A further point of interest is that Festuca rubra is frequently
+seen to be more vigorous in the vicinity of Lotus corniculatus (and in patches where this
+plant is known once to have grown) than in immediately adjoining sites where Lotus
+is absent, a feature related, in all probability, to the fixation of nitrogen by the legume.
+The pronounced effect of nutrients on the vegetation of the Burrows indicates that
+other features which have sometimes been advanced to account for the dwarf character
+of the natural vegetation are of only subsidiary importance. For example, exposure of
+the habitat cannot be a major factor in influencing the growth of the vegetation, since
+the plants of turf transplants kept in the greenhouse do not grow substantially better
+than in their natural sites, and furthermore the vegetation in the various experimental
+areas on the Burrows made fairly tall growth when nutrients were available. Grazing
+by rabbits must also be dismissed as a major cause in keeping the vegetation short and
+open, particularly as the rabbit population of the Burrows is now very small and no
+very pronounced changes in the growth of the natural vegetation have been observed
+associated with the reduction of the rabbits.
+
+ACKNOWLEDGMENTS
+I am indebted to Professor E. W. Yemm for co-operation in field work and for helpful
+criticism of the manuscript, to Mr R. L. Jefferies for assistance in the field and for the
+estimations of phosphorus, and to Honours students in the Department of Botany,
+University of Bristol, for help with the laborious task of cutting and sorting the
+vegetation.
+
+SUMMARY
+1. The influence of levels of mineral nutrients on the natural vegetation of the Burrows
+has been studied by treatment of a number of habitats with various additions of
+nutrients. The effect of major nutrients, with and without the addition of minor nutrients,
+on the growth and floristic composition of the vegetation of dry dune pasture and
+dune slacks has been investigated. In the slacks a more comprehensive examination was
+made of the effect of different combinations of major nutrients on the vegetation, and
+somewhat parallel studies were undertaken with turf transplants under greenhouse
+conditions.
+2.  There was no clear evidence of limitation of the vegetation by minor mineral
+nutrients, even when the deficiencies of major elements were made good.
+3.  When complete nutrients were added to dry dune pasture, the composition of the
+vegetation changed very considerably; Festuca rubra and Poa pratensis ssp. subcaerulea
+ultimately became strong dominants. A few of the larger dicotyledonous plants (e.g.
+Crepis capillaris, Leontodon leysseri, Senecio jacobaed) were temporarily favoured but
+after treatment for 2 years were of very minor importance relative to the grasses. Many
+of the small plants {e.g. rosette forms, bryophytes) were completely eliminated.
+4.  In the dune slacks, Agrostis stolonifera dominated when complete nutrients were
+added, and, as on the dry dune pasture, the variety of species was much reduced and the
+yield and height of the vegetation were substantially increased (in one site after 2 years
+there was a 15-fold increase in height and a 7-fold increase in fresh weight).
+5.  When nutrients complete except for nitrogen were added to the vegetation of the
+slacks, there was very little improvement in growth, an indication of severe nitrogen
+deficiency. On the other hand, limitation of the vegetation by potassium although of
+importance, was much less pronounced. Addition of nutrients complete except for
+phosphorus gave some improvement in growth and resulted in distinctive changes in
+the floristic composition of the vegetation, certain Carices and Junci increasing. Some
+evidence is given which suggests that Carex flacca may be a plant of low phosphate
+requirement. In contrast, Agrostis stolonifera and Festuca rubra appear to be plants
+which respond strongly to high levels of mineral nutrients.
+6.  These studies in the natural habitats of the Burrows confirm the conclusions
+reached from the investigations on turf transplants that the sparse and open character
+of the natural vegetation is largely attributable to the severe deficiencies of nitrogen
+and phosphorus. If these deficiencies were not so intense a less varied and taller vegetation, with grasses dominating, might be expected.
+
+

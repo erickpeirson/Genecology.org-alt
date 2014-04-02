@@ -46,6 +46,9 @@ class Location(models.Model):
     class Meta:
         verbose_name_plural = "locations"
 
+    def __unicode__(self):
+        return self.name
+
 class Concept(models.Model):
     uri = models.CharField(max_length=500, unique=True)
     name = models.CharField(max_length=200)
@@ -86,6 +89,9 @@ class ConceptType(models.Model):
     uri = models.CharField(max_length='200', null=True, blank=True, unique=True)
 
     objects = ConceptTypeManager()
+
+    def __unicode__(self):
+        return self.name
 
 class ConceptAuthority(models.Model):
     host = models.CharField(max_length=200)

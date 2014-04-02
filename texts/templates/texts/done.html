@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<style>
+pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+</style>
+<p>Added text from: {{ form_data.0.method }}. <a href="/admin/texts/text"><button type="submit">done</button></a></p>
+<h2>{{ text.title }}</h2>
+<h3>URI: {{ text.uri }}</h3>
+<h4>Creator: {% for creator in text.creator.all %}{{ creator }}, {% endfor %}</h4>
+<pre>{{ text.content|truncatechars:2000 }}</pre>
+<p><a href="/admin/texts/text"><button type="submit">done</button></a></p>
+{% endblock %}

@@ -3,54 +3,26 @@
 
 <style>
 
-#map {
-    width: 600px;
-    height: 450px;
-}
-
-svg {
-    position: absolute;
-    font: 10px sans-serif;
-}
-
-circle {
-    fill: #000000;
-    fill-opacity: 0.5;
-}
-
-circle:hover {
-    fill: red;
-}
-
-.mapnode {    visibility: hidden; }
-.mapnode.selected { visibility: visible; }
-
-.mapedge {    visibility: hidden; }
-.mapedge.selected { visibility: visible; }
-
-      .axis path, .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-      }
-
-line {
-    stroke: #000;
-    stroke-opacity: 0.5;
-}
 
 </style>
- <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
-
+ <link rel="stylesheet" href="/static/browser/css/leaflet.css" />
+ <link rel="stylesheet" href="/static/browser/css/network.css" />
     </head>
 
 
     <body>
-        <p id="map"></p>
+        <div id="network-visualization"></div>
         <script src="/static/browser/js/d3.min.js"></script>
         <script src="/static/browser/js/leaflet.js"></script>    
-        <script src="/static/browser/js/timeserieschart.js"></script>        
+        <script src="/static/browser/js/timeserieschart.js"></script>     
+        <script>
+        var height=450;
+        var width=600;   
+        </script>
         <script src="/static/browser/js/map.js"></script>
+        <script>
+        geographic_visualization("1");
+        </script>
     </body>
 
 </html>

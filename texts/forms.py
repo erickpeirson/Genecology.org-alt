@@ -182,9 +182,10 @@ class TextWizard(SessionWizardView):
             coll = form_list[2].cleaned_data['collection']
             items = form_list[3].cleaned_data['items']
             pprint(list_bitstreams(repo, coll, '11468'))
-    
+
         return render_to_response('texts/done.html', {
             'form_data': [ form.cleaned_data for form in form_list ],
+            'text': text
         })
 
     def get_form(self, step=None, data=None, files=None):

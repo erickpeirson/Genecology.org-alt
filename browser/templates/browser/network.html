@@ -28,6 +28,7 @@
 
 {% block maincontent %}
 			<div id="network-visualization"></div>
+			<div id="time-select"></div>
 			<!-- 
 <div id="stop-layout" paused="no"><span>(Un)Pause</span></div>
 			
@@ -36,6 +37,13 @@
 {% endblock %}
 
 {% block endscripts %}
+<link rel="stylesheet" href="/static/browser/css/leaflet.css" />
+<link rel="stylesheet" href="/static/browser/css/network.css" />
+
+<script src="/static/browser/js/d3.min.js"></script>
+<script src="/static/browser/js/leaflet.js"></script>    
+<script src="/static/browser/js/network.js"></script>
+<script src="/static/browser/js/map.js"></script>
 <script type="text/javascript">
 
 // Disable text-specific functionality.
@@ -44,10 +52,11 @@ var text_present = false;
 // Dimensions of the network visualization.
 var width = 600,
     height = 500;
-    
-var network_id = "{{ network_id }}";
 
 </script>
 
-<script src="/static/browser/js/network.js"></script>
+
+<script>
+network_visualization("{{ network_id }}");
+</script>
 {% endblock %}

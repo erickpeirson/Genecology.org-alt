@@ -1,0 +1,516 @@
+Investigations on the Physiological Ecology of Tortula ruraliformis
+By A. J. WILLIS
+Department of Botany, University of Bristol
+
+I. Introduction
+
+Studies have been made on Tortula ruraliformis (Besch.) Rich. & Wall, with a view to elucidating the operation of physiological processes of this moss in relation to specialized features of its ecological behavior. Preliminary information concerning physiological phenomena and their rates under the
+varied conditions of the habitat of the plant and with reference to the characteristic changes of the shoot system under different conditions of humidity has
+been gained in this investigation, which may provide a basis for more detailed
+work.
+The chief phenomena studied concern the water relations of the moss and its
+rates of photosynthesis and respiration under varied regimes of humidity and
+water supply. Particular interest centres on the rates of gaseous exchange
+under different degrees of desiccation, especially as the plant is often subject
+to a big range of environmental conditions in its natural habitat. Analytical
+studies made in connexion with rates of photosynthesis and respiration were
+extended to provide an indication of the levels of a number of important
+chemical constituents of the moss.
+
+II. Occurrence of Tortula ruraliformis
+
+The importance of Tortula ruraliformis as a component of the flora of
+maritime sand-dune systems in Britain needs little emphasis (Watson, 1918;
+Richards, 1929; Willis, Folkes, Hope-Simpson & Yemm, 1959). This moss is
+also characteristic of dunes on the Continent (Gams, 1932). Typically it occurs
+as carpets, sometimes almost pure, on the dry slopes of moderately stable
+dunes, where sand movement is appreciable but usually insufficient to bury the
+shoots completely. T. ruraliformis is, however, able to survive burial by sand
+up to about 3 cm. in depth, ultimately growing up through the sand (Birse,
+Landsberg & Gimingham, 1957).
+As is well-known, in dry conditions the plant shrinks and the leaves inroll
+around the stem in a tight spiral; on moistening, the leaves unfold and shoot
+off sand grains in this process, each stem system creating its own small pit
+(Richards, 1929). This feature is of obvious significance in the ecology of the
+plant, and investigations were made concerning the mechanism of the leaf
+movements and to establish the hydration status of the shoot systems under
+different conditions of relative humidity.
+T. ruraliformis grows less vigorously on stable, inland dunes, possibly
+suffering adversely from competition with angiosperms. It does not occur in
+areas subject to flooding for any appreciable time, and so is rarely seen in dune
+slacks. Occasional shoots, blown into slacks by the wind, may root, but do
+not survive for very long (Richards, 1929). Observations made at Braunton
+Burrows, north Devon, support this statement (see also Willis et al. 1959,
+fig. 9).
+When abundant, T. ruraliformis may have important effects on the water
+content of the sand of dune slopes. Under conditions of high humidity or
+rain, the shoot systems expand rapidly and act as water absorbers. Consequently it is sometimes observed in summer that the sand beneath a dense
+carpet of the moss is drier than elsewhere, especially if the preceding weather
+has been showery. As an illustrative example, data obtained from samples
+taken on Braunton Burrows on 12 August 1955 may be quoted. Sand at a
+depth of 15 cm. below a vegetation dominated by T. ruraliformis was found to
+have a water content of 1-6 % (expressed as a percentage of the weight of the
+sand, oven-dried at 105 C), whereas sand at this depth from a bare dune crest
+had a water content of 3-6 %.
+
+III. Water relations
+The water content of Tortula ruraliformis was found to vary very considerably in its natural habitat dependent on the environmental conditions. In wet
+weather the moss can hold very appreciably more than its own dry weight of
+water, but when droughted its water content may be as low as, for example,
+15%.
+The moss is poikilohydrous, there being no regulation of water loss, but
+fairly quick equilibration of the water content of the moss with the humidity
+conditions of the atmosphere. The levels of hydration and the time taken for
+equilibrium to be reached when shoots were exposed to different relative
+humidities were determined experimentally. For these investigations, dry
+shoots, separated from sand as far as possible, and brought to constant weight
+over calcium chloride, were used. It was found that shoots equilibrated over
+calcium chloride usually contained about 5 % of their dry weight of water
+which could be removed by standing over concentrated sulphuric acid. The
+dry weight obtained over concentrated sulphuric acid was regarded as a
+suitable datum; the shoots show further very small losses in weight when
+heated for a long period (several days) at 100 C. Under these conditions,
+however, the structure of the moss is probably damaged, and some of the
+constituents changed, because when re-hydrated and re-equilibrated over
+concentrated sulphuric acid the dry weight of the moss is found to be as low as
+after heating at 100 C.
+
+(a) Water content at different humidities
+The experimental procedure adopted in studying hydration levels of the
+shoots involved the use of sulphuric acid of different concentrations to provide atmospheres of a range of constant, known relative humidities. The acid
+was held (a layer of ca. 3 cm.) in a glass container with a tightly fitting lid.
+A pipe-clay triangle was bent so as to support itself inside the container above
+the acid, and was used to hold a watch-glass containing 150-200 mg. of the
+moss (previously dried over CaClj). The experiments were conducted in a
+temperature-controlled dark-room at 22* 5 C. Relative humidities of 0 %
+(over cone. H2SOd, 20%, 40%, 60%, 80%, 85%, 90% and 95% were
+obtained by the use of appropriate mixtures of concentrated sulphuric acid
+and water.* A saturated atmosphere (100 % r.h.) was obtained by using water
+Fig. 1. The course of water uptake in T. ruraliformis previously dried over calcium
+chloride and exposed to atmospheres of different relative humidities. Also shown
+is the course of water uptake by shoots of the moss previously dried at 100 C. and
+then exposed to a saturated atmosphere.
+only. The solutions were allowed to equilibrate thoroughly before the moss
+was placed in the containers, and all transfers were done as quickly as possible.
+At suitable times the watch-glasses and contents were weighed, and at the end
+of the experiment the dry weights of the moss were determined. The least
+consistent results were obtained over water; here the occasional formation of
+water droplets on the surfaces of the watch-glass and moss led to some irregularities in the weighings.
+* Data derived from International Critical Tables, in (National Research Council), and
+Handbook of Chemistry and Physics (Chemical Rubber Publishing Co.).
+Representative results of this study are shown in Fig. 1 (T. ruraliformis
+from Braunton Burrows). The shoots used experimentally still contained some
+sand grains, although most were removed; consequently the values shown for
+water content of the shoots, especially at high humidities, are somewhat low.
+Nevertheless, close agreement was usually found between replicates. It is clear
+that at relative humidities between 0 and 95 % equilibration is virtually reached
+within 24 hr.; furthermore, with material previously equilibrated over calcium
+chloride and then transferred to atmospheres of relative humidities of
+20-85 %, the new equilibrium is attained in less than about 10 hr.
+Fig. 2. The water content of T. ruraliformis after equilibration at different relative
+humidities. The graph includes data from two experiments (shown by the two
+types of symbol).
+At high relative humidities the water uptake is extensive initially, but the
+rate declines progressively although uptake, especially under conditions of
+near saturation, is long continued. Increase in weight for a period of up to
+10 days has been observed in shoots maintained under 100 % R.H., but over a
+long period the results may be sometimes affected by the activities of fungi
+and bacteria.
+Shoots which have been previously kept at temperatures of 100 C. show
+different behaviour. As may be seen in Fig. 1, the initial rate of uptake of
+water at 100 % r.h. is much lower than that of shoots which have not been
+heated, and the uptake is prolonged. Evidently sufficient destruction is caused
+by heating (in this instance for 1 hr. at 100 C.) to have a pronounced effect
+on the rate of water uptake and the final equilibrium position. These results
+are in substantial agreement with the findings of Mayer & Plantefol (1925 a)
+with Hypnum triquetrum {Rhytidiadelphus triquetrw), who observed that the
+water-absorbing properties of this moss changed on heating over 100 C, the
+shoots being killed. Their results concerning water uptake by normal shoots of
+R. triquetrus also accord closely with those given here for Tortula rwaliformis.
+
+Fig. 3. The structure of the leaf of T. ruraliformis. The drawings, made by camera
+lucida, show the cells of the mid-rib of the leaf, and the form of the leaf in transverse
+section.
+The relationship between the amount of water held by T. ruraliformis when
+equilibrium has been reached and the relative humidity to which the shoots
+are exposed is shown in Fig. 2. The appreciable amount of water held by the
+plant at 20 % r.h. (and also against CaCl2) indicates strong imbibing power,
+here chemical affinity for water being doubtless at least in part involved.
+Relatively little more water is retained at relative humidities up to about 60 %,
+but in more humid atmospheres, especially above 85 % r.h,, the amount of
+water held is large. At high relative humidities, the cells of the shoots can be
+seen to become vacuolated, and it is of note that at 90 % r.h. the leaves of
+shoots are showing signs of slight untwisting. At 95 % r.h. the leaves are
+moderately unfolded, and at still higher humidities the shoots become fully
+expanded.
+
+(b) Mechanism of leaf movement
+
+Reference has already been made to the spiral twisting of the leaves around
+the stem when the shoots become dry. Under these conditions the moss has a
+dead appearance, the brown highly thickened cells on the abaxial surface of
+the mid-rib of the leaves (Fig. 3) being the chief parts exposed. The more
+delicate, golden green, papillate cells of the lamina, with its recurved margin
+(Fig. 3), are obscured by the tight infolding of the leaves. The hyaline hair
+points of the leaves remain exposed, and are especially evident at the tips of
+the shoots.
+Leaf movements can occur in a few seconds and appear to involve both
+imbibition of water by the cell walls, and also changes in turgor of the cells,
+probably especially of the large cells on the adaxial surface of the mid-rib
+region.
+Leaves of dry shoots rapidly unfold when dropped into weak solutions
+( < 0*5 M) of sucrose. Within this range, the stronger the solution the longer the
+time taken for the leaves to untwist, but there is finally no perceptible difference
+in the degree of expansion.
+When expanded shoots are transferred to m solutions of sucrose (or sodium
+nitrate), however, the leaves fold inwards. The apical tuft of leaves, usually
+7-10, inroll moderately tightly in these solutions, which are of plasmolysing
+concentration; however, the older leaves further down the stem show relatively little change. Plasmolysis studies indicate that many of the cells of these
+old leaves are dead, lacking contents; movements of these leaves must depend
+on a hygroscopic mechanism involving imbibition by constituents of the cell
+walls rather than turgor phenomena.
+IV. Chemical analysis of shoots
+Before investigations were undertaken of changes in rates of photosynthesis
+under different conditions of the plant, it was useful to know what carbohydrates altered in quantity substantially as a result of photosynthesis, what
+were the important chemical constituents of the moss, and what parts of the
+shoot were metabolically most active. To gain information on these points,
+chemical analyses were carried out on shoots of Tortula ruraliformis collected
+from the dunes at Berrow, north Somerset.
+The shoots were treated individually, being cut into two portions, the tops
+and the bases. The tops included the young green leaves, and the bases the
+lower two-thirds of the shoots, bearing brown leaves. About 750 mg. dry
+weight of tops and of bases were collected; the sampling was carried out at
+about noon on a dry, sunny day (15 May 1952), as much sand as possible
+being separated by tapping during the initial sampling.
+
+(a) Extraction procedure
+
+The portions of shoots were dropped into specimen tubes containing absolute alcohol, and on the following day sufficient distilled water was added to
+bring the ethanol concentration to 70 %. The temperature was maintained at
+37 C. and the tubes shaken periodically. After 6 days the alcohol extract was
+drained off, and three further extracts with 70 % ethanol made at 37 C. over
+the next 5 days (the temperature was raised to 80 C. for 20 min. during the
+last two extracts). Finally the alcohol-extracted material was extracted with
+water for 5 hr. at 20 C, and the residue dried and freed from remaining sand.
+The alcohol extracts were bulked, filtered, and aliquots dried in vacuo. Then
+the solids were weighed, dissolved in water, cleared with aluminium hydroxide
+cream, and chemical analyses made.
+
+(b) Analytical methods
+
+Sugars were estimated in the alcohol and in the water extracts both before
+and after hydrolysis by the Somogyi procedure (Somogyi, 1945; Willis &
+Yemm, 1955). Assays of sugars were also made by the use of the anthrone
+reagent (Yemm & Willis, 1954a). The nature of the sugars present was investigated by a chromatographic procedure, and in addition the time course of
+colour production with anthrone provided further information concerning the
+carbohydrates.
+Although tests with iodine for starch in the insoluble residue proved
+negative, some attempt was made to estimate insoluble carbohydrate by a
+solubilization treatment with 30 % KOH boiled under reflux for 30 min.,
+followed by estimations with anthrone.
+
+(c) Results of analyses for carbohydrates
+
+It was found that in many features of the analysis that the bases of the
+shoots were similar to the tops, although the tops were richer in almost all of
+the components. Some of the data are shown in Table 1, where the results are
+expressed on the basis of residual dry weight (the dry wt., at 80 C, of the
+shoots after extraction with alcohol and with water).
+Table 1. Analyses of tops and bases of shoots o/Tortula ruraliformis
+(The tops comprise the apical one-third of the shoots, and the bases the lower
+two-thirds. The value for insoluble carbohydrate gives the amount estimated after
+solubilization treatment with KOH (see text).
+
+Table 1 indicates that the tops of the shoots are metabolically more active
+than the bases, containing more soluble solids, slightly more free reducing
+sugars and very much more sucrose. Sucrose is clearly the most important
+carbohydrate reserve, although, in view of the analytical procedure used, the
+figures for insoluble carbohydrate must be regarded as minimal. In the tops,
+sucrose constitutes about three-quarters of the total soluble carbohydrate, but
+makes up rather less than this in the bases, where there may be a somewhat
+higher proportion of glycosidal material. Some estimate of these glycosides is
+provided by the difference between the total carbohydrates as determined by
+the Somogyi and anthrone techniques.
+The extraction procedure with alcohol is clearly fairly complete in respect of
+sugars, little more being extracted by water.
+That the chief soluble carbohydrate is sucrose is evident from the Somogyi
+estimates, the time course of the anthrone reaction and from the chromatographic separation and identification of the sugars (Yemm & Willis, 1954&).
+The latter study indicates the presence of both glucose and fructose, but
+analyses involving the use of hypoiodite (van der Plank, 1936) show that most
+of the free hexose is glucose.  Keto-hexose derivatives were also detected.
+(d) Analyses for other components
+No estimates have been made of fats, but some information is available for
+nitrogenous constituents and ash components, and may provide some guide
+for further investigations.
+Soluble nitrogen in the alcohol extracts was determined by a Kjeldahl procedure (Yemm & Willis, 1956), and the insoluble nitrogen of the extracted
+residue was estimated by a similar technique. The level of insoluble nitrogen
+was, on average, 8 mg./g. residual dry weight and of the soluble nitrogen about
+0-5 mg./g. residual dry weight.
+In the determination of ash, considerable difficulty was experienced in
+obtaining material free from extraneous sand grains. Estimates were made
+separately of the ash content of soluble and insoluble components of shoots
+collected at Braunton Burrows, north Devon (June 1951). Aliquots of alcohol
+extracts of the shoots were evaporated to dryness and then heated to dull
+redness in a platinum crucible for about 10 min. The ash components were
+found to constitute, on average, 2-35 % of the dry weight of the soluble matter.
+The alcohol-extracted residue of the shoots was freed from as much sand as
+possible, freshly ignited in a platinum crucible, a known weight transferred to
+an asbestos pad on a Gooch crucible and exhaustively eluted with dilute nitric
+acid and then with water. The weight of the sand grains remaining in the
+residue was finally determined from the weight of the material retained by the
+asbestos pad. Estimates of the ash content made in this way gave a value of
+6-2 % of the dry weight of the alcohol-insoluble residue of the shoots. From
+these determinations it may be calculated that the total ash content of the
+unextracted shoots is 5-75 % of the dry weight.
+The ash content of another sample of T. ruraliformis (collected on a separate
+occasion at Braunton Burrows) was assayed by a different procedure. The
+material was washed in a sieve with a jet of water, and then the sand grains
+removed with a brush from the shoots which were floated in water in a dish.
+Further grains were separated by shaking mechanically in flasks (15 changes of
+water). The shoots were then ashed, after drying and weighing, in a platinum
+crucible and the ash weighed and sulphated. The powdered sulphated ash was
+found still to contain a few sand grains, which were separated in a sieve of
+150-mesh (mean diam. of mesh 0-102 mm.). Microscopic examination of the
+sulphated ash passing the sieve showed that only a very few small grains of
+silica passed. The calculated value for the total ash content of the plant
+derived by this procedure was 6-0 %, a figure in substantial agreement with
+the previous estimate.
+The observed values show that T. ruraliformis contains more ash than many
+mosses. In general, figures for the ash content of mosses are about 3 %
+(Garjeanne, 1932; Czapefc, 1920), although some mosses contain greater
+amounts. However, not infrequently there is doubt concerning the possible
+inclusion of extraneous material in the estimations; in many instances where
+figures are high, there is an appreciable amount of silica present (Czapek,
+1920).
+V. Assimilation under natural conditions
+
+(a) Experiment I
+
+An exploratory experiment was carried out on Braunton Burrows on 19 June
+1951 to determine the changes in carbohydrate composition of the shoots as a
+result of assimilation. For this purpose samples were taken at various times
+during the day, and subsequently analysed.
+A uniform stand of the moss on a south-west facing dune slope was watered
+during the evening of 18 June and darkened by covering with a cloth. The
+cloth was removed at 11.30 a.m. on the next morning, and a sample of the
+shoots taken into 95 % ethanol. The leaves were at that time mostly expanded,
+and the patch was watered at intervals during the dry, sunny day in order to
+keep the leaves unrolled. Further samples were taken at 2.40 p.m. and at
+6.40 p.m., and an additional sample was collected at 6.15 p.m. from neighbouring dry shoots of the moss, adjoining the watered area. These shoots had
+their leaves spirally inrolled for all of the day.
+Three successive ethanol extractions of the samples were made over a
+period of 4-8 days (the first extraction into ca. 95 % alcohol, and the others
+into 70 % alcohol) at 37 C. (ethanol brought to 75-80 C. for a short time).
+About 15 g. dry weight ofTortula was extracted by ca. 700 ml. ethanol. After
+the alcohol-extracted material had been dried at 80 C, and ground in a mill, a
+weighed portion of the powder was extracted with water at 80 C. for 15 min.
+Estimations were then made, by the Somogyi procedure, of the free sugars,
+unfermentable residues, sucrose (hydrolysed extract) and unfermentable
+residues after hydrolysis on the ethanol and also on the water extracts. The
+method for the estimation of unfermentable residues (non-sugar reducing substances) involved rapid fermentation by yeast (Yemm, 1935) and assay of the
+residual reducing power (Somogyi method).
+The chief features of the results are shown in Fig. 4. The free sugars (largely
+glucose) were at a moderate level in the sample taken in the morning immediately after darkening overnight, and there was a fairly uniform increase in
+hexoses during the day in the shoots kept open by watering. These shoots had
+a water content of ca. 180 % of their dry weight as judged by the change in
+specific gravity of the ethanol into which sampling was made. The high level of
+free hexose found in the sample taken at the end of the experiment was shown
+to be largely attributable to an increase of glucose which made up over 85 % of
+the total free hexose. The sucrose content of the shoots kept expanded all day
+showed no clear trend of change and the small differences found are not likely
+to be greater than sampling variations. However, as is evident from Fig. 4, the
+total content of free sugars increased progressively. On the other hand, the
+shoots which were dry had a very low free hexose content but the sucrose
+content was similar to that of the other samples. The levels of non-sugar
+reducing substances were similar in all of the samples, constituting ca. 3-4 mg./g.
+residual dry wt. (estimated as hexose units), and about half of this material
+was ethanol-insoluble. After hydrolysis, the amounts of unfermentable residues were fairly constant and approximately doubled (average value 7-4 mg./g.
+residual dry wt.).
+
+Fig. 4. The changes in levels of soluble carbohydrates in shoots of T. ruraliformis
+growing in their natural habitat. One sample of the moss was collected from dry
+shoots, but the other samples were of shoots which were watered sufficiently to keep
+the leaves expanded all day. Details are given in the text (Experiment I).
+
+(b) Experiment II
+A more extensive experiment was undertaken in June 1952 on Braunton
+Burrows, in the same site as the previous investigation.
+A patch of the moss was watered on 15 June and darkened in the evening
+with a cloth. Shoots were sampled into absolute ethanol on the following day
+at 8.15 a.m. when the cloth was removed from some shoots but left covering
+one area. Other samples were collected during the course of the day, and a
+further sample gathered from droughted shoots just outside the treated area.
+The leaves of these shoots had remained tightly inrolled during the whole of
+the warm, sunny day. Additional samples of the darkened shoots were
+collected on 18 and 20 June.
+Each of the samples was extracted four times by refluxing with 70 % ethanol
+over a sand bath, and determinations of carbohydrate content were carried
+out by the anthrone procedure.
+Some of the results of the analyses are shown in Table 2. The level of total
+free sugars in the shoots which were watered and the leaves kept expanded all
+day on 16 June increased during the day, whereas, as might be expected, the
+level in the shoots which were darkened all day was lower than that of the
+initial sample. The shoots which were dry, with leaves inrolled, showed low
+values of total free sugars, a finding in agreement with the results of Experiment I. Darkening for a long period led to reduced levels of free sugars,
+although little difference was found in the samples taken on 18 and 20 June.
+The unfermentable glycosidal compounds estimated by anthrone after treatment of the extracts with yeast did not change very much during the period of
+assimilation on 16 June, but decreased progressively in the darkened shoots
+and were assayed in only small quantities in the draughted shoots. Comparison with the results of Experiment I shows that the unfermentable residues
+estimated by means of anthrone are substantially greater than values obtained
+by the Sornogyi method, indicative of the presence of appreciable quantities of
+glycosidal compounds.
+
+Table 2.  Changes of carbohydrate content o/Tortula ruraliformis
+(A stand of the moss growing in a natural sand-dune habitat was subjected to
+various treatments as shown. Estimations, by means of anthrone, are given for
+total free sugars and for unfermentable residues, all results being calculated in
+terms of glucose and expressed on the basis of the dry weight of the alcoholextracted shoots (residual dry wt.).)
+
+
+VI.  Photosynthesis and respiration under controlled conditions
+The gaseous exchanges of the moss were investigated at different degrees
+of hydration under controlled conditions of illumination in a temperaturecontrolled room at 22 C.
+The shoots employed were grown as a dense stand (transplanted from sanddunes and allowed to recover before experimentation) in sand in a glass container (11x8x7 cm.) fitted with a glass lid whose greased rubber gasket made
+an air-tight seal when the lid was secured by a wooden framework, tightened
+by screws. About 350 shoots were usually present in the container, and had a
+dry weight of ca. 2 g. The air stream of known carbon dioxide content
+(ca. 0-03 %) entered and left the chamber by a distributor system.
+Changes in carbon dioxide concentration of the air stream were determined
+by the use of an infra-red gas analyser (Grubb Parsons Ltd.); flow rates were
+normally 6 l./hr. It was necessary to dry the air stream before it was passed
+into the analyser, although it was convenient to arrange that the air which
+passed into the plant chamber was moistened because in a stream of completely dry air the leaves soon inroll.
+(a)  The effect on gaseous exchange of moistening dry shoots
+Shoots of the moss which had been kept fairly dry for several days were used
+in some experiments, the leaves being all spirally twisted inwards, appressed to
+the stems.
+In one such experiment the respiration rate of the moss was first measured,
+the plant chamber being kept in complete darkness. It was found to be very
+low (ca. 0T8 mg. C02/g. dry wt./hr.) under these conditions. Illumination of
+the moss at an intensity of about 500 ft.-candles (photo-flood type lamp) resulted in a measurable rate of photosynthesis, but it amounted to only about a
+sixth of the respiratory rate.
+The lid of the chamber was then removed and the leaves of the moss
+expanded by moistening with a slight spray of distilled water, and measurements quickly resumed. The respiration rate was found to have increased by
+about sevenfold (ca. 1-23 mg. COs/g. dry wt./hr.) and the rate of photosynthesis (at 500 ft.-candles) by some 20-fold (ca. 0-66 mg. COa/g. dry wt./hr.).
+However, the rate of respiration was still greatly in excess of assimilation.
+Doubtless respiration as measured incorporates a contribution from bacteria
+and fungi associated with the dead leaves towards the base of the shoots, and
+there is a small production of carbon dioxide from micro-organisms in the
+sand, but measurements show that this is not a very important consideration
+under the conditions used experimentally.
+By the next day the respiration rate had declined to a value of about threequarters of that measured soon after the shoots were moistened, and the compensation point was then found to be at a light intensity not very much greater
+than 500 ft.-candles.
+In this experiment, the leaves were kept expanded for a further 6 days
+(except for one short period) and by this time the rate of respiration had fallen
+considerably (to ca. 0-38 mg. COa/g. dry wt./hr.), whereas the capacity to
+assimilate was not substantially changed. Measurements of carbon dioxide
+exchange at a range of intensities indicated that by the end of the experiment
+the compensation point of the moss was at a light intensity of the order of
+150 ft.-candles. Such a value is, perhaps, not unexpected in view of the high
+degree of insolation of the natural habitat of T. ruraliformis.
+(b)  The effect of prolonged desiccation on gaseous exchange
+It is of interest to know to what extent the drying out of the moss for a
+substantial period affects its rate of respiration and powers of assimilation.
+To provide information on these points, experiments were carried out with
+material which had been kept air-dry for 6 months and then re-hydrated.
+Shoots of Tortula collected in June 1951 were air-dried, stored until December
+1951, and then placed in a desiccator containing calcium chloride for four
+days. The moss was then moistened by a spray, and the individual shoots
+orientated upwards, as far as possible, in a nylon gauze contained in a shallow
+plant chamber. The respiration rate of the shoots was determined by infra-red
+gas analysis and also by a Pettenkofer procedure (Folkes, Willis & Yemm,
+1952). Measurements were continued for 10 days and the results are shown in
+Fig. 5. The respiration rate rose considerably from its initial value, reaching
+its highest level in about 2 days and subsequently declined (after 6 days) to a
+value which was lower than that shown initially and was maintained fairly
+steadily. Photosynthesis was demonstrable (by infra-red gas analysis) on the
+first day of the experiment, but at 300 ft.-candles the rate was only about onetenth of that of respiration; doubtless changes occur in the plastids when the
+leaves are droughted for a considerable time. The photosynthetic rate had
+increased slightly by the third day, but was still less than one-tenth of the now
+enhanced respiration rate. The shoots were illuminated for only short periods
+and no further measurements were made of rates of photosynthesis in order
+not to affect appreciably the trend of respiratory behaviour.
+
+
+Fig. 5. The course of the respiration rate of T. ruraliformis previously subjected to
+severe desiccation. Measurements by infra-red gas analysis were started on
+5 December 1951 (day 0), very soon after the shoots had been moistened; after
+day 3 the measurements were made mostly by the Pettenkofer procedure.
+VII. The xerophytic nature of Tor tula ruraliformis
+The survival and success of Tortula in habitats sometimes subjected to severe
+drought and insolation are clearly related to special features of the structure of
+the plant and to its physiology.
+The importance of leaf movements (and xipward growth) with regard to
+escape from burial by sand have already been mentioned. These movements
+are also significant in that photosynthesis is very highly reduced when the
+leaves are infolded, and under these conditions the plastids are doubtless
+protected against damage from intense insolation. Leaves artificially kept
+expanded by spraying in a greenhouse on hot, sunny days have been seen to
+become yellowed, possibly because of changes in the plastids; studies of the
+plastids by electron microscopy are now in progress.
+The poikilohydrous nature of the moss which has been demonstrated isparalleled in a number of bryophytes. Indications have also been gained that
+T. ruraliformis contains appreciable quantities of hydrophilic compounds.
+Calorimetric studies of the hydration of mosses by Mayer, Plantefol &
+Wurmser (1925) show, from the thermal changes observed, that imbibition
+phenomena are involved; however, at high water contents vacuolation is, in
+addition, of importance.
+Measurements of osmotic pressure of the cells of the leaves were found,
+from plasmolysis investigations, to give values which were considerable (up to
+about 17 atmospheres). In this connexion the high level of sucrose often
+present is of note.
+The carbohydrate content found, the sugars often constituting 5-8 % of the
+dry weight of the plant, is in agreement with recorded values for other bryophytes, and may be compared with levels of soluble carbohydrates of ca. 6 %
+in Sphagnum palustre, ca. 5-5 % in Marchantia polymorpha and over 7 % in
+Metzgeriafurcata (see Hegnauer, 1962). Clearly Tortula ruraliformis falls into
+the saccharophyll group of bryophytes recognized by Rancken (1914), in
+which starch is either absent or present in only small quantity. Typically this
+group contains xerophytes of lithophytic and epiphytic habit (e.g. Andreaeaceae, Grimmiaceae, Orthotrichaceae), whereas the contrasted mesophile and
+hygrophile mosses are usually rich in starch. Rancken (1914) records that the
+vegetative organs of T. ruralis, a close ally of T. ruraliformis, are entirely starchfree, as had been earlier observed (Marchal, 1906). In the present study on
+T, ruraliformis tests with iodine for starch also proved negative, sucrose being
+shown to be the carbohydrate of greatest importance in this plant.
+Studies on the carbon assimilation of the moss indicate that under favourable conditions the level of carbohydrate in the shoots may increase quite
+substantially over the course of one day. Of considerable importance to the
+plant's survival is its capacity to photosynthesize actively as soon as the leaves
+expand after a period of desiccation (provided that this period is not excessively prolonged). In dry weather in summer, it seems probable that the plant
+is able to take advantage of early morning dew, which is frequently sufficient
+to lead to leaf expansion, the shoots photosynthesizing at an appreciable rate
+for a few hours before the water content falls sufficiently for inrolling of the
+leaves to occur.
+The great desiccation resistance of T. ruraliformis is indicated by its ability
+to remain alive in an air-dry condition for very considerable periods; plants of
+Tortula have been reported (Garjeanne, 1932) to regenerate protonemata after
+14 years, When dry, the respiration rate falls to a low value, as found in other
+bryophytes, e.g. the observations of Mayer & Plantefol (19256) on Rhytidiadelphus triquetrus. An interesting feature is the observed respiratory behaviour of
+shoots of Tortula on re-hydration. When the draughting is not severe, it has
+been shown that the respiration rate is high initially on moistening and subsequently declines. After a long period of desiccation, however, the behaviour
+is different, respiration rate rising to a peak after some 2 days. These observations parallel to some extent the distinctive respiratory behaviour of Conocephalum conicum of low water content recorded by Ensgraber (1954) and of
+the drought-resistant fern Ceterach officinarum more recently reported on by
+Oppenheimer & Halevy (1962).
+
+It seems possible that an enhanced respiration rate is a general feature of
+plants which have been subjected to considerable desiccation (Stiles, I960), the
+amount of stimulation depending on the duration and intensity of the desiccation. Oppenheimer & Halevy (1962) suggest that the respiratory peak, following plasmatic imbibition and rearrangement in the cells, may depend on greater
+availability of respiratory enzymes or be connected with early senescence. It
+seems likely that regulation of cellular respiration is at first markedly disturbed
+by the re-hydration of the cells.
+
+
+VIII. Summary
+1.   Tortula ruratiformis is a xerophyte whose structural and physiological
+features suit it to an environment subject to considerable desiccation and sand movement.
+2.   Untwisting and expansion of the leaves depend on hygroscopic movements but turgor phenomena may also be concerned.
+3.   The moss is poikilohydrous, its water content quickly equilibrating with
+the environment. The leaves unfold at relative humidities greater than 90 %.
+4.   The tops of the shoots are physiologically the most active. Analyses of
+the chief constituents (carbohydrates, nitrogen compounds, ash) have beenmade.
+5.   Sucrose is the most important photosynthetic product, making up
+usually 5 % or more of the dry weight of the plant. Starch is absent from the
+leaves, and most of the hexose is glucose.
+6.   Photosynthesis virtually ceases when the leaves are tightly rolled inwards round the stem.
+7.   On re-hydration of moderately droughted shoots, the respiration rate
+rises quickly from a very low value, and the tissues can photosynthesize immediately.
+8.   After very prolonged desiccation, photosynthetic power is impaired,
+and the respiration rises to a peak rate some appreciable time after rehydration and then declines.
+
+
