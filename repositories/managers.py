@@ -26,5 +26,9 @@ class RepositoryManager(object):
     def item_primary_bitstream(self, item):
         return self.manager.item_primary_bitstream(item)
 
+    def get_bitstream(self, bitstream):
+        return self.manager.get_bitstream(bitstream)
+
     def item(self, item):
         return self.manager.item(item)
+        

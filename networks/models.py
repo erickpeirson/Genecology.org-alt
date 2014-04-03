@@ -39,7 +39,7 @@ class Node(models.Model):
 
     def save(self, *args, **kwargs):
         if self.pk is None:
-            self.type = NodeType.objects.get_unique(self.concept.name,
+            self.type = NodeType.objects.get_unique(self.concept.type.name,
                                                     self.concept.type.uri)
         super(Node, self).save(*args, **kwargs)
 
@@ -78,6 +78,9 @@ class NodeType(models.Model):
     uri = models.CharField(max_length='500', null=True, blank=True)
 
     objects = NodeTypeManager()
+    
+    def __unicode__(self):
+        return self.name
 
 class NetworkProjection(models.Model):
     name = models.CharField(max_length='200')

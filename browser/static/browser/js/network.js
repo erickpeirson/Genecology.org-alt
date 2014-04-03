@@ -62,9 +62,9 @@ function network_visualization(network_id) {
 	}			
 
 	if (text_present) {
-		var data_path = "/networks/network/text/"+text_id+"/"
+		var data_path = "/networks/network/text/"+text_id+"/"	
 	} else {
-		var data_path = "/networks/network/"+network_id+"/"
+		var data_path = "/networks/network/"+network_id+"/"	
 	}
 
 	// Almost all of the action happens once network data is loaded.
@@ -196,6 +196,7 @@ function network_visualization(network_id) {
 					var highlightNode = document.createElement('a');
 					highlightNode.className = 'appellation';
 					highlightNode.id = item.id;
+					highlightNode.name = item.id;
 					highlightNode.style.color = color(types[item.type]);
 					range.surroundContents(highlightNode);
 				} catch (err) {
@@ -236,7 +237,7 @@ function network_visualization(network_id) {
 						activate_edge(relations_lookup[relations_predicates[e.target.id]], Array(e.target));
 					} else {
 						activate_node(appellations_lookup[e.target.id], [e.target]);
-					}
+                    }
 				});
 		
 				check_active();
@@ -297,12 +298,18 @@ function network_visualization(network_id) {
 				.attr("r", 15);
 		
 			if (text_present) {
+			    var moved = false;
 				intext.forEach( function(i) {
-					console.log(i);
 					if (i) {    // Not all appellations are found in this text.
 						d3.select('a[id="' + i.id + '"]').classed("focal", true);
+						if (!moved) {   // Reposition page to first appellation.
+						    moved = true;
+                            $('#'+i.id).goTo();						    
+						}
 					}
 				});
+				console.log(intext);
+
 			}
 				
 			show_node_details(d);
@@ -331,12 +338,14 @@ function network_visualization(network_id) {
 	
 		function show_node_texts(d) {
 			$.get("/networks/node/appellations/"+d.id+"/", function(data) {
-				
+				console.log(data);
 				var texts = {};
 				data.appellations.forEach( function(a) {
-					if (! texts[a.textposition.text] ){
-						texts[a.textposition.text] = a.textposition;
-					}
+				    if (a.textposition) {
+    					if (! texts[a.textposition.text] ){
+	    					texts[a.textposition.text] = a.textposition;
+		    			}
+		    		}
 				});
 		
 				var values = Object.keys(texts).map(function(key){

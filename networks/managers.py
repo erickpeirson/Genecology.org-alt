@@ -14,7 +14,7 @@ from concepts.managers import retrieve_concept
 import logging
 logging.basicConfig()
 logger = logging.getLogger(__name__)
-logger.setLevel('ERROR')
+logger.setLevel('DEBUG')
 
 class DatasetManager(object):
     these_appellations = {}
@@ -75,6 +75,7 @@ class DatasetManager(object):
         node = Node.objects.get_unique(concept)
         node.appellations.add(appellation.id)
         node.save()
+        print node
         
         self.these_nodes[datum['id']] = node
         

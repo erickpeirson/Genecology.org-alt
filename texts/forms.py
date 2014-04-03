@@ -7,7 +7,7 @@ from concepts.models import Concept
 from repositories.models import Repository
 from repositories.forms import RepositoryChoiceField
 from django.forms.widgets import DateInput
-from texts.managers import list_collections, list_items, list_bitstreams
+from texts.managers import list_collections, list_items, handle_item
 import autocomplete_light
 import os
 
@@ -161,7 +161,6 @@ class TextWizard(SessionWizardView):
             dateCreated = form_list[1].cleaned_data['dateCreated']
             dateDigitized = form_list[1].cleaned_data['dateDigitized']
             creator = form_list[1].cleaned_data['creator']
-            print type(form_list[1].cleaned_data['upload'])
             text = Text(    uri=uri,
                             title=title,
                             dateCreated=dateCreated,
@@ -180,8 +179,11 @@ class TextWizard(SessionWizardView):
             from pprint import pprint
             repo = form_list[1].cleaned_data['repository']
             coll = form_list[2].cleaned_data['collection']
-            items = form_list[3].cleaned_data['items']
-            pprint(list_bitstreams(repo, coll, '11468'))
+            text = []
+            for item in list_items(repo, coll):
+                t = handle_item(repo, item)
+                if t is not None:
+                    text.append(t)
 
         return render_to_response('texts/done.html', {
             'form_data': [ form.cleaned_data for form in form_list ],
@@ -197,6 +199,14 @@ class TextWizard(SessionWizardView):
         kwargs = self.get_form_kwargs(step)
         form_class = self.form_list[step]
         
+        if step == '1':
+            method_data = self.get_cleaned_data_for_step('0')
+            if method_data['method'] == 'remote':
+                try:           
+                    del self.form_list['3']             
+                except KeyError:    # Might already be deleted.
+                    pass
+        
         # Handle Repository selection; generate a list of collections.
         if step == '2':
             method_data = self.get_cleaned_data_for_step('0')
@@ -207,15 +217,15 @@ class TextWizard(SessionWizardView):
                 if form_class.__name__ == 'SelectTextRepositoryCollectionForm':
                     kwargs.update({ 'choices': c_options })
 
-        # Handle Collection selection; generate a list of items.
-        if step == '3':
-            method_data = self.get_cleaned_data_for_step('0')
-            if method_data['method'] == 'remote':
-                r_data = self.get_cleaned_data_for_step('1')
-                c_data = self.get_cleaned_data_for_step('2')
-                items = list_items(r_data['repository'], c_data['collection'])
-                i_options = [ (i['id'], i['name']) for i in items ]
-                kwargs.update({'choices': i_options})
+#        # Handle Collection selection; generate a list of items.
+#        if step == '3':
+#            method_data = self.get_cleaned_data_for_step('0')
+#            if method_data['method'] == 'remote':
+#                r_data = self.get_cleaned_data_for_step('1')
+#                c_data = self.get_cleaned_data_for_step('2')
+#                items = list_items(r_data['repository'], c_data['collection'])
+#                i_options = [ (i['id'], i['name']) for i in items ]
+#                kwargs.update({'choices': i_options})
 
         kwargs.update({
             'data': data,
@@ -251,7 +261,7 @@ def get_text_form_list(request, form_list=None):
         form_list = [   SelectTextMethodForm,
                         SelectTextRepositoryForm,
                         SelectTextRepositoryCollectionForm,
-                        SelectTextRepositoryItemsForm,
+#                        SelectTextRepositoryItemsForm,
                         AddTextForm   ]
 
     return TextWizard.as_view(form_list=form_list,

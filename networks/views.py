@@ -19,6 +19,7 @@ def json_response(response_data):
 def appellation_data(appellations):
     app_data = []
     for app in appellations:
+        print app.textposition
         ad = { 'concept': app.concept.uri,
                'type': app.concept.type.uri,
                'id': app.id     }
@@ -179,10 +180,8 @@ def text_network(request, text_id=None, network_id=None):
     relations = Relation.objects.filter(predicate__textposition__text__id=text_id)
     appellations = Appellation.objects.filter(textposition__text__id=text_id)
     
-    nodes = set(Node.objects.filter(appellations__textposition__text__id__contains=text_id))
-    edges = set(Edge.objects.filter(relations__predicate__textposition__text__id__contains=text_id))
-    
-    pprint(nodes);
+    nodes = set(Node.objects.filter(appellations__id__in=[ a.id for a in appellations] ))
+    edges = set(Edge.objects.filter(relations__id__in=[ r.id for r in relations ]))
     
     if network_id is not None:
         nodes = nodes.filter(network__id=network_id)

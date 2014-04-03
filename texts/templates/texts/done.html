@@ -12,9 +12,22 @@ pre {
 }
 </style>
 <p>Added text from: {{ form_data.0.method }}. <a href="/admin/texts/text"><button type="submit">done</button></a></p>
+
+{% if form_data.0.method == 'local' %}
 <h2>{{ text.title }}</h2>
 <h3>URI: {{ text.uri }}</h3>
 <h4>Creator: {% for creator in text.creator.all %}{{ creator }}, {% endfor %}</h4>
 <pre>{{ text.content|truncatechars:2000 }}</pre>
 <p><a href="/admin/texts/text"><button type="submit">done</button></a></p>
+{% endif %}
+
+{% if form_data.0.method == 'remote' %}
+<h3>Remote texts:</h3>
+<ul>
+    {% for t in text %}
+    <li>{{ t.title }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 {% endblock %}

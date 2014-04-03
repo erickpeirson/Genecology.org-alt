@@ -1,6 +1,7 @@
 from django.contrib import admin
 from networks.models import Network, Node, Edge, TextPosition, Appellation, \
-                            Relation, Dataset, NetworkLink, NetworkProjection
+                            Relation, Dataset, NetworkLink, NetworkProjection, \
+                            NodeType
 from networks.forms import DatasetAdminForm
 from django.forms.models import inlineformset_factory
 
@@ -37,3 +38,8 @@ class DatasetAdmin(admin.ModelAdmin):
 admin.site.register(Dataset, DatasetAdmin)
 admin.site.register(Network, NetworkAdmin)
 admin.site.register(NetworkProjection)
+admin.site.register(Node)
+admin.site.register(Edge)
+admin.site.register(Appellation)
+admin.site.register(Relation)
+admin.site.register(NodeType)

@@ -1,5 +1,6 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404
+from browser.managers import text_appellations, text_relations
 
 from texts.models import Text
 
@@ -17,13 +18,14 @@ def list_texts(request):
     texts = Text.objects.all()
     
     data = {    'title': 'Texts',
-                'headers': [ 'Title', 'Length', 'Created', 'Added' ],
+                'headers': [ 'Title', 'Date', 'Nodes', 'Edges' ],
                 'items': [ [ 
                             { 'link': '/browser/texts/{0}/'.format(text.id),
                               'text': text.title }, 
-                            { 'text': text.length },
-                            { 'text': text.dateCreated }, 
-                            { 'text': text.dateAdded } ] for text in texts ],
+                            { 'text': text.dateCreated.year },
+                            { 'text': len(text_appellations(text)) }, 
+                            { 'text': len(text_relations(text)) } 
+                        ] for text in texts ],
                 'nav_active': 'texts' }
     
     return render_to_response('browser/list_nosidebar.html', data)
