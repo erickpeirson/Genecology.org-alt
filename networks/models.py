@@ -86,10 +86,16 @@ class NetworkProjection(models.Model):
     name = models.CharField(max_length='200')
     network = models.ForeignKey('networks.Network')
     
-    nodeType = models.ForeignKey('networks.NodeType', 
-                                 related_name='projection_nodeType')
-    collapse = models.ManyToManyField('networks.NodeType',
-                                      related_name='projection_collapse')
+    mappings = models.ManyToManyField('networks.ProjectionMapping')
+    
+    def __unicode__(self):
+        return unicode(name)
+    
+class ProjectionMapping(models.Model):
+    primaryNode = models.ForeignKey('networks.NodeType', 
+                                    related_name='projection_nodeType')
+    secondaryNodes = models.ManyToManyField('networks.NodeType',
+                                            related_name='projection_collapse')
 
 class Edge(models.Model):
     source = models.ForeignKey('networks.Node', related_name='edge_source')
@@ -158,3 +164,5 @@ class Relation(models.Model):
         return unicode(u'{0} - {1} - {2}'.format(self.source.concept.name,
                                                 self.predicate.concept.name,
                                                 self.target.concept.name))
+                                                
+
