@@ -1,6 +1,8 @@
 function geographic_visualization(network_id) {
-	d3.select('div[id="network-visualization"]').empty(); // Clear it.
-	/// Timeseries chart.
+	$('div[id="network-visualization"]').empty();
+	
+
+	// Timeseries chart.
 	function get_time(d) {
 		var dt = new Date();
 		dt.setYear(d.properties.date);
@@ -150,32 +152,141 @@ function geographic_visualization(network_id) {
 
 	d3.select('div[id="network-visualization"]').style('width', width+"px")
 												.style('height', height+"px");
-											
-	var map = new L.Map("network-visualization", {center: [53.5, -4.5], zoom: 6})
+											//[53.5, -4.5]
+	var map = new L.Map("network-visualization", {center: [40,-100], zoom: 4})
 		.addLayer(new L.TileLayer("http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"));
 
 	var svg = d3.select(map.getPanes().overlayPane).append("svg"),
-		g = svg.append("g").attr("class", "leaflet-zoom-hide");
+		  g = svg.append("g").attr("class", "leaflet-zoom-hide");
 
-	d3.json("/networks/network/"+network_id+"/", function(collection) {
-		console.log('got data');
+	function getBounds(nodes) {
+		var left = 0, 
+			bottom = 90,
+			right = 0,
+			top = 0;
+		nodes.forEach( function(node) {
+			if (node.geographic.latitude > top) {
+				top = node.geographic.latitude;
+			}
+			if (node.geographic.latitude < bottom) {
+				bottom = node.geographic.latitude;
+			}	
+			if (node.geographic.longitude < left) {
+				left = node.geographic.longitude;
+			}						
+			if (node.geographic.longitude > right) {
+				right = node.geographic.longitude;
+			}									
+		});
+		console.log([[left, bottom],[right,top]]);
+		return [[left-10, bottom-10],[right+10,top+10]];
+	}
+	
+	// Used to assign colors to nodes, based on their type.
+	var color = d3.scale.category10();
+	var types = [];
+	var t_index = 0;
+
+
+
+	// Arrays for indexing various things.
+	var hash_lookup = [];	// Node id -> Node element.
+	var edge_hash_lookup = [];  // Edge id -> Edge element.
+	var concept_lookup = {};
+	var relations_predicates = {};  // Predicate -> Relation.
+	var predicates_relations = {};  // Relation -> Predicate.
+	var relations_lookup = {};	// Relations -> Edge.
+	var edges_lookup = {}; // Edge -> Relations.
+	var nodes_lookup = {}; // Node -> Appellations.
+	var appellations_lookup = {}; // Appellations -> Node.
+	
+	
+	//"/networks/network/"+network_id+"/"
+	d3.json("/networks/network/"+network_id+"/projection/1/", function(graph) {
+		// Index nodes by id, and index types (for color-coding).
+		graph.network.nodes.forEach(function(d, i) {
+			hash_lookup[d.id] = d;
+			concept_lookup[d.concept] = d;
+			if (!types[d.type]) {
+				types[d.type] = t_index*3;
+				t_index++;		
+			}
+		
+			nodes_lookup[d.id] = Array();
+			d.appellations.forEach(function(b, j) {
+				nodes_lookup[d.id].push(b);
+				appellations_lookup[b] = d;
+			});
+		});
+		
+		// Find source and target objects for each edge, and index edge by relation.
+		graph.network.edges.forEach(function(d, i) {
+			d.source = hash_lookup[d.source];
+			d.target = hash_lookup[d.target];
+
+			edges_lookup[d.id] = Array();
+			d.relations.forEach(function(b, j) {
+				relations_lookup[b] = d;
+				edges_lookup[d.id].push(b);
+				edge_hash_lookup[d.id] = d;
+			});
+		});
+
 		var transform = d3.geo.transform({point: projectPoint}),
 			path = d3.geo.path().projection(transform),
-			bounds = d3.geo.bounds(collection);
-	  
-		feature = g.selectAll("circle")
-					 .data(collection.features)
-					 .enter().append("svg:circle")
-					 .classed("leaflet-zoom-hide", true)
-					 .classed("mapnode", true);
+			bounds = getBounds(graph.network.nodes);
 	
-		edge = g.selectAll("line")
-					.data(collection.edges)
-					.enter().append("svg:line")
-					 .classed("leaflet-zoom-hide", true)
-					 .classed("mapedge", true);
+		edge = g.selectAll(".edge")
+					.data(graph.network.edges)
+					.enter()
+					.append("svg:line")
+					.classed('edge', true)
+					.classed("leaflet-zoom-hide", true)
+					.attr("id", function(d) {
+						return d.id;
+					})					 
+					.on("click", function(d) {	// User clicks an edge in the network.
+						// Identify the appellations of relations for this edge.
+						var rel_targets = Array();
+						edges_lookup[d.id].forEach( function(i) {
+							var id = predicates_relations[i];
+							var e_app = d3.select('a.appellation[id="' + id + '"]')[0][0]
+							rel_targets.push(e_app);
+						});
+						activate_edge(d, rel_targets);		
+					});
+
+		var node = svg.selectAll(".node")
+						.data(graph.network.nodes)
+						.enter()
+						.append("g");
+		
+		node.append("svg:circle")
+				.classed("leaflet-zoom-hide", true)
+				.classed("node", true)
+				.attr("id", function (d) { return d.id; })		
+				.style("fill", function(d) { 	// Color nodes based on their type.
+					return color(types[d.type]);
+				})
+				
+		node.on("click", function (d) {		// User clicks a node in the network.
+			var app_targets = Array();
+			nodes_lookup[d.id].forEach( function(i) {
+				var n_app = d3.select('a.appellation[id="' + i + '"]')[0][0]
+				app_targets.push(n_app);
+			});
+			activate_node(d, app_targets);
+		});
+
+
 		map.on("viewreset", reset);
 		reset();
+
+		// Add labels to nodes.
+		node.append("text")
+			.attr("dx", function(d) { return -d.label.length*3 } )
+			.attr("dy", -12)
+			.text(function(d) { return d.label; });
 
 		function reset() {
 			var topLeft = projectPoint(bounds[0][0], bounds[1][1]),
@@ -188,40 +299,37 @@ function geographic_visualization(network_id) {
 
 			g.attr("transform", "translate(" + -(topLeft[0]-node_radius) + "," + -(topLeft[1]-node_radius) + ")");
 
-			feature.attr("cx", function(d) { 
-						var c = d.geometry.coordinates;
-						var ll = projectPoint(c[0],c[1]);
-						return ll[0]; 
-					})
-					.attr("cy", function(d) { 
-						var c = d.geometry.coordinates;
-						var ll = projectPoint(c[0],c[1]);
-						return ll[1]; 
-					})
-					.attr("r", function(d) { return d.properties.size*2; });
-		
+			node.attr("cx", function(d) { 
+					var c = d.geographic;
+					var ll = projectPoint(c.longitude,c.latitude);
+					return ll[0]; 
+				})
+				.attr("cy", function(d) { 
+					var c = d.geographic;
+					var ll = projectPoint(c.longitude,c.latitude);
+					return ll[1]; 
+				})
+				.attr("r", function(d) { return 10; });
+
 			edge.attr("x1", function(d) {
-					var c = d.coordinates[0]; 
-					var ll = projectPoint(c[0],c[1]);
+					var c = d.geographic.source; 
+					var ll = projectPoint(c.longitude,c.latitude);
 					return ll[0];
 				})
 				.attr("y1", function(d) {   
-					var c = d.coordinates[0]; 
-					var ll = projectPoint(c[0],c[1]);
+					var c = d.geographic.source; 
+					var ll = projectPoint(c.longitude,c.latitude);
 					return ll[1];
 				})
 				.attr("x2", function(d) {   
-					var c = d.coordinates[1]; 
-					var ll = projectPoint(c[0],c[1]);
+					var c = d.geographic.target; 
+					var ll = projectPoint(c.longitude,c.latitude);
 					return ll[0];
 				})
 				.attr("y2", function(d) {   
-					var c = d.coordinates[1]; 
-					var ll = projectPoint(c[0],c[1]);
+					var c = d.geographic.target; 
+					var ll = projectPoint(c.longitude,c.latitude);
 					return ll[1];
-				})
-				.style("stroke-width", function(d) { 
-					return Math.sqrt(d.properties.strength); 
 				});
 		}
 
@@ -230,12 +338,189 @@ function geographic_visualization(network_id) {
 			return Array(point.x, point.y);
 		}
 	
-		var chart = timeseries_chart()
-						.x(get_time)
-						.y(get_magnitude).yLabel("Size")
-						.brushmove(on_brush);
+		var chart = timeseries_chart().x(get_time)
+										.y(get_magnitude).yLabel("Size")
+										.brushmove(on_brush);
 
-		d3.select('div[id="time-select"]').datum(collection.features).call(chart);
+		check_active();
+
+		function check_active() {
+			// An 'active' node or edge may have been passed from another page. If so, activate it.
+			var active_node = $.urlParam('active_node');
+			if (active_node) {
+				var this_node = hash_lookup[active_node];
+				var these_appellations = [];
+				this_node.appellations.forEach(function(a) {
+					these_appellations.push( d3.select('a.appellation[id="'+a+'"]')[0][0] );
+				});
+				activate_node(this_node, these_appellations);
+			}
+	
+			var active_edge = $.urlParam('active_edge');
+			if (active_edge) {
+				console.log(active_edge);
+				var this_edge = edge_hash_lookup[active_edge];
+				var these_relations = this_edge.relations;
+				var these_appellations = [];
+				these_relations.forEach( function(r) {
+					these_appellations.push( d3.select('a.appellations[id="'+predicates_relations[r]+'"]')[0][0] );
+				});
+				activate_edge(this_edge, these_appellations);
+		
+			}	
+		}
+
+		// Clears all 'focal' classes from nodes, edges, appellations.
+		function deselect_all() {
+			// De-select all
+			d3.select(".node.focal")
+				.classed("focal", false)
+				.attr("r", 10);	
+			
+			edge.classed("focal", false);
+			d3.select('a.appellation.focal').classed("focal", false)	
+			
+		}
+
+		// Highlights node, and corresponding appellations.
+		//	intext is a list of appellation elements in the text.	
+		function activate_node(d, intext) {
+			d.fixed = 1;
+			deselect_all();
+
+			// Select the focal node
+			d.focal = true;
+			console.log(d);
+			d3.select(".node[id=\"" + d.id + "\"]")
+				.classed("focal", true)
+				.attr("r", 15);
+		
+			if (text_present) {
+			    var moved = false;
+				intext.forEach( function(i) {
+					if (i) {    // Not all appellations are found in this text.
+						d3.select('a[id="' + i.id + '"]').classed("focal", true);
+						if (!moved) {   // Reposition page to first appellation.
+						    moved = true;
+                            $('#'+i.id).goTo();						    
+						}
+					}
+				});
+				console.log(intext);
+
+			}
+				
+			show_node_details(d);
+		}
+	
+		// Highlights edge, and corresponding appellations.
+		//	intext is a list of appellation elements in the text.
+		function activate_edge(d, intext) {
+			deselect_all();
+			console.log(d.id);
+			d3.select('line[id="' + d.id + '"]')
+				.classed("focal", true);
+
+			d.focal = true;
+		
+			if (text_present) {
+				intext.forEach( function(i) {
+					if (i) {
+						d3.select('a[id="' + i.id + '"]').classed("focal", true);
+					}
+				});
+			}
+		
+			show_edge_details(d);
+		}
+	
+		function show_node_texts(d) {
+			$.get("/networks/node/appellations/"+d.id+"/", function(data) {
+				console.log(data);
+				var texts = {};
+				data.appellations.forEach( function(a) {
+				    if (a.textposition) {
+    					if (! texts[a.textposition.text] ){
+	    					texts[a.textposition.text] = a.textposition;
+		    			}
+		    		}
+				});
+		
+				var values = Object.keys(texts).map(function(key){
+					return texts[key];
+				});
+	
+				$('.element_texts_title').text(d.label + ' appears in...');
+				var element_texts = d3.select('.element_texts_list');
+				$('.element_texts_list').empty();
+				var text = element_texts
+							.selectAll('li')
+							.data(values)
+							.enter()
+							.append('li')
+							.append('a')
+							.attr('href', function(r) {
+								return "/browser/texts/"+r.text_id+"/?active_node="+d.id;
+							})
+							.text( function(r) { 
+								return r.text_title;
+							} );
+			});
+		}
+	
+		function show_edge_texts(d) {
+			$.get("/networks/edge/relations/"+d.id+"/", function(data) {
+					
+				var texts = {};
+				data.relations.forEach( function(a) {
+					if (! texts[a.predicate.text] ){
+						texts[a.predicate.text] = a.predicate;
+					}
+				});
+			
+				var values = Object.keys(texts).map(function(key){
+					return texts[key];
+				});
+		
+				$('.element_texts_title').text('Relationship appears in...');
+				var element_texts = d3.select('.element_texts_list');
+				$('.element_texts_list').empty();
+				var text = element_texts
+							.selectAll('li')
+							.data(values)
+							.enter()
+							.append('li')
+							.append('a')
+							.attr('href', function(r) {
+								return "/browser/texts/"+r.text_id+"/?active_edge="+d.id;
+							})
+							.text( function(r) { 
+								return r.text_title;
+							} );
+			});
+		}
+	
+		function show_node_details(d) {
+			$('div[id="instructions"]').empty();
+			d3.select('.element_details_title').text(d.label);
+			d3.select('.element_details_uri').text(d.concept);
+			d3.select('.element_details_type').text(d.type);
+			show_node_texts(d);
+		
+			$('[id="network-link"]').empty();
+			$('[id="network-link"]').append('<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>');
+		}
+	
+		function show_edge_details(d) {
+			$('div[id="instructions"]').empty();
+			d3.select('.element_details_title').text(d.source.label + ' [' + d.label + '] ' + d.target.label);
+			d3.select('.element_details_uri').text(d.concept);
+			show_edge_texts(d);
+		
+			$('[id="network-link"]').empty();
+			$('[id="network-link"]').append('<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>');        
+		}
+		//d3.select('div[id="time-select"]').datum(graph.nodes).call(chart);
 	});
 
 }

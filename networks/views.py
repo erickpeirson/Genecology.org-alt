@@ -4,7 +4,8 @@ views for Networks app.
 
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
-from networks.models import Network, Node, Edge, Dataset, Appellation, Relation
+from networks.models import Network, Node, Edge, Dataset, Appellation, \
+                            Relation, NetworkProjection
 
 import simplejson
 from pprint import pprint
@@ -35,12 +36,21 @@ def appellation_data(appellations):
     return {'appellations': app_data}
 
 def node_data(nodes):
-    return [ {  'concept': node.concept.uri,
+    node_data = []
+    for node in nodes:
+        nd = {  'concept': node.concept.uri,
                 'id': node.id,
                 'type': node.type.uri,
                 'label': node.concept.name,
                 'appellations': [ a.id for a in node.appellations.all() ]
-                } for node in nodes ]
+                }
+        try:
+            nd['geographic'] = { 'latitude': node.concept.location.latitude,
+                                 'longitude': node.concept.location.longitude }
+        except AttributeError:
+            pass
+        node_data.append(nd)
+    return node_data
 
 def edge_data(edges):
     return [ {  'source': edge.source.id,
@@ -121,6 +131,104 @@ def network_endpoint(request, network_id):
     
     # And we're done.
     return json_response(response_data)
+
+def network_projection(request, network_id, projection_id):
+    def project_edge(edge, projection):
+        for mapping in projection.mappings.all():
+            if edge.source.type in mapping.secondaryNodes.all() \
+                                    and edge.target.type == mapping.primaryNode:
+                return { 'node': edge.source,
+                         'secondary': edge.target }
+            elif edge.target.type in mapping.secondaryNodes.all() \
+                                    and edge.source.type == mapping.primaryNode:
+                return { 'node': edge.source,
+                         'secondary': edge.target }
+        return None
+
+    network = get_object_or_404(Network, pk=network_id)
+    projection = get_object_or_404(NetworkProjection, pk=projection_id)
+    node_types = [ p.primaryNode for p in projection.mappings.all() ]
+
+    # Generate node mappings based on projection.
+    edges = network.edges.all()
+    node_mappings = {}
+    for e in edges:
+        map = project_edge(e, projection)
+        if map is not None:
+            try:
+                node_mappings[map['secondary'].id] += map['node'].id
+            except (KeyError, TypeError):
+                node_mappings[map['secondary'].id] = [map['node'].id]
+
+    # Generate a new edge list based on node mappings.
+    c_nodes = {}
+    c_edges = []
+    node_index = {}
+    include_nodes = set([])
+    for e in edges:
+        collapsed = None
+        try:
+            source = node_mappings[e.source.id][0]
+            collapsed = 'source'
+            
+            # Update primary node.
+            try:
+                c_nodes[e.target.id]['contains'] += [source]
+            except KeyError:
+                c_nodes[e.target.id] = { 'contains': [source] }
+        except KeyError:    # No mapping defined for source node.
+            source = e.source.id
+
+        try:
+            target = node_mappings[e.target.id][0]
+            collapsed = 'target'
+            
+            # Update primary node.
+            try:
+                c_nodes[e.source.id]['contains'] += [target]
+            except KeyError:
+                c_nodes[e.source.id] = { 'contains': [target] }
+        except KeyError:    # No mapping defined for target node.
+            target = e.target.id
+
+        source_node = Node.objects.get(pk=source)
+        target_node = Node.objects.get(pk=target)
+        node_index[source] = source_node
+        node_index[target] = target_node
+
+        # Only include edges between primaryNodes in the Projection.
+        # TODO: Handle case where source or target has no location.
+        if source_node.type in node_types\
+                            and target_node.type in node_types:
+            new_edge = {    'source': source,
+                            'target': target,
+                            'id': e.id,
+                            'concept': e.concept.uri,
+                            'label': e.concept.name,
+                            'relations': [ r.id for r in e.relations.all() ],
+                            'geographic': {
+                                'source': {
+                                    'latitude': source_node.concept.location.latitude,
+                                    'longitude': source_node.concept.location.longitude
+                                },
+                                'target': {
+                                    'latitude': target_node.concept.location.latitude,
+                                    'longitude': target_node.concept.location.longitude
+                                }
+                            }
+                        }
+            c_edges.append(new_edge)
+            
+            if collapsed is not None:
+                new_edge['original'] = e.id
+            
+            include_nodes.add(source)
+            include_nodes.add(target)
+    
+    # TODO: Can this be done with data already retrieved?
+    all_nodes = [ node_index[id] for id in include_nodes ]
+
+    return json_response({'network': {'edges': c_edges, 'nodes': node_data(all_nodes) }})
 
 def list_datasets(request):
     """

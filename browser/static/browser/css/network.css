@@ -21,7 +21,7 @@
 
 	line.focal
 	{
-		stroke-width: 6px;
+		stroke-width: 8px;
 		opacity: 1;
 	}
 	
@@ -64,7 +64,7 @@ svg {
 {    
     fill: #000000;
     fill-opacity: 0.5;
-	visibility: hidden; 
+/*	visibility: hidden; */
 }
 	.mapnode.selected 
 	{ 
@@ -80,7 +80,7 @@ svg {
 {    
     stroke: #000;
     stroke-opacity: 0.5;
-	visibility: hidden;
+	/*visibility: hidden;*/
 }
 	.mapedge.selected 
 	{

@@ -89,13 +89,17 @@ class NetworkProjection(models.Model):
     mappings = models.ManyToManyField('networks.ProjectionMapping')
     
     def __unicode__(self):
-        return unicode(name)
+        return unicode(self.name)
     
 class ProjectionMapping(models.Model):
     primaryNode = models.ForeignKey('networks.NodeType', 
                                     related_name='projection_nodeType')
     secondaryNodes = models.ManyToManyField('networks.NodeType',
                                             related_name='projection_collapse')
+
+    def __unicode__(self):
+        return u'{0}: {1}'.format(self.primaryNode.name,
+                            [ str(s.name) for s in self.secondaryNodes.all() ])
 
 class Edge(models.Model):
     source = models.ForeignKey('networks.Node', related_name='edge_source')

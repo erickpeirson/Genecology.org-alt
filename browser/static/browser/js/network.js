@@ -1,14 +1,19 @@
+$.urlParam = function(name){
+	var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
+	if (results==null) {
+		return null;
+	} else {
+		return results[1] || 0;
+	}
+}
+
+
+
 function network_visualization(network_id) {
 
-	$.urlParam = function(name){
-		var results = new RegExp('[\\?&]' + name + '=([^&#]*)').exec(window.location.href);
-		if (results==null){
-		   return null;
-		}
-		else{
-		   return results[1] || 0;
-		}
-	}
+
+	$('div[id="network-visualization"]').empty();
+
 
 	// Rangy is used to work with text positions.
 	rangy.init();
@@ -38,7 +43,6 @@ function network_visualization(network_id) {
 		.size([width, height]);
 
 	// Initialize the network visualization SVG.
-	d3.select("#network-visualization").empty();	// Who knows what else was in there.
 	var svg = d3.select("#network-visualization")
 		.append("svg")
 		.attr("width", width)
@@ -69,6 +73,184 @@ function network_visualization(network_id) {
 
 	// Almost all of the action happens once network data is loaded.
 	d3.json(data_path, function(error, graph) {
+	
+		function check_active() {
+			// An 'active' node or edge may have been passed from another page. If so, activate it.
+			var active_node = $.urlParam('active_node');
+			if (active_node) {
+				var this_node = hash_lookup[active_node];
+				var these_appellations = [];
+				this_node.appellations.forEach( function(a) {
+					these_appellations.push( d3.select('a.appellation[id="'+a+'"]')[0][0] );
+				});
+				activate_node(this_node, these_appellations);
+			}
+
+			var active_edge = $.urlParam('active_edge');
+			if (active_edge) {
+				console.log(active_edge);
+				var this_edge = edge_hash_lookup[active_edge];
+				var these_relations = this_edge.relations;
+				var these_appellations = [];
+				these_relations.forEach( function(r) {
+					these_appellations.push( d3.select('a.appellations[id="'+predicates_relations[r]+'"]')[0][0] );
+				});
+				activate_edge(this_edge, these_appellations);
+
+			}	
+		}
+
+		// Clears all 'focal' classes from nodes, edges, appellations.
+		function deselect_all() {
+			// De-select all
+			d3.select(".node.focal")
+				.classed("focal", false)
+				.attr("r", 10);	
+	
+			link.classed("focal", false);
+			d3.select('a.appellation.focal').classed("focal", false)	
+	
+		}
+
+		// Highlights node, and corresponding appellations.
+		//	intext is a list of appellation elements in the text.	
+		function activate_node(d, intext) {
+			d.fixed = 1;
+			deselect_all();
+
+			// Select the focal node
+			d.focal = true;
+			d3.select(".node[id=\"" + d.id + "\"]")
+				.classed("focal", true)
+				.attr("r", 15);
+
+			if (text_present) {
+				var moved = false;
+				intext.forEach( function(i) {
+					if (i) {    // Not all appellations are found in this text.
+						d3.select('a[id="' + i.id + '"]').classed("focal", true);
+						if (!moved) {   // Reposition page to first appellation.
+							moved = true;
+							$('#'+i.id).goTo();						    
+						}
+					}
+				});
+				console.log(intext);
+
+			}
+		
+			show_node_details(d);
+		}
+
+		// Highlights edge, and corresponding appellations.
+		//	intext is a list of appellation elements in the text.
+		function activate_edge(d, intext) {
+			deselect_all();
+
+			d3.select('line[id="' + d.id + '"]')
+				.classed("focal", true);
+
+			d.focal = true;
+
+			if (text_present) {
+				intext.forEach( function(i) {
+					if (i) {
+						d3.select('a[id="' + i.id + '"]').classed("focal", true);
+					}
+				});
+			}
+
+			show_edge_details(d);
+		}
+
+		function show_node_texts(d) {
+			$.get("/networks/node/appellations/"+d.id+"/", function(data) {
+				console.log(data);
+				var texts = {};
+				data.appellations.forEach( function(a) {
+					if (a.textposition) {
+						if (! texts[a.textposition.text] ){
+							texts[a.textposition.text] = a.textposition;
+						}
+					}
+				});
+
+				var values = Object.keys(texts).map(function(key){
+					return texts[key];
+				});
+
+				$('.element_texts_title').text(d.label + ' appears in...');
+				var element_texts = d3.select('.element_texts_list');
+				$('.element_texts_list').empty();
+				var text = element_texts
+							.selectAll('li')
+							.data(values)
+							.enter()
+							.append('li')
+							.append('a')
+							.attr('href', function(r) {
+								return "/browser/texts/"+r.text_id+"/?active_node="+d.id;
+							})
+							.text( function(r) { 
+								return r.text_title;
+							} );
+			});
+		}
+
+		function show_edge_texts(d) {
+			$.get("/networks/edge/relations/"+d.id+"/", function(data) {
+			
+				var texts = {};
+				data.relations.forEach( function(a) {
+					if (! texts[a.predicate.text] ){
+						texts[a.predicate.text] = a.predicate;
+					}
+				});
+	
+				var values = Object.keys(texts).map(function(key){
+					return texts[key];
+				});
+
+				$('.element_texts_title').text('Relationship appears in...');
+				var element_texts = d3.select('.element_texts_list');
+				$('.element_texts_list').empty();
+				var text = element_texts
+							.selectAll('li')
+							.data(values)
+							.enter()
+							.append('li')
+							.append('a')
+							.attr('href', function(r) {
+								return "/browser/texts/"+r.text_id+"/?active_edge="+d.id;
+							})
+							.text( function(r) { 
+								return r.text_title;
+							} );
+			});
+		}
+
+		function show_node_details(d) {
+			$('div[id="instructions"]').empty();
+			d3.select('.element_details_title').text(d.label);
+			d3.select('.element_details_uri').text(d.concept);
+			d3.select('.element_details_type').text(d.type);
+			show_node_texts(d);
+
+			$('[id="network-link"]').empty();
+			$('[id="network-link"]').append('<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>');
+		}
+
+		function show_edge_details(d) {
+			$('div[id="instructions"]').empty();
+			d3.select('.element_details_title').text(d.source.label + ' [' + d.label + '] ' + d.target.label);
+			d3.select('.element_details_uri').text(d.concept);
+			show_edge_texts(d);
+
+			$('[id="network-link"]').empty();
+			$('[id="network-link"]').append('<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>');        
+		}	
+	
+	
 		// Index nodes by id, and index types (for color-coding).
 		graph.network.nodes.forEach(function(d, i) {
 			hash_lookup[d.id] = d;
@@ -105,11 +287,11 @@ function network_visualization(network_id) {
 			.start();
 
 		// Draw edges.
-		var link = svg.selectAll(".link")
+		var link = svg.selectAll(".edge")
 			.data(graph.network.edges)
 			.enter()
-			.append("line")
-			.attr("class", "link")
+			.append("svg:line")
+			.classed('edge', true)
 			.attr("id", function(d) {
 				return d.id;
 			})
@@ -130,8 +312,8 @@ function network_visualization(network_id) {
 			.enter().append("g")
 			.call(force.drag);
 
-		node.append("circle")
-			.attr("class", "node")
+		node.append("svg:circle")
+			.classed("node", true)
 			.attr("id", function (d) { return d.id; })		
 			.attr("r", 10)
 			.style("fill", function(d) { 	// Color nodes based on their type.
@@ -247,180 +429,7 @@ function network_visualization(network_id) {
 			check_active();
 		}
 
-		function check_active() {
-			// An 'active' node or edge may have been passed from another page. If so, activate it.
-			var active_node = $.urlParam('active_node');
-			if (active_node) {
-				var this_node = hash_lookup[active_node];
-				var these_appellations = [];
-				this_node.appellations.forEach(function(a) {
-					these_appellations.push( d3.select('a.appellation[id="'+a+'"]')[0][0] );
-				});
-				activate_node(this_node, these_appellations);
-			}
-	
-			var active_edge = $.urlParam('active_edge');
-			if (active_edge) {
-				console.log(active_edge);
-				var this_edge = edge_hash_lookup[active_edge];
-				var these_relations = this_edge.relations;
-				var these_appellations = [];
-				these_relations.forEach( function(r) {
-					these_appellations.push( d3.select('a.appellations[id="'+predicates_relations[r]+'"]')[0][0] );
-				});
-				activate_edge(this_edge, these_appellations);
-		
-			}	
-		}
 
-		// Clears all 'focal' classes from nodes, edges, appellations.
-		function deselect_all() {
-			// De-select all
-			d3.select(".node.focal")
-				.classed("focal", false)
-				.attr("r", 10);	
-			
-			link.classed("focal", false);
-			d3.select('a.appellation.focal').classed("focal", false)	
-			
-		}
-
-		// Highlights node, and corresponding appellations.
-		//	intext is a list of appellation elements in the text.	
-		function activate_node(d, intext) {
-			d.fixed = 1;
-			deselect_all();
-
-			// Select the focal node
-			d.focal = true;
-			d3.select(".node[id=\"" + d.id + "\"]")
-				.classed("focal", true)
-				.attr("r", 15);
-		
-			if (text_present) {
-			    var moved = false;
-				intext.forEach( function(i) {
-					if (i) {    // Not all appellations are found in this text.
-						d3.select('a[id="' + i.id + '"]').classed("focal", true);
-						if (!moved) {   // Reposition page to first appellation.
-						    moved = true;
-                            $('#'+i.id).goTo();						    
-						}
-					}
-				});
-				console.log(intext);
-
-			}
-				
-			show_node_details(d);
-		}
-	
-		// Highlights edge, and corresponding appellations.
-		//	intext is a list of appellation elements in the text.
-		function activate_edge(d, intext) {
-			deselect_all();
-
-			d3.select('line[id="' + d.id + '"]')
-				.classed("focal", true);
-
-			d.focal = true;
-		
-			if (text_present) {
-				intext.forEach( function(i) {
-					if (i) {
-						d3.select('a[id="' + i.id + '"]').classed("focal", true);
-					}
-				});
-			}
-		
-			show_edge_details(d);
-		}
-	
-		function show_node_texts(d) {
-			$.get("/networks/node/appellations/"+d.id+"/", function(data) {
-				console.log(data);
-				var texts = {};
-				data.appellations.forEach( function(a) {
-				    if (a.textposition) {
-    					if (! texts[a.textposition.text] ){
-	    					texts[a.textposition.text] = a.textposition;
-		    			}
-		    		}
-				});
-		
-				var values = Object.keys(texts).map(function(key){
-					return texts[key];
-				});
-	
-				$('.element_texts_title').text(d.label + ' appears in...');
-				var element_texts = d3.select('.element_texts_list');
-				$('.element_texts_list').empty();
-				var text = element_texts
-							.selectAll('li')
-							.data(values)
-							.enter()
-							.append('li')
-							.append('a')
-							.attr('href', function(r) {
-								return "/browser/texts/"+r.text_id+"/?active_node="+d.id;
-							})
-							.text( function(r) { 
-								return r.text_title;
-							} );
-			});
-		}
-	
-		function show_edge_texts(d) {
-			$.get("/networks/edge/relations/"+d.id+"/", function(data) {
-					
-				var texts = {};
-				data.relations.forEach( function(a) {
-					if (! texts[a.predicate.text] ){
-						texts[a.predicate.text] = a.predicate;
-					}
-				});
-			
-				var values = Object.keys(texts).map(function(key){
-					return texts[key];
-				});
-		
-				$('.element_texts_title').text('Relationship appears in...');
-				var element_texts = d3.select('.element_texts_list');
-				$('.element_texts_list').empty();
-				var text = element_texts
-							.selectAll('li')
-							.data(values)
-							.enter()
-							.append('li')
-							.append('a')
-							.attr('href', function(r) {
-								return "/browser/texts/"+r.text_id+"/?active_edge="+d.id;
-							})
-							.text( function(r) { 
-								return r.text_title;
-							} );
-			});
-		}
-	
-		function show_node_details(d) {
-			$('div[id="instructions"]').empty();
-			d3.select('.element_details_title').text(d.label);
-			d3.select('.element_details_uri').text(d.concept);
-			d3.select('.element_details_type').text(d.type);
-			show_node_texts(d);
-		
-			$('[id="network-link"]').empty();
-			$('[id="network-link"]').append('<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>');
-		}
-	
-		function show_edge_details(d) {
-			$('div[id="instructions"]').empty();
-			d3.select('.element_details_title').text(d.source.label + ' [' + d.label + '] ' + d.target.label);
-			d3.select('.element_details_uri').text(d.concept);
-			show_edge_texts(d);
-		
-			$('[id="network-link"]').empty();
-			$('[id="network-link"]').append('<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>');        
-		}
 	});
 }
+
