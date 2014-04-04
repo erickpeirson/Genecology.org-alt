@@ -3,7 +3,6 @@
 {% block sidebar %}
 
 <section>
-    <div id="network-visualization"></div>
     <div><a id="force">force-directed</a> | <a id="geo">geographic</a></div>
 </section>
 
@@ -44,7 +43,7 @@
 <script src="/static/browser/js/d3.min.js"></script>
 <script src="/static/browser/js/leaflet.js"></script>    
 <script src="/static/browser/js/network.js"></script>
-<script src="/static/browser/js/map.js"></script>
+<!-- <script src="/static/browser/js/map.js"></script> -->
 <script type="text/javascript">
 
 // Disable text-specific functionality.
@@ -58,7 +57,7 @@ var width = 600,
 
 
 <script>
-network_visualization("{{ network_id }}");
+geographic_visualization("{{ network_id }}");
 
 $("#geo").click( function(d) {
 	geographic_visualization("{{ network_id }}");

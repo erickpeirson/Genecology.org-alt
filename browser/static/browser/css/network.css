@@ -22,18 +22,21 @@
 	line.focal
 	{
 		stroke-width: 8px;
-		opacity: 1;
+/* 		opacity: 1; */
+		stroke: black;
 	}
 	
 	.node
 	{
 		/*visibility: hidden;*/
+		opacity: 0.8;
 	}
 	
 		.node.focal
 		{
 			stroke: rgba(255,0,0,0.5);
 			stroke-width: 3px;
+		    opacity: 1.0;			
 		}
 	
 		.node.selected
@@ -46,47 +49,52 @@
 			font: 10px sans-serif;
 			color: red;
 		}
+		
+		.node.hovered
+		{
+		    opacity: 1.0;
+		}
 	
 	#network-link {
 		width: 100%;
 		text-align:center;
 	}
+	
+	.label
+	{
+        pointer-events: none;
+	   -moz-user-select: -moz-none;
+       -khtml-user-select: none;
+       -webkit-user-select: none;
 
+       /*
+         Introduced in IE 10.
+         See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+       */
+       -ms-user-select: none;
+       user-select: none;
+
+       font-size: 6pt;
+       opacity: 0.7;
+       
+    }
+    
+    .label.hovered, .label.focal
+    {
+        font-size: 8pt;
+        font-weight: 800;
+        opacity: 1.0;
+    }
+    
+    .hidden
+    {
+        visibility: hidden;
+    }
+    
 /*********************************************************************************/
 /* Geographic	                                                                 */
 /*********************************************************************************/		
 	
-svg {
-    font: 10px sans-serif;
-}
-
-.mapnode 
-{    
-    fill: #000000;
-    fill-opacity: 0.5;
-/*	visibility: hidden; */
-}
-	.mapnode.selected 
-	{ 
-		visibility: visible; 
-	}
-	
-	.mapnode:hover
-	{
-	    fill: red;
-	}
-
-.mapedge 
-{    
-    stroke: #000;
-    stroke-opacity: 0.5;
-	/*visibility: hidden;*/
-}
-	.mapedge.selected 
-	{
-		visibility: visible; 
-	}
-
 .axis path, .axis line {
 	fill: none;
 	stroke: #000;

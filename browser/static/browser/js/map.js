@@ -236,7 +236,7 @@ function geographic_visualization(network_id) {
 			path = d3.geo.path().projection(transform),
 			bounds = getBounds(graph.network.nodes);
 	
-		edge = g.selectAll(".edge")
+		var edge = g.selectAll(".edge")
 					.data(graph.network.edges)
 					.enter()
 					.append("svg:line")
@@ -256,18 +256,17 @@ function geographic_visualization(network_id) {
 						activate_edge(d, rel_targets);		
 					});
 
-		var node = svg.selectAll(".node")
+		var node = g.selectAll(".node")
 						.data(graph.network.nodes)
 						.enter()
-						.append("g");
+						.append("svg:circle");
 		
-		node.append("svg:circle")
-				.classed("leaflet-zoom-hide", true)
-				.classed("node", true)
-				.attr("id", function (d) { return d.id; })		
-				.style("fill", function(d) { 	// Color nodes based on their type.
-					return color(types[d.type]);
-				})
+		node.classed("leaflet-zoom-hide", true)
+            .classed("node", true)
+            .attr("id", function (d) { return d.id; })		
+            .style("fill", function(d) { 	// Color nodes based on their type.
+                return color(types[d.type]);
+            })
 				
 		node.on("click", function (d) {		// User clicks a node in the network.
 			var app_targets = Array();
@@ -278,15 +277,27 @@ function geographic_visualization(network_id) {
 			activate_node(d, app_targets);
 		});
 
+		// Add labels to nodes.
+		var label = g.selectAll(".label")
+		            .data(graph.network.nodes)
+		            .enter()
+                    .append("svg:text")
+                    .classed("label", true)
+//                     .attr("dx", function(d) { return -d.label.length*3 } )
+//                     .attr("dy", -12)
+                    .text(function(d) { return d.label; });
+
+		label.on("click", function (d) {		// User clicks a node in the network.
+			var app_targets = Array();
+			nodes_lookup[d.id].forEach( function(i) {
+				var n_app = d3.select('a.appellation[id="' + i + '"]')[0][0]
+				app_targets.push(n_app);
+			});
+			activate_node(d, app_targets);
+		});
 
 		map.on("viewreset", reset);
 		reset();
-
-		// Add labels to nodes.
-		node.append("text")
-			.attr("dx", function(d) { return -d.label.length*3 } )
-			.attr("dy", -12)
-			.text(function(d) { return d.label; });
 
 		function reset() {
 			var topLeft = projectPoint(bounds[0][0], bounds[1][1]),
@@ -330,6 +341,17 @@ function geographic_visualization(network_id) {
 					var c = d.geographic.target; 
 					var ll = projectPoint(c.longitude,c.latitude);
 					return ll[1];
+				});
+				
+			label.attr("x", function(d) {
+					var c = d.geographic;
+					var ll = projectPoint(c.longitude,c.latitude);
+					return ll[0] - d.label.length*3;// + Math.random()*20; 
+				})
+				.attr("y", function(d) { 
+					var c = d.geographic;
+					var ll = projectPoint(c.longitude,c.latitude);
+					return ll[1] + (Math.random()-0.5)*30; 
 				});
 		}
 
