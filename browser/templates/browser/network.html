@@ -14,6 +14,9 @@
             <li class="element_details_uri"></li>
             <li class="element_details_type"></li>
         </ul>
+        
+        <h4>Element contains...</h4>
+        <ul class="element_contains_list"></ul>
     </div>
 </section>
 
@@ -28,6 +31,10 @@
 
 {% block maincontent %}
 			<div id="network-visualization"></div>
+			<div>
+			    <span style="display:inline-block;">click and drag to pan; zoom with your mousewheel</span>
+			    <span style="display:inline-block; float: right;"><a href="/networks/network/1/download/">download</a></span>
+			</div>
 			<div id="time-select"></div>
 			<!-- 
 <div id="stop-layout" paused="no"><span>(Un)Pause</span></div>
@@ -57,7 +64,7 @@ var width = 600,
 
 
 <script>
-geographic_visualization("{{ network_id }}");
+network_visualization("{{ network_id }}");
 
 $("#geo").click( function(d) {
 	geographic_visualization("{{ network_id }}");

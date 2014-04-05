@@ -37,11 +37,12 @@ var edges_lookup = {}; // Edge -> Relations.
 var nodes_lookup = {}; // Node -> Appellations.
 var appellations_lookup = {}; // Appellations -> Node.
 
+// An 'active' node or edge may have been passed from another page; activate it.
+var active_node = $.urlParam('active_node');
+var active_edge = $.urlParam('active_edge');   
+
 // Call this to pick up active edge or node in GET params.
-function check_active() {
-    // An 'active' node or edge may have been passed from another page; activate it.
-    var active_node = $.urlParam('active_node');
-    var active_edge = $.urlParam('active_edge');    
+function check_active() { 
     if (active_node) {
         var this_node = hash_lookup[active_node];
         var these_appellations = [];
@@ -93,6 +94,7 @@ function activate_node(d, intext) {
         });
     }
     show_node_details(d);
+    active_node = d.id;
 }
 
 // Highlights edge, and corresponding appellations.
@@ -125,6 +127,7 @@ function activate_edge(d, intext) {
         });
     }
     show_edge_details(d);
+    active_edge = d.id;
 }
 
 // Displays the texts in which a particular node appears.
@@ -205,6 +208,8 @@ function show_node_details(d) {
     $('[id="network-link"]').empty();
     var cm = '<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>';
     $('[id="network-link"]').append(cm);
+    
+    console.log(d);
 }
 
 // Writes information about an edge to .element_details content area.
@@ -217,7 +222,9 @@ function show_edge_details(d) {
 
     $('[id="network-link"]').empty();
     var cm = '<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>';
-    $('[id="network-link"]').append(cm);        
+    $('[id="network-link"]').append(cm);
+    
+    console.log(d);      
 }
 
 // Indexes nodes and edges for quicker retrieval down the road.
@@ -394,9 +401,9 @@ function network_visualization(network_id) {
 
     var force_charge = -40;
     if (text_present) {
-        var force_linkDistance = 80;
-        nodeSize = 10;
-        
+        var force_linkDistance = 40;
+        nodeSize = 5;
+        force_charge = -80;        
         console.log('text!');
     } else {
         var force_linkDistance = 40;

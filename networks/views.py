@@ -6,6 +6,7 @@ from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from networks.models import Network, Node, Edge, Dataset, Appellation, \
                             Relation, NetworkProjection
+from networks.writers import GraphMLWriter, flatten
 
 import simplejson
 from pprint import pprint
@@ -108,12 +109,8 @@ def dataset_endpoint(request, dataset_id):
 
     # And we're done.
     return json_response(response_data)
-    
-def network_endpoint(request, network_id):
-    """
-    The Network Endpoint view provides JSON describing Nodes and Edges for a 
-    specified Network.
-    """
+
+def network_data(network_id):
     network = get_object_or_404(Network, pk=network_id)
     
     # Build node response.
@@ -128,10 +125,39 @@ def network_endpoint(request, network_id):
                         'name': network.name,
                         'nodes': n_data,
                         'edges': e_data  }}
-    
-    # And we're done.
-    return json_response(response_data)
 
+    return response_data
+
+def network_endpoint(request, network_id):
+    """
+    The Network Endpoint view provides JSON describing Nodes and Edges for a 
+    specified Network.
+    """
+    return json_response(network_data(network_id))
+
+def download_network(request, network_id, format='graphml', projection=None):
+    import networkx as nx
+    from xml.etree import cElementTree as ET
+                
+    data = network_data(network_id)
+    
+    # Build graph.
+    edges = data['network']['edges']
+    nodes = data['network']['nodes']
+    G = nx.Graph([ (e['source'], e['target'], flatten(e)) for e in edges ])
+    G.add_nodes_from([ (n['id'], flatten(n)) for n in nodes ])
+    
+    writer = GraphMLWriter(encoding='utf-8',prettyprint=True)
+    writer.add_graph_element(G)
+    writer.indent(writer.xml)
+    
+    stream = '<?xml version="1.0" encoding="%s"?>'%writer.encoding
+    stream += ET.tostring(writer.xml, encoding=writer.encoding)
+
+    response = HttpResponse(stream, content_type='application/xml')
+    response['Content-Disposition'] = 'attachment; filename="network_'+network_id+'.graphml'
+    return response
+    
 def network_projection(request, network_id, projection_id):
     def project_edge(edge, projection):
         for mapping in projection.mappings.all():
@@ -145,12 +171,18 @@ def network_projection(request, network_id, projection_id):
                          'secondary': edge.target }
         return None
 
-    network = get_object_or_404(Network, pk=network_id)
-    projection = get_object_or_404(NetworkProjection, pk=projection_id)
+    projection = get_object_or_404(NetworkProjection.objects.prefetch_related('mappings', 'mappings__secondaryNodes'), pk=projection_id)
     node_types = [ p.primaryNode for p in projection.mappings.all() ]
 
     # Generate node mappings based on projection.
-    edges = network.edges.all()
+    edges = Edge.objects.prefetch_related('source','target', 
+                                          'source__concept',
+                                          'target__concept',
+                                          'source__concept__location',
+                                          'target__concept__location',
+                                          'relations',
+                                          'concept' ).all()
+
     node_mappings = {}
     for e in edges:
         map = project_edge(e, projection)
@@ -162,13 +194,17 @@ def network_projection(request, network_id, projection_id):
 
     # Generate a new edge list based on node mappings.
     c_nodes = {}
-    c_edges = []
+    c_edges = {}
     node_index = {}
     include_nodes = set([])
     for e in edges:
         collapsed = None
         try:
             source = node_mappings[e.source.id][0]
+            try:    # look in the index first.
+                source_node = node_index[source]
+            except KeyError:
+                source_node = Node.objects.get(pk=source)
             collapsed = 'source'
             
             # Update primary node.
@@ -176,11 +212,18 @@ def network_projection(request, network_id, projection_id):
                 c_nodes[e.target.id]['contains'] += [source]
             except KeyError:
                 c_nodes[e.target.id] = { 'contains': [source] }
+
         except KeyError:    # No mapping defined for source node.
             source = e.source.id
+            source_node = e.source
 
         try:
             target = node_mappings[e.target.id][0]
+
+            try:    # look in the index first.
+                target_node = node_index[target]
+            except KeyError:
+                target_node = Node.objects.get(pk=target)
             collapsed = 'target'
             
             # Update primary node.
@@ -190,45 +233,54 @@ def network_projection(request, network_id, projection_id):
                 c_nodes[e.source.id] = { 'contains': [target] }
         except KeyError:    # No mapping defined for target node.
             target = e.target.id
-
-        source_node = Node.objects.get(pk=source)
-        target_node = Node.objects.get(pk=target)
-        node_index[source] = source_node
-        node_index[target] = target_node
+                    
+        node_index[source] = source_node    # Update index.
+        node_index[target] = target_node    # Update index.            
 
         # Only include edges between primaryNodes in the Projection.
         # TODO: Handle case where source or target has no location.
         if source_node.type in node_types\
                             and target_node.type in node_types:
-            new_edge = {    'source': source,
-                            'target': target,
-                            'id': e.id,
-                            'concept': e.concept.uri,
-                            'label': e.concept.name,
-                            'relations': [ r.id for r in e.relations.all() ],
-                            'geographic': {
-                                'source': {
-                                    'latitude': source_node.concept.location.latitude,
-                                    'longitude': source_node.concept.location.longitude
-                                },
-                                'target': {
-                                    'latitude': target_node.concept.location.latitude,
-                                    'longitude': target_node.concept.location.longitude
-                                }
-                            }
-                        }
-            c_edges.append(new_edge)
-            
             if collapsed is not None:
-                new_edge['original'] = e.id
+                org = e.id
+            else:
+                org = None
             
-            include_nodes.add(source)
-            include_nodes.add(target)
-    
-    # TODO: Can this be done with data already retrieved?
+            f_key = (source, target, e.concept.uri)
+            r_key = (target, source, e.concept.uri)
+            
+            novel = False
+            if not c_edges.has_key(f_key) and not c_edges.has_key(r_key):
+                novel = True
+                
+            if novel:
+                new_edge = {
+                    'source': source,
+                    'target': target,
+                    'id': e.id,
+                    'concept': e.concept.uri,
+                    'label': e.concept.name,
+                    'relations': [ r.id for r in e.relations.all() ],
+                    'geographic': {
+                        'source': {
+                            'latitude': source_node.concept.location.latitude,
+                            'longitude': source_node.concept.location.longitude
+                        },
+                        'target': {
+                            'latitude': target_node.concept.location.latitude,
+                            'longitude': target_node.concept.location.longitude
+                        }
+                    },
+                    'original': [org]
+                }
+                
+                c_edges[f_key] = new_edge
+                
+                include_nodes.add(source)
+                include_nodes.add(target)
+            
     all_nodes = [ node_index[id] for id in include_nodes ]
-
-    return json_response({'network': {'edges': c_edges, 'nodes': node_data(all_nodes) }})
+    return json_response({'network': {'edges': c_edges.values(), 'nodes': node_data(all_nodes) }})
 
 def list_datasets(request):
     """
@@ -318,3 +370,4 @@ def edge_relations(request, edge_id):
 
     edge = get_object_or_404(Edge, pk=edge_id)
     return json_response(relation_data(edge.relations.all()))
+    

@@ -18,7 +18,11 @@ urlpatterns = patterns('',
     url(r'network/(?P<network_id>.*?)/projection/(?P<projection_id>.*?)/$',
                                                 views.network_projection,
                                                 name='network_projection'),
-                       
+
+    url(r'network/(?P<network_id>.*?)/download/(?P<format>.*?)',
+                                                views.download_network,
+                                                name='download_network'),
+
     url(r'network/(?P<network_id>.*?)/$',       views.network_endpoint,
                                                 name='network_endpoint'),
                        
