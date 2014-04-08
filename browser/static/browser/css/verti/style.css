@@ -896,3 +896,7 @@
     }
     
 
+	ul.element_texts_list li
+	{
+		margin-bottom: 4pt;
+	}

@@ -111,7 +111,15 @@ def dataset_endpoint(request, dataset_id):
     return json_response(response_data)
 
 def network_data(network_id):
-    network = get_object_or_404(Network, pk=network_id)
+    network = get_object_or_404(Network.objects.prefetch_related('nodes', 'edges',
+                                                         'nodes__concept',
+                                                         'nodes__concept__location',
+                                                         'nodes__type',
+                                                         'nodes__appellations',
+                                                         'edges__source',
+                                                         'edges__target',
+                                                         'edges__concept',
+                                                         'edges__relations'), pk=network_id)
     
     # Build node response.
     n_data = node_data(network.nodes.all())

@@ -110,8 +110,8 @@ class Edge(models.Model):
 
     def __unicode__(self):
         return unicode(u'{0} - {1} - {2}'.format(self.source.concept.name,
-                                                self.concept.name,
-                                                self.target.concept.name))
+                                                 self.concept.name,
+                                                 self.target.concept.name))
 
 class TextPosition(models.Model):
     startposition = models.IntegerField(default=0)
