@@ -203,7 +203,16 @@ function show_node_details(d) {
     d3.select('.element_details_title').text(d.label);
     d3.select('.element_details_uri').text(d.concept);
     d3.select('.element_details_type').text(d.type);
+
+	if ('contains' in d) {
+		$('.element_contains_list').empty();
+		d.contains.forEach( function (i) {
+			d3.select('.element_contains_list').append('li').text(i.label);
+		});
+	}
+
     show_node_texts(d);
+
 
     $('[id="network-link"]').empty();
     var cm = '<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>';
@@ -389,6 +398,8 @@ function wrap(text, width) {
 }
 
 function network_visualization(network_id) {
+	d3.select('.element_contains').classed('hidden', true);
+
     try {
         map.remove();
     } catch (err) {
@@ -545,6 +556,14 @@ function network_visualization(network_id) {
 }
 
 function geographic_visualization(network_id) {
+	d3.select('.element_contains').classed('hidden', false);
+
+    try {
+        map.remove();
+    } catch (err) {
+        // do nothing;    
+    }
+
 	$('div[id="network-visualization"]').empty(); 
 
     if (text_present) {

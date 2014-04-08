@@ -21,7 +21,6 @@ def json_response(response_data):
 def appellation_data(appellations):
     app_data = []
     for app in appellations:
-        print app.textposition
         ad = { 'concept': app.concept.uri,
                'type': app.concept.type.uri,
                'id': app.id     }
@@ -192,13 +191,19 @@ def network_projection(request, network_id, projection_id):
                                           'concept' ).all()
 
     node_mappings = {}
+    node_contains = {}
     for e in edges:
         map = project_edge(e, projection)
         if map is not None:
             try:
-                node_mappings[map['secondary'].id] += map['node'].id
+                node_mappings[map['secondary'].id] += [ map['node'].id ]
             except (KeyError, TypeError):
                 node_mappings[map['secondary'].id] = [map['node'].id]
+
+            try:
+                node_contains[map['node'].id] += [ map['secondary'] ]
+            except (KeyError, TypeError):
+                node_contains[map['node'].id] = [map['secondary']]
 
     # Generate a new edge list based on node mappings.
     c_nodes = {}
@@ -288,7 +293,11 @@ def network_projection(request, network_id, projection_id):
                 include_nodes.add(target)
             
     all_nodes = [ node_index[id] for id in include_nodes ]
-    return json_response({'network': {'edges': c_edges.values(), 'nodes': node_data(all_nodes) }})
+    n_data = node_data(all_nodes)
+    for i in xrange(len(n_data)):
+        n_data[i]['contains'] = node_data(node_contains[n_data[i]['id']])
+
+    return json_response({'network': {'edges': c_edges.values(), 'nodes': n_data }})
 
 def list_datasets(request):
     """
