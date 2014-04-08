@@ -213,12 +213,9 @@ function show_node_details(d) {
 
     show_node_texts(d);
 
-
     $('[id="network-link"]').empty();
     var cm = '<a href="/browser/networks/?active_node='+d.id+'">See node in context</a>';
     $('[id="network-link"]').append(cm);
-    
-    console.log(d);
 }
 
 // Writes information about an edge to .element_details content area.
@@ -232,8 +229,6 @@ function show_edge_details(d) {
     $('[id="network-link"]').empty();
     var cm = '<a href="/browser/networks/?active_edge='+d.id+'">See edge in context</a>';
     $('[id="network-link"]').append(cm);
-    
-    console.log(d);      
 }
 
 // Indexes nodes and edges for quicker retrieval down the road.
@@ -415,11 +410,9 @@ function network_visualization(network_id) {
         var force_linkDistance = 40;
         nodeSize = 5;
         force_charge = -80;        
-        console.log('text!');
-    } else {
+	} else {
         var force_linkDistance = 40;
         nodeSize = 5;
-        console.log('no text!');
     }
 
 	// Force-directed layout.
@@ -483,10 +476,10 @@ function network_visualization(network_id) {
             .start();        // Update node and edge positions based on force-directed layout.
         
         // Dragging behavior.
-        var node_drag = d3.behavior.drag()
-                .on("dragstart", dragstart)
-                .on("drag", dragmove)
-                .on("dragend", dragend);        
+        var node_drag = d3.behavior.drag();
+//                .on("dragstart", dragstart)
+//                .on("drag", dragmove)
+//                .on("dragend", dragend);        
 
         function dragstart(d, i) {
             force.stop();
@@ -568,10 +561,8 @@ function geographic_visualization(network_id) {
 
     if (text_present) {
         nodeSize = 20;
-        console.log('text!');
     } else {
         nodeSize = 10;
-        console.log('no text!');
     }
     
 	function getBounds(nodes) {
@@ -593,7 +584,6 @@ function geographic_visualization(network_id) {
 				right = node.geographic.longitude;
 			}									
 		});
-		console.log([[left, bottom],[right,top]]);
 		return [[left-10, bottom-10],[right+10,top+10]];
 	}
 	
