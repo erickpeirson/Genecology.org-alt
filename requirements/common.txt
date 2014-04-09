@@ -6,3 +6,4 @@ simplejson==3.3.3
 gunicorn==18.0
 django-autocomplete-light==2.0.0a15
 six==1.6.1
+networkx==1.8.1
