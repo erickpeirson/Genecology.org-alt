@@ -255,7 +255,7 @@ def network_projection(request, network_id, projection_id):
         if source_node.type in node_types\
                             and target_node.type in node_types:
             if collapsed is not None:
-                org = e.id
+                org = e
             else:
                 org = None
             
@@ -284,7 +284,7 @@ def network_projection(request, network_id, projection_id):
                             'longitude': target_node.concept.location.longitude
                         }
                     },
-                    'original': [org]
+                    'contains': edge_data([org])
                 }
                 
                 c_edges[f_key] = new_edge
@@ -338,8 +338,10 @@ def text_appellations(request, text_id=None): #, dataset_id=None, network_id=Non
     Returns all appellations (for a text, if text_id is provided).
     """
 
-    appellations = Appellation.objects.all()
-    relations = Relation.objects.all()
+    appellations = Appellation.objects.select_related('textposition',
+                                                      'textposition__text').all()
+    relations = Relation.objects.select_related('textposition',
+                                                'textposition__text').all()
     
     if text_id is not None:
         appellations = appellations.filter(textposition__text__id=text_id)

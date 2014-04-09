@@ -204,8 +204,8 @@ function show_node_details(d) {
     d3.select('.element_details_uri').text(d.concept);
     d3.select('.element_details_type').text(d.type);
 
+	$('.element_contains_list').empty();
 	if ('contains' in d) {
-		$('.element_contains_list').empty();
 		d.contains.forEach( function (i) {
 			d3.select('.element_contains_list').append('li').text(i.label);
 		});
@@ -224,6 +224,15 @@ function show_edge_details(d) {
     var title_text = d.source.label + ' [' + d.label + '] ' + d.target.label;
     d3.select('.element_details_title').text(title_text);
     d3.select('.element_details_uri').text(d.concept);
+    
+	$('.element_contains_list').empty();    
+	if ('contains' in d) {
+		d.contains.forEach( function (i) {
+			var t = hash_lookup[i.source].label + ' [' + i.label + '] ' + hash_lookup[i.target].label;
+			d3.select('.element_contains_list').append('li').text(t);
+		});
+	}    
+    
     show_edge_texts(d);
 
     $('[id="network-link"]').empty();
