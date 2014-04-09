@@ -122,7 +122,10 @@ def _remote_concept(uri, authority):
     #  Location.
     if data['similar_to'] is not None:
         logging.debug("similar_to field is not empty.")
-        location = retrieve_location(data['similar_to'])
+        try:
+            location = retrieve_location(data['similar_to'])
+        except RuntimeError:
+            location = None
         if location is not None:
             logging.debug("Found a Location based on similar_to field")
             concept.location_id = location.id
