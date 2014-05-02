@@ -5,7 +5,7 @@ views for Networks app.
 from django.shortcuts import render, render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseNotFound
 from networks.models import Network, Node, Edge, Dataset, Appellation, \
-                            Relation, NetworkProjection
+                            Relation, NetworkProjection, Layout
 from networks.writers import GraphMLWriter, flatten
 
 import simplejson
@@ -30,9 +30,9 @@ def appellation_data(appellations):
                 'text_title': app.textposition.text.title,
                 'text': app.textposition.text.uri,
                 'startposition': app.textposition.startposition,
-                'endposition': app.textposition.endposition       
-                }
+                'endposition': app.textposition.endposition }
         app_data.append(ad)
+
     return {'appellations': app_data}
 
 def node_data(nodes):
@@ -50,6 +50,7 @@ def node_data(nodes):
         except AttributeError:
             pass
         node_data.append(nd)
+
     return node_data
 
 def edge_data(edges):
@@ -82,6 +83,24 @@ def relation_data(relations):
         rel_data.append(rd)
 
     return {'relations': rel_data}
+
+def layout_endpoint(request, layout_id):
+    """
+    Provides JSON describing Node and Edge positions.
+    """
+
+    layout = get_object_or_404(Layout, pk=layout_id)
+
+    response_data = layout_data(layout)
+
+    return json_response(response_data)
+
+def layout_data(layout):
+    """
+    Yields a dictionary of node positions.
+    """
+
+    return { n.node.id:{'x':n.x, 'y':n.y} for n in layout.positions.all() }
 
 def dataset_endpoint(request, dataset_id):
     """
@@ -267,27 +286,31 @@ def network_projection(request, network_id, projection_id):
                 novel = True
                 
             if novel:
-                new_edge = {
-                    'source': source,
-                    'target': target,
-                    'id': e.id,
-                    'concept': e.concept.uri,
-                    'label': e.concept.name,
-                    'relations': [ r.id for r in e.relations.all() ],
-                    'geographic': {
-                        'source': {
-                            'latitude': source_node.concept.location.latitude,
-                            'longitude': source_node.concept.location.longitude
+                try:
+                    new_edge = {
+                        'source': source,
+                        'target': target,
+                        'id': e.id,
+                        'concept': e.concept.uri,
+                        'label': e.concept.name,
+                        'relations': [ r.id for r in e.relations.all() ],
+                        'geographic': {
+                            'source': {
+                                'latitude': source_node.concept.location.latitude,
+                                'longitude': source_node.concept.location.longitude
+                            },
+                            'target': {
+                                'latitude': target_node.concept.location.latitude,
+                                'longitude': target_node.concept.location.longitude
+                            }
                         },
-                        'target': {
-                            'latitude': target_node.concept.location.latitude,
-                            'longitude': target_node.concept.location.longitude
-                        }
-                    },
-                    'contains': edge_data([org])
-                }
+                        'contains': edge_data([org])
+                    }
+                    c_edges[f_key] = new_edge                    
+                except AttributeError:  # No location data.
+                    pass
                 
-                c_edges[f_key] = new_edge
+
                 
                 include_nodes.add(source)
                 include_nodes.add(target)

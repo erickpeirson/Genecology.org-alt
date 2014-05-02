@@ -479,10 +479,10 @@ function network_visualization(network_id) {
         }
 
 		// Initialize layout.
-		force.nodes(graph.network.nodes)
-            .links(graph.network.edges)
-            .on("tick", tick)
-            .start();        // Update node and edge positions based on force-directed layout.
+// 		force.nodes(graph.network.nodes)
+//             .links(graph.network.edges)
+//             .on("tick", tick)
+//             .start();        // Update node and edge positions based on force-directed layout.
         
         // Dragging behavior.
         var node_drag = d3.behavior.drag();
@@ -499,12 +499,12 @@ function network_visualization(network_id) {
             d.py += d3.event.dy;
             d.x += d3.event.dx;
             d.y += d3.event.dy; 
-            tick();
+            //tick();
         }
 
         function dragend(d, i) {
             d.fixed = true;
-            tick();
+            //tick();
             force.resume();
         }	            
 
@@ -531,6 +531,25 @@ function network_visualization(network_id) {
 			.attr("id", function (d) { return d.id; })		
 			.attr("r", nodeSize)              // -vv- Color nodes based on their type.
 			.style("fill", function(d) { return color(types[d.type]); });
+
+        d3.json("/networks/layout/2/", function(error, layout) {
+			node.attr("cx", function(d) {
+				return layout[d.id].x*width;
+			}).attr("cy", function(d) {
+				return layout[d.id].y*height;
+			});
+			
+			edge.attr("x1", function(d) { return layout[d.source.id].x*width; })
+                .attr("y1", function(d) { return layout[d.source.id].y*height; })
+                .attr("x2", function(d) { return layout[d.target.id].x*width; })
+                .attr("y2", function(d) { return layout[d.target.id].y*height; });
+			
+            node.attr("transform", function(d) {
+            	var x = layout[d.id].x*width;
+            	var y = layout[d.id].y*height;
+                return "translate(" + x + "," + y + ")";
+            });
+        });
 
 		node.on("click", node_click);
 

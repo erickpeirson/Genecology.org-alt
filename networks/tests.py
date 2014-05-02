@@ -12,10 +12,10 @@ from concepts.models import Concept, ConceptAuthority, ConceptType, \
 from concepts.managers import retrieve_concept
 
 from networks.models import Node, NodeType, Appellation, Relation, Dataset, \
-                            Network, Edge, NetworkLink, TextPosition
+                            Network, Edge, NetworkLink, TextPosition, Layout
 
 from networks.views import dataset_endpoint, network_endpoint, list_datasets, \
-                            list_networks, text_appellations
+                            list_networks, text_appellations, layout_endpoint
 
 from texts.models import Text
 
@@ -85,6 +85,9 @@ def view_test_setup(self):
     self.formdata = { 'linked_dataset-0-network': self.network.id }
 
     self.dataset = self.manager.add_dataset(self.cleaned_data, self.formdata)
+
+    self.layout = Layout(name='TestLayout')
+    self.layout.save()
 
 class NodeTypeTests(TestCase):
     def setUp(self):
@@ -329,6 +332,39 @@ class DatasetManagerTests(TestCase):
 #   Tests for Views     #
 #                       #
 #########################
+
+class LayoutEndpointView(TestCase):
+    """
+    JSON desribing Node positions.
+    """
+
+    setUp = view_test_setup
+
+    def test_nonexistent_layout(self):
+        """
+        should raise a 404 if layout id doesn't exist
+        """
+
+        request = self.factory.get('/networks/layout/')
+        self.assertRaises(Http404, layout_endpoint, request, 4)
+
+    def test_layout_exists(self):
+        """
+        should return status 200 if dataset does exist.
+        """
+        request = self.factory.get('/networks/layout/')
+        response = layout_endpoint(request, self.layout.id)
+        self.assertEqual(response.status_code, 200)
+    
+    def test_returns_json(self):
+        request = self.factory.get('/networks/layout/')
+        response = layout_endpoint(request, self.layout.id)
+        content_type = response._headers['content-type'][1]
+        self.assertEqual(content_type, 'application/json')
+        
+        # Readable JSON?
+        rdata = simplejson.loads(response.content)
+        self.assertIsInstance(rdata, dict)
 
 class DatasetEndpointView(TestCase):
     """

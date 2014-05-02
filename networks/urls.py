@@ -47,4 +47,7 @@ urlpatterns = patterns('',
                                                 
     url(r'appellations/$',                      views.text_appellations,
                                                 name='all_appellations'),
+    
+    url(r'layout/(?P<layout_id>.*?)/$',         views.layout_endpoint,
+                                                name='layout_endpoint'),
 )
