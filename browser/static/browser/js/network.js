@@ -88,7 +88,7 @@ function activate_node(d, intext) {
                 d3.select('a[id="' + i.id + '"]').classed("focal", true);
                 if (!moved) {   // Reposition page to first appellation.
                     moved = true;
-                    $('#'+i.id).goTo();						    
+                    $('a[id="'+i.id+'"]').goTo();						    
                 }
             }
         });
@@ -331,9 +331,9 @@ function process_appellations(data) {
     });
 
     // Add appellations to the text.
-    mappable.forEach(function(item) {
-        add_appellation(textcontent, item);
-    });
+    // mappable.forEach(function(item) {
+//         add_appellation(textcontent, item);
+//     });
 
     // Index relations and their predicates.
     data.relations.forEach(function(item) {
@@ -478,17 +478,19 @@ function network_visualization(network_id) {
             });
         }
 
-		// Initialize layout.
-// 		force.nodes(graph.network.nodes)
-//             .links(graph.network.edges)
-//             .on("tick", tick)
-//             .start();        // Update node and edge positions based on force-directed layout.
-        
+// 	if (text_present) {
+// 
+// 		// Initialize layout.
+//  		force.nodes(graph.network.nodes)
+//              .links(graph.network.edges)
+//              .on("tick", tick)
+//                .start();        // Update node and edge positions based on force-directed layout.
+// 	}        
         // Dragging behavior.
-        var node_drag = d3.behavior.drag();
-//                .on("dragstart", dragstart)
-//                .on("drag", dragmove)
-//                .on("dragend", dragend);        
+        var node_drag = d3.behavior.drag()
+                .on("dragstart", dragstart)
+                .on("drag", dragmove)
+                .on("dragend", dragend);        
 
         function dragstart(d, i) {
             force.stop();
@@ -531,26 +533,29 @@ function network_visualization(network_id) {
 			.attr("id", function (d) { return d.id; })		
 			.attr("r", nodeSize)              // -vv- Color nodes based on their type.
 			.style("fill", function(d) { return color(types[d.type]); });
+			
+			
+		//if (!text_present) {
 
-        d3.json("/networks/layout/2/", function(error, layout) {
-			node.attr("cx", function(d) {
-				return layout[d.id].x*width;
-			}).attr("cy", function(d) {
-				return layout[d.id].y*height;
+			d3.json("/networks/layout/1/", function(error, layout) {
+				node.attr("cx", function(d) {
+					return layout[d.id].x*width;
+				}).attr("cy", function(d) {
+					return layout[d.id].y*height;
+				});
+			
+				edge.attr("x1", function(d) { return layout[d.source.id].x*width; })
+					.attr("y1", function(d) { return layout[d.source.id].y*height; })
+					.attr("x2", function(d) { return layout[d.target.id].x*width; })
+					.attr("y2", function(d) { return layout[d.target.id].y*height; });
+			
+				node.attr("transform", function(d) {
+					var x = layout[d.id].x*width;
+					var y = layout[d.id].y*height;
+					return "translate(" + x + "," + y + ")";
+				});
 			});
-			
-			edge.attr("x1", function(d) { return layout[d.source.id].x*width; })
-                .attr("y1", function(d) { return layout[d.source.id].y*height; })
-                .attr("x2", function(d) { return layout[d.target.id].x*width; })
-                .attr("y2", function(d) { return layout[d.target.id].y*height; });
-			
-            node.attr("transform", function(d) {
-            	var x = layout[d.id].x*width;
-            	var y = layout[d.id].y*height;
-                return "translate(" + x + "," + y + ")";
-            });
-        });
-
+		//}
 		node.on("click", node_click);
 
 		// Add labels to nodes.
@@ -568,7 +573,7 @@ function network_visualization(network_id) {
 		if (text_present) {
 			// The /networks/appellations/ endpoint provides data for a specific text.
 			$.get("/networks/appellations/"+text_id+"/", function(data) {
-                process_appellations(data);
+				process_appellations(data);
 			});
 		}
 		

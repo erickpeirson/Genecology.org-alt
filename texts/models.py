@@ -15,5 +15,7 @@ class Text(models.Model):
     content = models.TextField()
     length = models.IntegerField(default=0)
     
+    restricted = models.BooleanField(default=True)
+    
     class Meta:
         verbose_name_plural = "texts"

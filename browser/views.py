@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse, Http404
-from browser.managers import text_appellations, text_relations
+from browser.managers import text_appellations, text_relations, \
+                             add_appellations
 
 from texts.models import Text
 
@@ -55,10 +56,15 @@ def display_text(request, text_id):
                               'text': t.title }, 
                             { 'text': t.dateCreated } ] for t in texts ] }
 
+
+    content = add_appellations(text, snip=text.restricted)
+
+
+
     data = {    'title': text.title,
                 'text_id': text.id,
-                'subtitle': text.uri,
-                'text': text.content,
+                'uri': text.uri,
+                'text': content,
                 'leftlist': tdata,
                 'nav_active': 'texts' }
 

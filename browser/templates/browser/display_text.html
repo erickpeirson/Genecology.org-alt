@@ -63,8 +63,8 @@
 
 {% block maincontent %}
 <h2>{{ title }}</h2>
-{% if subtitle %}<h3>{{ subtitle }}</h3>{% endif %}
-<pre id="textcontent">{{ text }}</pre>
+{% if uri %}<h3><a href="{{uri}}" class="uri">{{ uri }}</a></h3>{% endif %}
+<pre id="textcontent">{{ text|safe }}</pre>
 {% endblock %}
 
 {% block endscripts %}
