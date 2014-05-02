@@ -47,6 +47,8 @@ class Network(models.Model):
     name = models.CharField(max_length='200')
     nodes = models.ManyToManyField('networks.Node')
     edges = models.ManyToManyField('networks.Edge')
+    
+    layout = models.ManyToManyField('networks.Layout', blank=True, null=True)
 
     def __unicode__(self):
         return self.name
@@ -146,7 +148,7 @@ class NetworkLink(models.Model):
                                                              self.dataset.name))
 
 class Appellation(models.Model):
-    concept = models.ForeignKey('concepts.Concept')
+    concept = models.ForeignKey('concepts.Concept', blank=True, null=True)
     textposition = models.ForeignKey('TextPosition', null=True, blank=True)
 
     class Meta:
@@ -166,7 +168,23 @@ class Relation(models.Model):
 
     def __unicode__(self):
         return unicode(u'{0} - {1} - {2}'.format(self.source.concept.name,
-                                                self.predicate.concept.name,
-                                                self.target.concept.name))
-                                                
+                                                 self.predicate.concept.name,
+                                                 self.target.concept.name))
+
+class Layout(models.Model):
+    name = models.CharField(max_length=200)
+    positions = models.ManyToManyField('networks.NodePosition', null=True,
+                                                                blank=True)
+
+    def __unicode__(self):
+        return unicode(self.name)
+
+class NodePosition(models.Model):
+    node = models.ForeignKey('networks.Node', related_name='layout_node')
+    x = models.DecimalField(decimal_places=6, max_digits=12)
+    y = models.DecimalField(decimal_places=6, max_digits=12)
+
+    def __unicode__(self):
+        return unicode(self.node.concept.name)
+
 

@@ -1,4 +1,5 @@
 import xml.parsers.expat
+from networkx.readwrite.graphml import GraphMLReader
 
 import logging
 logging.basicConfig()
@@ -28,8 +29,8 @@ class XGMMLParser(BaseParser):
     def __init__(self):
         """
         """
-        self.appellations = []
-        self.relations = []
+        self.nodes = []
+        self.edges = []
         
         self._parser = xml.parsers.expat.ParserCreate()
         self._parser.StartElementHandler = self._start_element
@@ -69,18 +70,15 @@ class XGMMLParser(BaseParser):
     def _end_element(self, tag):
         """
         
-        Arguments:
-        - `self`:
-        - `tag`:
         """
         
         if tag == 'node':
-            self.appellations.append({  'id':   self._current_obj['id'],
+            self.nodes.append({  'id':   self._current_obj['id'],
                                         'label':    self._current_obj['label'],
                                         'attributes': self._current_attr })
 
         elif tag == 'edge':
-            self.relations.append({ 'source':   self._current_obj['source'],
+            self.edges.append({ 'source':   self._current_obj['source'],
                                     'target':   self._current_obj['target'],
                                     'attributes': self._current_attr } )
 
@@ -88,19 +86,75 @@ class XGMMLParser(BaseParser):
  
     def ParseFile(self, file):
         """
+        Yields nodes and edges from a XGMML file.
         
-        Arguments:
-        - `self`:
-        - `file`:
+        Parameters
+        ----------
+        file : str
+            Path to a GraphML file.
+            
+        Returns
+        -------
+        dict
+            Contains lists of 'nodes' and 'edges'.
         """
  
         self._parser.ParseFile(file)
-        return {'appellations': self.appellations, 'relations': self.relations}
+        return {'nodes': self.nodes, 'edges': self.edges}
 
 class GraphMLParser(BaseParser):
-	def ParseFile(self, file):
-		print 'graphml'
-		print file.read()
+    def __init__(self):
+        self.reader = GraphMLReader(str)
+    
+    def _get_nodes(self):
+        parsed_nodes = self.graph.nodes(data=True)
+        nodes = []
+        for n in parsed_nodes:
+            id = n[0]
+            
+            # Label.
+            if 'label' in n[1]: label = n[1]['label']
+            else: label = id
+
+            # Attributes.
+            attributes = { k:v for k,v in n[1].iteritems() if k != 'label'}
+
+            nodes.append({  'id': id,
+                            'label': label,
+                            'attributes': attributes })
+        return nodes
+    
+    def _get_edges(self):
+        parsed_edges = self.graph.edges(data=True)
+        edges = []
+        for e in parsed_edges:
+            source = e[0]
+            target = e[1]
+            attributes = { k:v for k,v in e[2].iteritems() }
+            
+            edges.append({  'source': source,
+                            'target': target,
+                            'attributes': attributes})
+        
+        return edges
+
+    def ParseFile(self, file):
+        """
+        Yields nodes and edges from a GraphML file.
+        
+        Parameters
+        ----------
+        file : str
+            Path to a GraphML file.
+            
+        Returns
+        -------
+        dict
+            Contains lists of 'nodes' and 'edges'.
+        """
+        
+        self.graph = list(self.reader(file))[0]
+        return {'nodes': self._get_nodes(), 'edges': self._get_edges()}
 
 PARSERS = { 'XGMML': XGMMLParser,
             'GraphML': GraphMLParser  }

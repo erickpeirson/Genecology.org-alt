@@ -4,7 +4,7 @@ managers for Networks app
 
 from django.utils.encoding import smart_text
 from networks.models import Appellation, Relation, Network, Node, Edge, \
-                            NetworkLink, TextPosition
+                            NetworkLink, TextPosition, Layout, NodePosition
 from texts.models import Text
 
 from concepts.managers import retrieve_concept
@@ -37,11 +37,11 @@ class DatasetManager(object):
 
         # Check to see if network has nodes for the appellations and relations,
         #  and if not (create/)add them.
-        for datum in data['appellations']:
+        for datum in data['nodes']:
             appellation = self._add_appellation(datum, network)
             self.instance.appellations.add(appellation.id)
 
-        for datum in data['relations']:
+        for datum in data['edges']:
             relation = self._add_relation(datum, network)
             self.instance.relations.add(relation.id)
             self.instance.appellations.add(relation.predicate.id)
@@ -75,7 +75,6 @@ class DatasetManager(object):
         node = Node.objects.get_unique(concept)
         node.appellations.add(appellation.id)
         node.save()
-        print node
         
         self.these_nodes[datum['id']] = node
         
@@ -106,7 +105,11 @@ class DatasetManager(object):
         target = self.these_appellations[datum['target']]
         
         # Create appellation for predicate.
-        predicate_concept = retrieve_concept(datum['attributes']['predicate'])
+        # TODO: Find a better way to handle incomplete data.
+        try:
+            predicate_concept = retrieve_concept(datum['attributes']['predicate'])
+        except KeyError:
+            predicate_concept = retrieve_concept('http://www.digitalhps.org/concepts/CON42732c04-a08f-476b-97fb-646bb73cb54c')
         predicate = Appellation(concept=predicate_concept)
         predicate.save()
         
@@ -174,3 +177,68 @@ class DatasetManager(object):
             pass
 
         return instance
+
+
+def layout_create(layout, file, format):
+    """
+    Extract positional information from a network file, and create a new Layout.
+    
+    The nodes described in the network file should have IDs corresponding to
+    nodes in an existing :class:`.Network` .
+    
+    Parameters
+    ----------
+    layout : :class:`.Layout`
+        .
+    file : str
+        Path to a network file (e.g. a GraphML file).
+    format : str
+        Network data format (e.g. XGMML, GraphML)
+    
+    Returns
+    -------
+    :class:`.Layout`
+        The resulting :class:`.Layout` object.
+    """
+    
+    logger.debug('layout_create: {0}'.format(layout.name))
+    
+    parser = parsers.parserFactory(format)()
+    data = parser.parse(file)
+    
+    for n in data['nodes']:
+        # Find Node
+        # TODO: handle exceptions (not found).
+        node = Node.objects.get(pk=n['id'])
+        
+        # Create and associate a NodePosition.
+        if 'x' in n['attributes'] and 'y' in n['attributes']:
+            pos = NodePosition( node=node,
+                                x = n['attributes']['x'],
+                                y = n['attributes']['y'] )
+            pos.save()
+            layout.positions.add(pos.id)
+
+    logger.debug('{0} positions found, out of {1} total nodes.'
+                                       .format(len(layout.positions.all()),
+                                               len(data['nodes'])))
+
+    return layout
+
+
+def layout_handle(layout, cleaned_data, formdata):
+    """
+    Handles uploaded network file and layout name.
+    """
+    file = cleaned_data['upload']
+    name = formdata['name']
+    
+    # TODO: handle exceptions.
+    network = Network.objects.get(pk=formdata['network'])
+
+    format = formdata['format']
+    
+    layout = layout_create(layout, file, format)
+    network.layout.add(layout)
+    
+    return layout

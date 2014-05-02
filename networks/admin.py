@@ -1,9 +1,9 @@
 from django.contrib import admin
 from networks.models import Network, Node, Edge, TextPosition, Appellation, \
                             Relation, Dataset, NetworkLink, NetworkProjection, \
-                            NodeType, ProjectionMapping
+                            NodeType, ProjectionMapping, Layout, NodePosition
 
-from networks.forms import DatasetAdminForm
+from networks.forms import DatasetAdminForm, LayoutAdminForm
 from django.forms.models import inlineformset_factory
 
 import logging
@@ -16,24 +16,18 @@ class NetworkLinkInline(admin.TabularInline):
     extra = 1
 
 class NetworkAdmin(admin.ModelAdmin):
-    """
-    adds a new network
-    """
-
     exclude = [ 'nodes', 'edges']
     inlines = [ NetworkLinkInline,]
 
 class DatasetAdmin(admin.ModelAdmin):
-    """
-    adds a new dataset
-    
-    specify network
-    specify format
-
-    """
-
     form = DatasetAdminForm
     inlines = [ NetworkLinkInline, ]
+
+class LayoutAdmin(admin.ModelAdmin):
+    form = LayoutAdminForm
+
+class NodePositionAdmin(admin.ModelAdmin):
+    list_display = ('__unicode__', 'x', 'y')
 
 #class NetworkProjectionAdmin(admin.ModelAdmin):
 #    inlines = [ ProjectionMappingInline, ]
@@ -48,3 +42,5 @@ admin.site.register(Relation)
 admin.site.register(NodeType)
 admin.site.register(NetworkProjection)#, NetworkProjectionAdmin)
 admin.site.register(ProjectionMapping)
+admin.site.register(Layout, LayoutAdmin)
+admin.site.register(NodePosition, NodePositionAdmin)
