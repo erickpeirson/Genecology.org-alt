@@ -47,7 +47,8 @@ INSTALLED_APPS = (
 	'networks',
     'browser',
     'repositories',
-    'autocomplete_light'
+    'autocomplete_light',
+    'django_extensions'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,3 +121,7 @@ if environ.has_key('DATABASE_URL'):
         'PORT': url.port,
     }
 
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
