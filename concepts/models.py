@@ -1,3 +1,19 @@
+"""
+Represents conceptual entities, such as people, institutions, organisms, and the 
+authorities that describe them.
+
+.. autosummary::
+
+   Location
+   LocationAuthority   
+   Concept
+   ConceptType
+   ConceptTypeManager
+   ConceptAuthority
+   
+
+"""
+
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import IntegrityError
@@ -12,6 +28,28 @@ logging.basicConfig()
 logger = logging.getLogger(__name__)
 
 class LocationAuthority(models.Model):
+    """
+    A RESTful services that describes :class:`.Location` instances on the earth.
+    
+    Attributes
+    ----------
+    name : str
+        A human-readable name for this service.
+    host : str
+        Location (URL) of the REST endpoint.
+    namespace : str
+        URI prefix for locations belonging to this authority.
+    queryformat : str
+        A pattern with a :func:`format` replacement element describing how
+        to search for a location by name.
+    retrieveformat : str
+        A pattern with a :func:`format` replacement element describing how
+        to retrieve a location by ID. e.g. 
+        ``/get?geonameId={0}&username=erickpeirson&style=full``
+    id_pattern : str
+        A regex pattern that describes how to retrieve IDs from location 
+        URIs. e.g. ``http://www.geonames.org/(.*?)/``
+    """
     name = models.CharField(max_length=200)
     host = models.CharField(max_length=500)
     # http://api.geonames.org
@@ -29,6 +67,15 @@ class LocationAuthority(models.Model):
         verbose_name_plural = "location authorities"
 
     def get_id(self, path):
+        """
+        Retrieve a location ID from a URI for this authority using 
+        ``id_pattern``.
+        
+        Parameters
+        ----------
+        path : str
+            A location URI for this authority.
+        """
         r = re.compile(self.id_pattern)
         m = r.search(path)
         if not m:
@@ -38,6 +85,21 @@ class LocationAuthority(models.Model):
         return m.group(1)
 
 class Location(models.Model):
+    """
+    Represents a location on the earth.
+    
+    Attributes
+    ----------
+    name : str
+        A human-readable name.
+    uri : str
+        URI, presumably in the ``namespace`` of a :class:`.LocationAuthority`\.
+    latitude : float
+        Decimal degrees North (+) or South (-) of the equator.
+    longitude : float
+        Decimal degrees West (-) or East (+) for the Prime Meridian.
+    """
+
     name = models.CharField(max_length=200)
     uri = models.CharField(max_length=500, unique=True)
     latitude = models.FloatField()
@@ -50,6 +112,25 @@ class Location(models.Model):
         return self.name
 
 class Concept(models.Model):
+    """
+    Represents a unique concept, such as a person or an institution.
+    
+    Attributes
+    ----------
+    uri : str
+        URI, presumably in the ``namespace`` of a :class:`.ConceptAuthority`\.
+    name : str
+        A human-readable name.
+    type :
+        ForeignKey reference to a :class:`.ConceptType`\.
+    equalto : str
+        (optional) Value of the ``equalto`` relation in Conceptpower.
+    similarto : str
+        (optional) Value of the ``similarto`` relation in Conceptpower.
+    location :
+        (optional) ForeignKey reference to a :class:`.Location`\.
+    """
+            
     uri = models.CharField(max_length=500, unique=True)
     name = models.CharField(max_length=200)
     type = models.ForeignKey('ConceptType')
@@ -65,8 +146,15 @@ class Concept(models.Model):
         return unicode(self.name)
 
 class ConceptTypeManager(models.Manager):
+    """
+    Manager for retrieving and creating :class:`.ConceptType`\s.
+    
+    Instantiated in the ``objects`` attribute of a :class:`.ConceptType`\.
+    """
     def get_unique(self, name, uri=None):
         """
+        Return or create a :class:`.ConceptType`\.
+        
         If ConceptType already exists with that URI, return it. Otherwise create
         a new one.
         """
@@ -82,7 +170,20 @@ class ConceptTypeManager(models.Manager):
 
 class ConceptType(models.Model):
     """
-    e.g. E40 Legal Body
+    An ontological concept for classifying :class:`.Concept`\.
+    
+    The Genecology Project uses types from the 
+    `CIDOC-CRM <http://www.cidoc-crm.org/>`_, e.g. E40 Legal Body.
+    
+    Attributes
+    ----------
+    name : str
+        A human-readable name.
+    uri : str
+        URI, presumably in the ``namespace`` of a :class:`.ConceptAuthority`\.
+    objects : 
+        Instance of :class:`.ConceptTypeManager`\.
+
     """
     
     name = models.CharField(max_length='200', unique=True)
@@ -94,6 +195,23 @@ class ConceptType(models.Model):
         return self.name
 
 class ConceptAuthority(models.Model):
+    """
+    A RESTful services that describes :class:`.Concept` instances.
+    
+    Attributes
+    ----------
+    name : str
+        A human-readable name for this service.
+    host : str
+        Location (URL) of the REST endpoint.
+    namespace : str
+        URI prefix for locations belonging to this authority.
+    queryformat : str
+        A pattern with a :func:`format` replacement element describing how to search for a concept by name. e.g. ``/ConceptLookup/{0}/{1}`` where ``{0}`` is the query and ``{1}`` is the POS.
+    retrieveformat : str
+        A pattern with a :func:`format` replacement element describing how to retrieve a concept by ID. e.g. ``/Concept?id={0}``
+    """
+
     host = models.CharField(max_length=200)
     name = models.CharField(max_length=200)
 

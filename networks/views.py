@@ -1,5 +1,26 @@
 """
-views for Networks app.
+Provides JSON data about various elements in :mod:`.networks.models`\.
+
+.. autosummary::
+
+   json_response
+   node_data
+   edge_data
+   relation_data
+   layout_endpoint
+   layout_data
+   dataset_endpoint
+   network_data
+   network_endpoint
+   download_network
+   network_projection
+   list_datasets
+   list_networks
+   text_appellations
+   text_network
+   node_appellations
+   edge_relations
+
 """
 
 from django.shortcuts import render, render_to_response, get_object_or_404
@@ -11,14 +32,42 @@ from networks.writers import GraphMLWriter, flatten
 import simplejson
 from pprint import pprint
 
-def index(request):
+def index(request): # TODO: get rid of this.
     return HttpResponse('Woohoo!')
 
 def json_response(response_data):
+    """
+    Yields JSON data from a dictionary.
+    
+    Parameters
+    ----------
+    response_data : dict
+        A dictionary containing some data.
+    
+    Returns
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.
+    """
+
     response_json = simplejson.dumps(response_data)
     return HttpResponse(response_json, 'application/json')
 
 def appellation_data(appellations):
+    """
+    Yields a nested dictionary describing a list of :class:`.Appellation`\.
+    
+    Parameters
+    ----------
+    appellations : list
+        A list of :class:`.Appellation`\.
+        
+    Returns
+    -------
+    app_dict : dict
+        A nested dictionary describing a list of :class:`.Appellation`\.
+    """
+
     app_data = []
     for app in appellations:
         ad = { 'concept': app.concept.uri,
@@ -32,10 +81,24 @@ def appellation_data(appellations):
                 'startposition': app.textposition.startposition,
                 'endposition': app.textposition.endposition }
         app_data.append(ad)
-
-    return {'appellations': app_data}
+    app_dict = {'appellations': app_data}
+    
+    return app_dict
 
 def node_data(nodes):
+    """
+    Yields a nested dictionary describing a list of :class:`.Node`\.
+    
+    Parameters
+    ----------
+    nodes : list
+        A list of :class:`.Node`\.
+        
+    Returns
+    -------
+    node_data : dict
+        A nested dictionary describing a list of :class:`.Node`\.        
+    """
     node_data = []
     for node in nodes:
         nd = {  'concept': node.concept.uri,
@@ -54,6 +117,19 @@ def node_data(nodes):
     return node_data
 
 def edge_data(edges):
+    """
+    Yields a list of dictionaries describing a list of :class:`.Node`\.
+    
+    Parameters
+    ----------
+    edges : list
+        A list of :class:`.Edge`\.
+        
+    Returns
+    -------
+    edge_data : list
+        A list of dictionaries describing a list of :class:`.Edge`\.        
+    """
     return [ {  'source': edge.source.id,
                 'target': edge.target.id,
                 'id': edge.id,
@@ -63,6 +139,19 @@ def edge_data(edges):
                 } for edge in edges ]
 
 def relation_data(relations):
+    """
+    Yields a nested dictionary describing a list of :class:`.Relation`\.
+    
+    Parameters
+    ----------
+    relations : list
+        A list of :class:`.Relation`\.
+        
+    Returns
+    -------
+    rel_dict : dict
+        A nested dictionary describing a list of :class:`.Relation`\.        
+    """
     rel_data = []
     for rel in relations:
         rd = {  'id': rel.id,
@@ -81,12 +170,22 @@ def relation_data(relations):
         except AttributeError:
             pass
         rel_data.append(rd)
-
-    return {'relations': rel_data}
+    rel_dict = {'relations': rel_data}
+    return rel_dict
 
 def layout_endpoint(request, layout_id):
     """
-    Provides JSON describing Node and Edge positions.
+    Provides JSON describing :class:`.Node` and :class:`.Edge` positions.
+    
+    Parameters
+    ----------
+    layout_id : int
+        Identifier for a :class:`.NetworkLayout`\.
+
+    Returns
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.    
     """
 
     layout = get_object_or_404(Layout, pk=layout_id)
@@ -97,15 +196,36 @@ def layout_endpoint(request, layout_id):
 
 def layout_data(layout):
     """
-    Yields a dictionary of node positions.
+    Yields a dictionary of :class:`.Node` positions.
+    
+    Parameters
+    ----------
+    layout :
+        A :class:`.NetworkLayout` instance.
+        
+    Returns
+    -------
+    postitions: dict
+        A nested dictionary of x and y coordinates, indexed on :class:`.Node` id.
     """
 
-    return { n.node.id:{'x':n.x, 'y':n.y} for n in layout.positions.all() }
+    positions = { n.node.id:{'x':n.x, 'y':n.y} for n in layout.positions.all() }
+    return positions
 
 def dataset_endpoint(request, dataset_id):
     """
-    The Dataset Endpoint view provides JSON describing Appellations and 
-    Relations for a specified dataset.
+    Provides JSON describing :class:`.Appellation` and :class:`.Relation` for a
+    specified dataset.
+    
+    Parameters
+    ----------
+    dataset_id : int
+        An identifier for a :class:`.Dataset`\.
+    
+    Returns
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.  
     """
 
     dataset = get_object_or_404(Dataset, pk=dataset_id)
@@ -129,15 +249,33 @@ def dataset_endpoint(request, dataset_id):
     return json_response(response_data)
 
 def network_data(network_id):
-    network = get_object_or_404(Network.objects.prefetch_related('nodes', 'edges',
-                                                         'nodes__concept',
-                                                         'nodes__concept__location',
-                                                         'nodes__type',
-                                                         'nodes__appellations',
-                                                         'edges__source',
-                                                         'edges__target',
-                                                         'edges__concept',
-                                                         'edges__relations'), pk=network_id)
+    """
+    Generates data about :class:`.Node` and :class:`.Edge` for a given
+    :class:`.Network`\.
+    
+    Used primarily by :func:`.network_endpoint`\.
+    
+    Parameters
+    ----------
+    network_id : int
+        Identifier for a :class:`.Network`\.
+    
+    Returns
+    -------
+    response_data : dict
+        A nested dictionary describing :class:`.Node` and :class:`.Edge`\.
+    """
+    network = get_object_or_404(
+                Network.objects.prefetch_related('nodes', 'edges',
+                                                 'nodes__concept',
+                                                 'nodes__concept__location',
+                                                 'nodes__type',
+                                                 'nodes__appellations',
+                                                 'edges__source',
+                                                 'edges__target',
+                                                 'edges__concept',
+                                                 'edges__relations'),
+                pk=network_id )
     
     # Build node response.
     n_data = node_data(network.nodes.all())
@@ -156,12 +294,36 @@ def network_data(network_id):
 
 def network_endpoint(request, network_id):
     """
-    The Network Endpoint view provides JSON describing Nodes and Edges for a 
-    specified Network.
+    Provides JSON describing Nodes and Edges for a specified Network.
+
+    Parameters
+    ----------
+    network_id : int
+        Identifier for a :class:`.Network`\.   
+        
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.            
     """
     return json_response(network_data(network_id))
 
 def download_network(request, network_id, format='graphml', projection=None):
+    """
+    Provides an XML representation of a network for download.
+    
+    Parameters
+    ----------
+    network_id : int
+        An identifier for :class:`.Network`\.
+    format : str
+        (default: "graphml") The output format for the network.
+        
+    Returns
+    -------
+    HttpResponse
+        A Django :class:`.HttpResponse` object containing ``application/xml``.
+    """
     import networkx as nx
     from xml.etree import cElementTree as ET
                 
@@ -185,6 +347,22 @@ def download_network(request, network_id, format='graphml', projection=None):
     return response
     
 def network_projection(request, network_id, projection_id):
+    """
+    Provides JSON data about a :class:`.Network` that has been recast using a
+    :class:`.NetworkProjection`\.
+    
+    Parameters
+    ----------
+    network_id : int
+        An identifier for a :class:`.Network`\.
+    projection_id : int
+        An identifier for a :class:`.NetworkProjection`\.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.   
+    """
     def project_edge(edge, projection):
         for mapping in projection.mappings.all():
             if edge.source.type in mapping.secondaryNodes.all() \
@@ -324,7 +502,12 @@ def network_projection(request, network_id, projection_id):
 
 def list_datasets(request):
     """
-    Returns a list of datasets (JSON).
+    Provides a list of all :class:`.Dataset` in JSON.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.  
     """
 
     datasets = Dataset.objects.all()
@@ -342,7 +525,12 @@ def list_datasets(request):
 
 def list_networks(request):
     """
-    Returns a list of networks (JSON).
+    Provides a list of all :class:`.Network` in JSON.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.      
     """
 
     networks = Network.objects.all()
@@ -358,7 +546,18 @@ def list_networks(request):
 
 def text_appellations(request, text_id=None): #, dataset_id=None, network_id=None):
     """
-    Returns all appellations (for a text, if text_id is provided).
+    Provides a list of all :class:`.Appellation`\, optionally filtered by
+    :class:`.Text`\.
+
+    Parameters
+    ----------
+    text_id : int
+        (optional) An identifier for a :class:`.Text`\.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.      
     """
 
     appellations = Appellation.objects.select_related('textposition',
@@ -375,8 +574,20 @@ def text_appellations(request, text_id=None): #, dataset_id=None, network_id=Non
 
 def text_network(request, text_id=None, network_id=None):
     """
-    Returns network data (nodes, edges, appellations, relations) rooted in a 
-    text.
+    Provides JSON data about :class:`.Node` and :class:`.Edge` rooted in a
+    :class:`.Text`\.
+
+    Parameters
+    ----------
+    text_id : int
+        (optional) An identifier for a :class:`.Text`\.    
+    network_id : int
+        (optional) An identifier for a :class:`.Network`\.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.      
     """
 
     relations = Relation.objects.filter(predicate__textposition__text__id=text_id)
@@ -400,14 +611,36 @@ def text_network(request, text_id=None, network_id=None):
 
 def node_appellations(request, node_id):
     """
-    Returns all appellations for a node.
+    Provides JSON data about all :class:`.Appellation` for a given 
+    :class:`.Node`\.
+    
+    Parameters
+    ----------
+    node_id : int
+        An identifier for :class:`.Node`\.
+
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.      
     """
     node = get_object_or_404(Node, pk=node_id)
     return json_response(appellation_data(node.appellations.all()))
 
 def edge_relations(request, edge_id):
     """
-    Returns all relations for an edge.
+    Provides JSON data about all :class:`.Relation` for a given 
+    :class:`.Edge`\.
+    
+    Parameters
+    ----------
+    edge_id : int
+        An identifier for :class:`.Edge`\.
+    
+    Returns    
+    -------
+    HttpResponse
+        A Django :class:`HttpResponse` object containing ``application/json``.      
     """
 
     edge = get_object_or_404(Edge, pk=edge_id)

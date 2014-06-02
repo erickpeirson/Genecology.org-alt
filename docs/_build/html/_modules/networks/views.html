@@ -1,0 +1,817 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>networks.views &mdash; Genecology Project Webapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Genecology Project Webapp 0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> Genecology Project Webapp</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#texts">Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#repositories">Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#browser">Browser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#details">Details</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Genecology Project Webapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>networks.views</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for networks.views</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Provides JSON data about various elements in :mod:`.networks.models`\.</span>
+
+<span class="sd">.. autosummary::</span>
+
+<span class="sd">   json_response</span>
+<span class="sd">   node_data</span>
+<span class="sd">   edge_data</span>
+<span class="sd">   relation_data</span>
+<span class="sd">   layout_endpoint</span>
+<span class="sd">   layout_data</span>
+<span class="sd">   dataset_endpoint</span>
+<span class="sd">   network_data</span>
+<span class="sd">   network_endpoint</span>
+<span class="sd">   download_network</span>
+<span class="sd">   network_projection</span>
+<span class="sd">   list_datasets</span>
+<span class="sd">   list_networks</span>
+<span class="sd">   text_appellations</span>
+<span class="sd">   text_network</span>
+<span class="sd">   node_appellations</span>
+<span class="sd">   edge_relations</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">render_to_response</span><span class="p">,</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span><span class="p">,</span> <span class="n">HttpResponseNotFound</span>
+<span class="kn">from</span> <span class="nn">networks.models</span> <span class="kn">import</span> <span class="n">Network</span><span class="p">,</span> <span class="n">Node</span><span class="p">,</span> <span class="n">Edge</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">Appellation</span><span class="p">,</span> \
+                            <span class="n">Relation</span><span class="p">,</span> <span class="n">NetworkProjection</span><span class="p">,</span> <span class="n">Layout</span>
+<span class="kn">from</span> <span class="nn">networks.writers</span> <span class="kn">import</span> <span class="n">GraphMLWriter</span><span class="p">,</span> <span class="n">flatten</span>
+
+<span class="kn">import</span> <span class="nn">simplejson</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span> <span class="c"># TODO: get rid of this.</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s">&#39;Woohoo!&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="json_response"><a class="viewcode-back" href="../../views.html#networks.views.json_response">[docs]</a><span class="k">def</span> <span class="nf">json_response</span><span class="p">(</span><span class="n">response_data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields JSON data from a dictionary.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    response_data : dict</span>
+<span class="sd">        A dictionary containing some data.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">response_json</span> <span class="o">=</span> <span class="n">simplejson</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">response_json</span><span class="p">,</span> <span class="s">&#39;application/json&#39;</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="appellation_data"><a class="viewcode-back" href="../../views.html#networks.views.appellation_data">[docs]</a><span class="k">def</span> <span class="nf">appellation_data</span><span class="p">(</span><span class="n">appellations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields a nested dictionary describing a list of :class:`.Appellation`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    appellations : list</span>
+<span class="sd">        A list of :class:`.Appellation`\.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    app_dict : dict</span>
+<span class="sd">        A nested dictionary describing a list of :class:`.Appellation`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">app_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">app</span> <span class="ow">in</span> <span class="n">appellations</span><span class="p">:</span>
+        <span class="n">ad</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;concept&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+               <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+               <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">id</span>     <span class="p">}</span>
+        <span class="k">if</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">ad</span><span class="p">[</span><span class="s">&#39;textposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s">&#39;text_id&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;text_title&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
+                <span class="s">&#39;text&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                <span class="s">&#39;startposition&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">startposition</span><span class="p">,</span>
+                <span class="s">&#39;endposition&#39;</span><span class="p">:</span> <span class="n">app</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">endposition</span> <span class="p">}</span>
+        <span class="n">app_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
+    <span class="n">app_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;appellations&#39;</span><span class="p">:</span> <span class="n">app_data</span><span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">app_dict</span>
+</div>
+<div class="viewcode-block" id="node_data"><a class="viewcode-back" href="../../views.html#networks.views.node_data">[docs]</a><span class="k">def</span> <span class="nf">node_data</span><span class="p">(</span><span class="n">nodes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields a nested dictionary describing a list of :class:`.Node`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    nodes : list</span>
+<span class="sd">        A list of :class:`.Node`\.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    node_data : dict</span>
+<span class="sd">        A nested dictionary describing a list of :class:`.Node`\.        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">nd</span> <span class="o">=</span> <span class="p">{</span>  <span class="s">&#39;concept&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                <span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s">&#39;appellations&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="n">a</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">appellations</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">]</span>
+                <span class="p">}</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nd</span><span class="p">[</span><span class="s">&#39;geographic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+                                 <span class="s">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">longitude</span> <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">node_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nd</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">node_data</span>
+</div>
+<div class="viewcode-block" id="edge_data"><a class="viewcode-back" href="../../views.html#networks.views.edge_data">[docs]</a><span class="k">def</span> <span class="nf">edge_data</span><span class="p">(</span><span class="n">edges</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields a list of dictionaries describing a list of :class:`.Node`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    edges : list</span>
+<span class="sd">        A list of :class:`.Edge`\.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    edge_data : list</span>
+<span class="sd">        A list of dictionaries describing a list of :class:`.Edge`\.        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="p">{</span>  <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;target&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;concept&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                <span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">edge</span><span class="o">.</span><span class="n">relations</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">]</span>
+                <span class="p">}</span> <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">edges</span> <span class="p">]</span>
+</div>
+<div class="viewcode-block" id="relation_data"><a class="viewcode-back" href="../../views.html#networks.views.relation_data">[docs]</a><span class="k">def</span> <span class="nf">relation_data</span><span class="p">(</span><span class="n">relations</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields a nested dictionary describing a list of :class:`.Relation`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    relations : list</span>
+<span class="sd">        A list of :class:`.Relation`\.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rel_dict : dict</span>
+<span class="sd">        A nested dictionary describing a list of :class:`.Relation`\.        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rel_data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">rel</span> <span class="ow">in</span> <span class="n">relations</span><span class="p">:</span>
+        <span class="n">rd</span> <span class="o">=</span> <span class="p">{</span>  <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">rel</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="n">rel</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;target&#39;</span><span class="p">:</span> <span class="n">rel</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s">&#39;predicate&#39;</span><span class="p">:</span> <span class="p">{</span> <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">rel</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">id</span> <span class="p">}}</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;startposition&#39;</span><span class="p">,</span> <span class="s">&#39;endposition&#39;</span> <span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">rd</span><span class="p">[</span><span class="s">&#39;predicate&#39;</span><span class="p">][</span><span class="n">field</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">AttributeError</span><span class="p">):</span>
+                <span class="k">pass</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rd</span><span class="p">[</span><span class="s">&#39;predicate&#39;</span><span class="p">][</span><span class="s">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">uri</span>
+            <span class="n">rd</span><span class="p">[</span><span class="s">&#39;predicate&#39;</span><span class="p">][</span><span class="s">&#39;text_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">rd</span><span class="p">[</span><span class="s">&#39;predicate&#39;</span><span class="p">][</span><span class="s">&#39;text_title&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">textposition</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">title</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">rel_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rd</span><span class="p">)</span>
+    <span class="n">rel_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="n">rel_data</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">rel_dict</span>
+</div>
+<div class="viewcode-block" id="layout_endpoint"><a class="viewcode-back" href="../../views.html#networks.views.layout_endpoint">[docs]</a><span class="k">def</span> <span class="nf">layout_endpoint</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">layout_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON describing :class:`.Node` and :class:`.Edge` positions.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout_id : int</span>
+<span class="sd">        Identifier for a :class:`.NetworkLayout`\.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Layout</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">layout_id</span><span class="p">)</span>
+
+    <span class="n">response_data</span> <span class="o">=</span> <span class="n">layout_data</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="layout_data"><a class="viewcode-back" href="../../views.html#networks.views.layout_data">[docs]</a><span class="k">def</span> <span class="nf">layout_data</span><span class="p">(</span><span class="n">layout</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Yields a dictionary of :class:`.Node` positions.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    layout :</span>
+<span class="sd">        A :class:`.NetworkLayout` instance.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    postitions: dict</span>
+<span class="sd">        A nested dictionary of x and y coordinates, indexed on :class:`.Node` id.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">positions</span> <span class="o">=</span> <span class="p">{</span> <span class="n">n</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">id</span><span class="p">:{</span><span class="s">&#39;x&#39;</span><span class="p">:</span><span class="n">n</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">:</span><span class="n">n</span><span class="o">.</span><span class="n">y</span><span class="p">}</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">positions</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">}</span>
+    <span class="k">return</span> <span class="n">positions</span>
+</div>
+<div class="viewcode-block" id="dataset_endpoint"><a class="viewcode-back" href="../../views.html#networks.views.dataset_endpoint">[docs]</a><span class="k">def</span> <span class="nf">dataset_endpoint</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">dataset_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON describing :class:`.Appellation` and :class:`.Relation` for a</span>
+<span class="sd">    specified dataset.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dataset_id : int</span>
+<span class="sd">        An identifier for a :class:`.Dataset`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">dataset_id</span><span class="p">)</span>
+    
+    <span class="c"># Build appellation response.</span>
+    <span class="n">app_data</span> <span class="o">=</span> <span class="n">appellation_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">appellations</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+    
+    <span class="c"># Build relation response.</span>
+    <span class="n">rel_data</span> <span class="o">=</span> <span class="n">relation_data</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">relations</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+    <span class="c"># Put it all together.</span>
+    <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;dataset&#39;</span><span class="p">:</span> <span class="p">{</span> 
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;added&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">added</span><span class="p">),</span>
+                        <span class="s">&#39;networks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">n</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">all</span><span class="p">()],</span>
+                        <span class="s">&#39;appellations&#39;</span><span class="p">:</span> <span class="n">app_data</span><span class="p">[</span><span class="s">&#39;appellations&#39;</span><span class="p">],</span>
+                        <span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="n">rel_data</span> <span class="p">}}</span>
+
+    <span class="c"># And we&#39;re done.</span>
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="network_data"><a class="viewcode-back" href="../../views.html#networks.views.network_data">[docs]</a><span class="k">def</span> <span class="nf">network_data</span><span class="p">(</span><span class="n">network_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates data about :class:`.Node` and :class:`.Edge` for a given</span>
+<span class="sd">    :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Used primarily by :func:`.network_endpoint`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    network_id : int</span>
+<span class="sd">        Identifier for a :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    response_data : dict</span>
+<span class="sd">        A nested dictionary describing :class:`.Node` and :class:`.Edge`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">network</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span>
+                <span class="n">Network</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s">&#39;nodes&#39;</span><span class="p">,</span> <span class="s">&#39;edges&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;nodes__concept&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;nodes__concept__location&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;nodes__type&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;nodes__appellations&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;edges__source&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;edges__target&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;edges__concept&#39;</span><span class="p">,</span>
+                                                 <span class="s">&#39;edges__relations&#39;</span><span class="p">),</span>
+                <span class="n">pk</span><span class="o">=</span><span class="n">network_id</span> <span class="p">)</span>
+    
+    <span class="c"># Build node response.</span>
+    <span class="n">n_data</span> <span class="o">=</span> <span class="n">node_data</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+    
+    <span class="c"># Build edge response.</span>
+    <span class="n">e_data</span> <span class="o">=</span> <span class="n">edge_data</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+    <span class="c"># Put it all together.</span>
+    <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;network&#39;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">network</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="n">n_data</span><span class="p">,</span>
+                        <span class="s">&#39;edges&#39;</span><span class="p">:</span> <span class="n">e_data</span>  <span class="p">}}</span>
+
+    <span class="k">return</span> <span class="n">response_data</span>
+</div>
+<div class="viewcode-block" id="network_endpoint"><a class="viewcode-back" href="../../views.html#networks.views.network_endpoint">[docs]</a><span class="k">def</span> <span class="nf">network_endpoint</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">network_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON describing Nodes and Edges for a specified Network.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    network_id : int</span>
+<span class="sd">        Identifier for a :class:`.Network`\.   </span>
+<span class="sd">        </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.            </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">network_data</span><span class="p">(</span><span class="n">network_id</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="download_network"><a class="viewcode-back" href="../../views.html#networks.views.download_network">[docs]</a><span class="k">def</span> <span class="nf">download_network</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">network_id</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s">&#39;graphml&#39;</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides an XML representation of a network for download.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    network_id : int</span>
+<span class="sd">        An identifier for :class:`.Network`\.</span>
+<span class="sd">    format : str</span>
+<span class="sd">        (default: &quot;graphml&quot;) The output format for the network.</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`.HttpResponse` object containing ``application/xml``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">networkx</span> <span class="kn">as</span> <span class="nn">nx</span>
+    <span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">cElementTree</span> <span class="k">as</span> <span class="n">ET</span>
+                
+    <span class="n">data</span> <span class="o">=</span> <span class="n">network_data</span><span class="p">(</span><span class="n">network_id</span><span class="p">)</span>
+    
+    <span class="c"># Build graph.</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;network&#39;</span><span class="p">][</span><span class="s">&#39;edges&#39;</span><span class="p">]</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s">&#39;network&#39;</span><span class="p">][</span><span class="s">&#39;nodes&#39;</span><span class="p">]</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([</span> <span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s">&#39;source&#39;</span><span class="p">],</span> <span class="n">e</span><span class="p">[</span><span class="s">&#39;target&#39;</span><span class="p">],</span> <span class="n">flatten</span><span class="p">(</span><span class="n">e</span><span class="p">))</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span> <span class="p">])</span>
+    <span class="n">G</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([</span> <span class="p">(</span><span class="n">n</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">flatten</span><span class="p">(</span><span class="n">n</span><span class="p">))</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span> <span class="p">])</span>
+    
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">GraphMLWriter</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s">&#39;utf-8&#39;</span><span class="p">,</span><span class="n">prettyprint</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">add_graph_element</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">indent</span><span class="p">(</span><span class="n">writer</span><span class="o">.</span><span class="n">xml</span><span class="p">)</span>
+    
+    <span class="n">stream</span> <span class="o">=</span> <span class="s">&#39;&lt;?xml version=&quot;1.0&quot; encoding=&quot;</span><span class="si">%s</span><span class="s">&quot;?&gt;&#39;</span><span class="o">%</span><span class="n">writer</span><span class="o">.</span><span class="n">encoding</span>
+    <span class="n">stream</span> <span class="o">+=</span> <span class="n">ET</span><span class="o">.</span><span class="n">tostring</span><span class="p">(</span><span class="n">writer</span><span class="o">.</span><span class="n">xml</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">writer</span><span class="o">.</span><span class="n">encoding</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s">&#39;application/xml&#39;</span><span class="p">)</span>
+    <span class="n">response</span><span class="p">[</span><span class="s">&#39;Content-Disposition&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;attachment; filename=&quot;network_&#39;</span><span class="o">+</span><span class="n">network_id</span><span class="o">+</span><span class="s">&#39;.graphml&#39;</span>
+    <span class="k">return</span> <span class="n">response</span>
+    </div>
+<div class="viewcode-block" id="network_projection"><a class="viewcode-back" href="../../views.html#networks.views.network_projection">[docs]</a><span class="k">def</span> <span class="nf">network_projection</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">network_id</span><span class="p">,</span> <span class="n">projection_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON data about a :class:`.Network` that has been recast using a</span>
+<span class="sd">    :class:`.NetworkProjection`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    network_id : int</span>
+<span class="sd">        An identifier for a :class:`.Network`\.</span>
+<span class="sd">    projection_id : int</span>
+<span class="sd">        An identifier for a :class:`.NetworkProjection`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.   </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">project_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">,</span> <span class="n">projection</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">mapping</span> <span class="ow">in</span> <span class="n">projection</span><span class="o">.</span><span class="n">mappings</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">secondaryNodes</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> \
+                                    <span class="ow">and</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">mapping</span><span class="o">.</span><span class="n">primaryNode</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;node&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                         <span class="s">&#39;secondary&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="p">}</span>
+            <span class="k">elif</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">mapping</span><span class="o">.</span><span class="n">secondaryNodes</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> \
+                                    <span class="ow">and</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">mapping</span><span class="o">.</span><span class="n">primaryNode</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{</span> <span class="s">&#39;node&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">source</span><span class="p">,</span>
+                         <span class="s">&#39;secondary&#39;</span><span class="p">:</span> <span class="n">edge</span><span class="o">.</span><span class="n">target</span> <span class="p">}</span>
+        <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="n">projection</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">NetworkProjection</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s">&#39;mappings&#39;</span><span class="p">,</span> <span class="s">&#39;mappings__secondaryNodes&#39;</span><span class="p">),</span> <span class="n">pk</span><span class="o">=</span><span class="n">projection_id</span><span class="p">)</span>
+    <span class="n">node_types</span> <span class="o">=</span> <span class="p">[</span> <span class="n">p</span><span class="o">.</span><span class="n">primaryNode</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">projection</span><span class="o">.</span><span class="n">mappings</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">]</span>
+
+    <span class="c"># Generate node mappings based on projection.</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">Edge</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s">&#39;source&#39;</span><span class="p">,</span><span class="s">&#39;target&#39;</span><span class="p">,</span> 
+                                          <span class="s">&#39;source__concept&#39;</span><span class="p">,</span>
+                                          <span class="s">&#39;target__concept&#39;</span><span class="p">,</span>
+                                          <span class="s">&#39;source__concept__location&#39;</span><span class="p">,</span>
+                                          <span class="s">&#39;target__concept__location&#39;</span><span class="p">,</span>
+                                          <span class="s">&#39;relations&#39;</span><span class="p">,</span>
+                                          <span class="s">&#39;concept&#39;</span> <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="n">node_mappings</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">node_contains</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="nb">map</span> <span class="o">=</span> <span class="n">project_edge</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">projection</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">node_mappings</span><span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;secondary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span> <span class="nb">map</span><span class="p">[</span><span class="s">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="p">]</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">node_mappings</span><span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;secondary&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">node_contains</span><span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span> <span class="nb">map</span><span class="p">[</span><span class="s">&#39;secondary&#39;</span><span class="p">]</span> <span class="p">]</span>
+            <span class="k">except</span> <span class="p">(</span><span class="ne">KeyError</span><span class="p">,</span> <span class="ne">TypeError</span><span class="p">):</span>
+                <span class="n">node_contains</span><span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;node&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">map</span><span class="p">[</span><span class="s">&#39;secondary&#39;</span><span class="p">]]</span>
+
+    <span class="c"># Generate a new edge list based on node mappings.</span>
+    <span class="n">c_nodes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">c_edges</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">node_index</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">include_nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([])</span>
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">:</span>
+        <span class="n">collapsed</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">node_mappings</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">try</span><span class="p">:</span>    <span class="c"># look in the index first.</span>
+                <span class="n">source_node</span> <span class="o">=</span> <span class="n">node_index</span><span class="p">[</span><span class="n">source</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">source_node</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">source</span><span class="p">)</span>
+            <span class="n">collapsed</span> <span class="o">=</span> <span class="s">&#39;source&#39;</span>
+            
+            <span class="c"># Update primary node.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">c_nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="s">&#39;contains&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">c_nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;contains&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="p">}</span>
+
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>    <span class="c"># No mapping defined for source node.</span>
+            <span class="n">source</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span>
+            <span class="n">source_node</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">source</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">node_mappings</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+            <span class="k">try</span><span class="p">:</span>    <span class="c"># look in the index first.</span>
+                <span class="n">target_node</span> <span class="o">=</span> <span class="n">node_index</span><span class="p">[</span><span class="n">target</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">target_node</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">target</span><span class="p">)</span>
+            <span class="n">collapsed</span> <span class="o">=</span> <span class="s">&#39;target&#39;</span>
+            
+            <span class="c"># Update primary node.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">c_nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">][</span><span class="s">&#39;contains&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">target</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="n">c_nodes</span><span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;contains&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="p">}</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>    <span class="c"># No mapping defined for target node.</span>
+            <span class="n">target</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">id</span>
+                    
+        <span class="n">node_index</span><span class="p">[</span><span class="n">source</span><span class="p">]</span> <span class="o">=</span> <span class="n">source_node</span>    <span class="c"># Update index.</span>
+        <span class="n">node_index</span><span class="p">[</span><span class="n">target</span><span class="p">]</span> <span class="o">=</span> <span class="n">target_node</span>    <span class="c"># Update index.            </span>
+
+        <span class="c"># Only include edges between primaryNodes in the Projection.</span>
+        <span class="c"># TODO: Handle case where source or target has no location.</span>
+        <span class="k">if</span> <span class="n">source_node</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">node_types</span>\
+                            <span class="ow">and</span> <span class="n">target_node</span><span class="o">.</span><span class="n">type</span> <span class="ow">in</span> <span class="n">node_types</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">collapsed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="n">org</span> <span class="o">=</span> <span class="n">e</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">org</span> <span class="o">=</span> <span class="bp">None</span>
+            
+            <span class="n">f_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+            <span class="n">r_key</span> <span class="o">=</span> <span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">e</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+            
+            <span class="n">novel</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">c_edges</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">f_key</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">c_edges</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="n">r_key</span><span class="p">):</span>
+                <span class="n">novel</span> <span class="o">=</span> <span class="bp">True</span>
+                
+            <span class="k">if</span> <span class="n">novel</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">new_edge</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span>
+                        <span class="s">&#39;target&#39;</span><span class="p">:</span> <span class="n">target</span><span class="p">,</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s">&#39;concept&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">uri</span><span class="p">,</span>
+                        <span class="s">&#39;label&#39;</span><span class="p">:</span> <span class="n">e</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">e</span><span class="o">.</span><span class="n">relations</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">],</span>
+                        <span class="s">&#39;geographic&#39;</span><span class="p">:</span> <span class="p">{</span>
+                            <span class="s">&#39;source&#39;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">source_node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+                                <span class="s">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">source_node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">longitude</span>
+                            <span class="p">},</span>
+                            <span class="s">&#39;target&#39;</span><span class="p">:</span> <span class="p">{</span>
+                                <span class="s">&#39;latitude&#39;</span><span class="p">:</span> <span class="n">target_node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">latitude</span><span class="p">,</span>
+                                <span class="s">&#39;longitude&#39;</span><span class="p">:</span> <span class="n">target_node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">location</span><span class="o">.</span><span class="n">longitude</span>
+                            <span class="p">}</span>
+                        <span class="p">},</span>
+                        <span class="s">&#39;contains&#39;</span><span class="p">:</span> <span class="n">edge_data</span><span class="p">([</span><span class="n">org</span><span class="p">])</span>
+                    <span class="p">}</span>
+                    <span class="n">c_edges</span><span class="p">[</span><span class="n">f_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_edge</span>                    
+                <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>  <span class="c"># No location data.</span>
+                    <span class="k">pass</span>
+                
+
+                
+                <span class="n">include_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
+                <span class="n">include_nodes</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">target</span><span class="p">)</span>
+            
+    <span class="n">all_nodes</span> <span class="o">=</span> <span class="p">[</span> <span class="n">node_index</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">include_nodes</span> <span class="p">]</span>
+    <span class="n">n_data</span> <span class="o">=</span> <span class="n">node_data</span><span class="p">(</span><span class="n">all_nodes</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_data</span><span class="p">)):</span>
+        <span class="n">n_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&#39;contains&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node_data</span><span class="p">(</span><span class="n">node_contains</span><span class="p">[</span><span class="n">n_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s">&#39;id&#39;</span><span class="p">]])</span>
+
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">({</span><span class="s">&#39;network&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s">&#39;edges&#39;</span><span class="p">:</span> <span class="n">c_edges</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="n">n_data</span> <span class="p">}})</span>
+</div>
+<div class="viewcode-block" id="list_datasets"><a class="viewcode-back" href="../../views.html#networks.views.list_datasets">[docs]</a><span class="k">def</span> <span class="nf">list_datasets</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a list of all :class:`.Dataset` in JSON.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.  </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">datasets</span> <span class="o">=</span> <span class="n">Dataset</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;datasets&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;appellations&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">appellations</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span>
+                        <span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">relations</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span>
+                        <span class="s">&#39;networks&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="n">n</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">networks</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">],</span>
+                        <span class="s">&#39;added&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">added</span><span class="p">)</span> <span class="p">}</span>
+                                    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span> <span class="p">]</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="list_networks"><a class="viewcode-back" href="../../views.html#networks.views.list_networks">[docs]</a><span class="k">def</span> <span class="nf">list_networks</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a list of all :class:`.Network` in JSON.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">networks</span> <span class="o">=</span> <span class="n">Network</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="n">response_data</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;networks&#39;</span><span class="p">:</span> <span class="p">[</span> <span class="p">{</span>
+                        <span class="s">&#39;id&#39;</span><span class="p">:</span> <span class="n">network</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                        <span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                        <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="o">.</span><span class="n">all</span><span class="p">()),</span>
+                        <span class="s">&#39;edges&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">edges</span><span class="o">.</span><span class="n">all</span><span class="p">())</span> <span class="p">}</span>
+                                    <span class="k">for</span> <span class="n">network</span> <span class="ow">in</span> <span class="n">networks</span> <span class="p">]</span> <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">response_data</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="text_appellations"><a class="viewcode-back" href="../../views.html#networks.views.text_appellations">[docs]</a><span class="k">def</span> <span class="nf">text_appellations</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">text_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span> <span class="c">#, dataset_id=None, network_id=None):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides a list of all :class:`.Appellation`\, optionally filtered by</span>
+<span class="sd">    :class:`.Text`\.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    text_id : int</span>
+<span class="sd">        (optional) An identifier for a :class:`.Text`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">appellations</span> <span class="o">=</span> <span class="n">Appellation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s">&#39;textposition&#39;</span><span class="p">,</span>
+                                                      <span class="s">&#39;textposition__text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">relations</span> <span class="o">=</span> <span class="n">Relation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s">&#39;textposition&#39;</span><span class="p">,</span>
+                                                <span class="s">&#39;textposition__text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="n">text_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">appellations</span> <span class="o">=</span> <span class="n">appellations</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">textposition__text__id</span><span class="o">=</span><span class="n">text_id</span><span class="p">)</span>
+        <span class="n">relations</span> <span class="o">=</span> <span class="n">relations</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">predicate__textposition__text__id</span><span class="o">=</span><span class="n">text_id</span><span class="p">)</span>
+    
+    <span class="c"># Build appellation response.</span>
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">appellation_data</span><span class="p">(</span><span class="n">appellations</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="o">+</span> <span class="n">relation_data</span><span class="p">(</span><span class="n">relations</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+</div>
+<div class="viewcode-block" id="text_network"><a class="viewcode-back" href="../../views.html#networks.views.text_network">[docs]</a><span class="k">def</span> <span class="nf">text_network</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">text_id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">network_id</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON data about :class:`.Node` and :class:`.Edge` rooted in a</span>
+<span class="sd">    :class:`.Text`\.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    text_id : int</span>
+<span class="sd">        (optional) An identifier for a :class:`.Text`\.    </span>
+<span class="sd">    network_id : int</span>
+<span class="sd">        (optional) An identifier for a :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="n">Relation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">predicate__textposition__text__id</span><span class="o">=</span><span class="n">text_id</span><span class="p">)</span>
+    <span class="n">appellations</span> <span class="o">=</span> <span class="n">Appellation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">textposition__text__id</span><span class="o">=</span><span class="n">text_id</span><span class="p">)</span>
+    
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Node</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">appellations__id__in</span><span class="o">=</span><span class="p">[</span> <span class="n">a</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">appellations</span><span class="p">]</span> <span class="p">))</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">Edge</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">relations__id__in</span><span class="o">=</span><span class="p">[</span> <span class="n">r</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">relations</span> <span class="p">]))</span>
+    
+    <span class="k">if</span> <span class="n">network_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">network__id</span><span class="o">=</span><span class="n">network_id</span><span class="p">)</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="n">edges</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">network__id</span><span class="o">=</span><span class="n">network_id</span><span class="p">)</span>
+    
+    <span class="n">rdata</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;network&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s">&#39;edges&#39;</span><span class="p">:</span> <span class="n">edge_data</span><span class="p">(</span><span class="n">edges</span><span class="p">),</span>
+                    <span class="s">&#39;nodes&#39;</span><span class="p">:</span> <span class="n">node_data</span><span class="p">(</span><span class="n">nodes</span><span class="p">),</span>
+                    <span class="s">&#39;appellations&#39;</span><span class="p">:</span> <span class="n">appellation_data</span><span class="p">(</span><span class="n">appellations</span><span class="p">),</span>
+                    <span class="s">&#39;relations&#39;</span><span class="p">:</span> <span class="n">relation_data</span><span class="p">(</span><span class="n">relations</span><span class="p">)</span> <span class="p">}</span> <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">rdata</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="node_appellations"><a class="viewcode-back" href="../../views.html#networks.views.node_appellations">[docs]</a><span class="k">def</span> <span class="nf">node_appellations</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">node_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON data about all :class:`.Appellation` for a given </span>
+<span class="sd">    :class:`.Node`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    node_id : int</span>
+<span class="sd">        An identifier for :class:`.Node`\.</span>
+
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">node_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">appellation_data</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">appellations</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+</div>
+<div class="viewcode-block" id="edge_relations"><a class="viewcode-back" href="../../views.html#networks.views.edge_relations">[docs]</a><span class="k">def</span> <span class="nf">edge_relations</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">edge_id</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provides JSON data about all :class:`.Relation` for a given </span>
+<span class="sd">    :class:`.Edge`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    edge_id : int</span>
+<span class="sd">        An identifier for :class:`.Edge`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Returns    </span>
+<span class="sd">    -------</span>
+<span class="sd">    HttpResponse</span>
+<span class="sd">        A Django :class:`HttpResponse` object containing ``application/json``.      </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">edge</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Edge</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">edge_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json_response</span><span class="p">(</span><span class="n">relation_data</span><span class="p">(</span><span class="n">edge</span><span class="o">.</span><span class="n">relations</span><span class="o">.</span><span class="n">all</span><span class="p">()))</span>
+    </div>
+</pre></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Erick Peirson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

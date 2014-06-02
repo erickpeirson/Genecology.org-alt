@@ -1,3 +1,11 @@
+"""
+Provides JSON data about :class:`.Concept` instances.
+
+.. autosummary::
+
+   retrieve
+"""
+
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest, Http404
 from django.core.exceptions import ObjectDoesNotExist
@@ -17,6 +25,18 @@ import xml.etree.ElementTree as ET
 import urllib2
 
 def retrieve(request, uri):
+    """
+    Get or retrieve JSON data about a :class:`.Concept` by ``uri``.
+    
+    If no :class:`.Concept` for that ``uri`` exits, reaches out to a known
+    :class:`.ConceptAuthority` and attempts to retrieve it.
+    
+    Parameters
+    ----------
+    uri : str
+        A URI, presumably belonging to some :class:`.ConceptAuthority`\.
+    """
+
     try:
         concept = retrieve_concept(uri)
     except RuntimeError:

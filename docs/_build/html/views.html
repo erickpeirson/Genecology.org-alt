@@ -1,0 +1,941 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Views &mdash; Genecology Project Webapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Genecology Project Webapp 0.1 documentation" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> Genecology Project Webapp</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="models.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#texts">Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#repositories">Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="models.html#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#browser">Browser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#details">Details</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Genecology Project Webapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Views</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/views.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="views">
+<h1>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="browser">
+<h2>Browser<a class="headerlink" href="#browser" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.index" title="browser.views.index"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.index</span></tt></a>(request)</td>
+<td>Front page of the GP website.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.list_texts" title="browser.views.list_texts"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.list_texts</span></tt></a>(request)</td>
+<td>Lists all <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a> in the database. User can click to view text and</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.display_text" title="browser.views.display_text"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.display_text</span></tt></a>(request,&nbsp;text_id)</td>
+<td>Displays a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>, along with associated network data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.display_network" title="browser.views.display_network"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.display_network</span></tt></a>(request[,&nbsp;...])</td>
+<td>Displays a D3-based network visualization.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.data" title="browser.views.data"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.data</span></tt></a>(request)</td>
+<td>Describes how users can access and use Genecology Project data for their own</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.participate" title="browser.views.participate"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.participate</span></tt></a>(request)</td>
+<td>Describes how users can contribute to the Genecology Project.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.geographic" title="browser.views.geographic"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views.geographic</span></tt></a>(request)</td>
+<td>OLD: Renders a geocoded network.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="concepts">
+<h2>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#concepts.views.retrieve" title="concepts.views.retrieve"><tt class="xref py py-obj docutils literal"><span class="pre">concepts.views.retrieve</span></tt></a>(request,&nbsp;uri)</td>
+<td>Get or retrieve JSON data about a <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> by <tt class="docutils literal"><span class="pre">uri</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="networks">
+<h2>Networks<a class="headerlink" href="#networks" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.json_response" title="networks.views.json_response"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.json_response</span></tt></a>(response_data)</td>
+<td>Yields JSON data from a dictionary.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.node_data" title="networks.views.node_data"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.node_data</span></tt></a>(nodes)</td>
+<td>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.edge_data" title="networks.views.edge_data"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.edge_data</span></tt></a>(edges)</td>
+<td>Yields a list of dictionaries describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.relation_data" title="networks.views.relation_data"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.relation_data</span></tt></a>(relations)</td>
+<td>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.layout_endpoint" title="networks.views.layout_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.layout_endpoint</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> positions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.layout_data" title="networks.views.layout_data"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.layout_data</span></tt></a>(layout)</td>
+<td>Yields a dictionary of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> positions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.dataset_endpoint" title="networks.views.dataset_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.dataset_endpoint</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.network_data" title="networks.views.network_data"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.network_data</span></tt></a>(network_id)</td>
+<td>Generates data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> for a given</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.network_endpoint" title="networks.views.network_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.network_endpoint</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides JSON describing Nodes and Edges for a specified Network.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.download_network" title="networks.views.download_network"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.download_network</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides an XML representation of a network for download.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.network_projection" title="networks.views.network_projection"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.network_projection</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides JSON data about a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> that has been recast using a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.list_datasets" title="networks.views.list_datasets"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.list_datasets</span></tt></a>(request)</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Dataset" title="networks.models.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> in JSON.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.list_networks" title="networks.views.list_networks"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.list_networks</span></tt></a>(request)</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> in JSON.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.text_appellations" title="networks.views.text_appellations"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.text_appellations</span></tt></a>(request[,&nbsp;...])</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>, optionally filtered by</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.text_network" title="networks.views.text_network"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.text_network</span></tt></a>(request[,&nbsp;...])</td>
+<td>Provides JSON data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> rooted in a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.node_appellations" title="networks.views.node_appellations"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.node_appellations</span></tt></a>(request,&nbsp;...)</td>
+<td>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> for a given</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.edge_relations" title="networks.views.edge_relations"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views.edge_relations</span></tt></a>(request,&nbsp;edge_id)</td>
+<td>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a given</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="details">
+<h2>Details<a class="headerlink" href="#details" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#module-browser.views" title="browser.views"><tt class="xref py py-obj docutils literal"><span class="pre">browser.views</span></tt></a></td>
+<td>Provides a dynamic HTML inferface for end users.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#module-concepts.views" title="concepts.views"><tt class="xref py py-obj docutils literal"><span class="pre">concepts.views</span></tt></a></td>
+<td>Provides JSON data about <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> instances.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#module-networks.views" title="networks.views"><tt class="xref py py-obj docutils literal"><span class="pre">networks.views</span></tt></a></td>
+<td>Provides JSON data about various elements in <a class="reference internal" href="models.html#module-networks.models" title="networks.models"><tt class="xref py py-mod docutils literal"><span class="pre">networks.models</span></tt></a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h3>Browser<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-browser.views"></span><p>Provides a dynamic HTML inferface for end users.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.index" title="browser.views.index"><tt class="xref py py-obj docutils literal"><span class="pre">index</span></tt></a>(request)</td>
+<td>Front page of the GP website.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.list_texts" title="browser.views.list_texts"><tt class="xref py py-obj docutils literal"><span class="pre">list_texts</span></tt></a>(request)</td>
+<td>Lists all <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a> in the database. User can click to view text and</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.display_text" title="browser.views.display_text"><tt class="xref py py-obj docutils literal"><span class="pre">display_text</span></tt></a>(request,&nbsp;text_id)</td>
+<td>Displays a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>, along with associated network data.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.display_network" title="browser.views.display_network"><tt class="xref py py-obj docutils literal"><span class="pre">display_network</span></tt></a>(request[,&nbsp;network_id])</td>
+<td>Displays a D3-based network visualization.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.data" title="browser.views.data"><tt class="xref py py-obj docutils literal"><span class="pre">data</span></tt></a>(request)</td>
+<td>Describes how users can access and use Genecology Project data for their own</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#browser.views.participate" title="browser.views.participate"><tt class="xref py py-obj docutils literal"><span class="pre">participate</span></tt></a>(request)</td>
+<td>Describes how users can contribute to the Genecology Project.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#browser.views.geographic" title="browser.views.geographic"><tt class="xref py py-obj docutils literal"><span class="pre">geographic</span></tt></a>(request)</td>
+<td>OLD: Renders a geocoded network.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="browser.views.data">
+<tt class="descclassname">browser.views.</tt><tt class="descname">data</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes how users can access and use Genecology Project data for their own
+research.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.display_network">
+<tt class="descclassname">browser.views.</tt><tt class="descname">display_network</tt><big>(</big><em>request</em>, <em>network_id=1</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#display_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.display_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a D3-based network visualization.</p>
+<p>User can select shapes representing <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> to get
+more information about their attributes and textual evidence.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>network_id</strong> : int</p>
+<blockquote class="last">
+<div><p>(default: 1) Identifier for a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.display_text">
+<tt class="descclassname">browser.views.</tt><tt class="descname">display_text</tt><big>(</big><em>request</em>, <em>text_id</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#display_text"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.display_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Displays a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>, along with associated network data.</p>
+<p>Appellations are highlighted in-text, and the user can navigate network
+data by clicking nodes or highlighted appellations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text_id</strong> : int</p>
+<blockquote class="last">
+<div><p>Identifier for a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.geographic">
+<tt class="descclassname">browser.views.</tt><tt class="descname">geographic</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#geographic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.geographic" title="Permalink to this definition">¶</a></dt>
+<dd><p>OLD: Renders a geocoded network.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.index">
+<tt class="descclassname">browser.views.</tt><tt class="descname">index</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.index" title="Permalink to this definition">¶</a></dt>
+<dd><p>Front page of the GP website.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.list_texts">
+<tt class="descclassname">browser.views.</tt><tt class="descname">list_texts</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#list_texts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.list_texts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Lists all <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a> in the database. User can click to view text and
+associated network data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="browser.views.participate">
+<tt class="descclassname">browser.views.</tt><tt class="descname">participate</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/browser/views.html#participate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#browser.views.participate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Describes how users can contribute to the Genecology Project.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id2">
+<h3>Concepts<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-concepts.views"></span><p>Provides JSON data about <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> instances.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#concepts.views.retrieve" title="concepts.views.retrieve"><tt class="xref py py-obj docutils literal"><span class="pre">retrieve</span></tt></a>(request,&nbsp;uri)</td>
+<td>Get or retrieve JSON data about a <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> by <tt class="docutils literal"><span class="pre">uri</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="concepts.views.retrieve">
+<tt class="descclassname">concepts.views.</tt><tt class="descname">retrieve</tt><big>(</big><em>request</em>, <em>uri</em><big>)</big><a class="reference internal" href="_modules/concepts/views.html#retrieve"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#concepts.views.retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get or retrieve JSON data about a <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> by <tt class="docutils literal"><span class="pre">uri</span></tt>.</p>
+<p>If no <a class="reference internal" href="models.html#concepts.models.Concept" title="concepts.models.Concept"><tt class="xref py py-class docutils literal"><span class="pre">Concept</span></tt></a> for that <tt class="docutils literal"><span class="pre">uri</span></tt> exits, reaches out to a known
+<a class="reference internal" href="models.html#concepts.models.ConceptAuthority" title="concepts.models.ConceptAuthority"><tt class="xref py py-class docutils literal"><span class="pre">ConceptAuthority</span></tt></a> and attempts to retrieve it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>uri</strong> : str</p>
+<blockquote class="last">
+<div><p>A URI, presumably belonging to some <a class="reference internal" href="models.html#concepts.models.ConceptAuthority" title="concepts.models.ConceptAuthority"><tt class="xref py py-class docutils literal"><span class="pre">ConceptAuthority</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="id3">
+<h3>Networks<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<span class="target" id="module-networks.views"></span><p>Provides JSON data about various elements in <a class="reference internal" href="models.html#module-networks.models" title="networks.models"><tt class="xref py py-mod docutils literal"><span class="pre">networks.models</span></tt></a>.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.json_response" title="networks.views.json_response"><tt class="xref py py-obj docutils literal"><span class="pre">json_response</span></tt></a>(response_data)</td>
+<td>Yields JSON data from a dictionary.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.node_data" title="networks.views.node_data"><tt class="xref py py-obj docutils literal"><span class="pre">node_data</span></tt></a>(nodes)</td>
+<td>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.edge_data" title="networks.views.edge_data"><tt class="xref py py-obj docutils literal"><span class="pre">edge_data</span></tt></a>(edges)</td>
+<td>Yields a list of dictionaries describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.relation_data" title="networks.views.relation_data"><tt class="xref py py-obj docutils literal"><span class="pre">relation_data</span></tt></a>(relations)</td>
+<td>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.layout_endpoint" title="networks.views.layout_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">layout_endpoint</span></tt></a>(request,&nbsp;layout_id)</td>
+<td>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> positions.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.layout_data" title="networks.views.layout_data"><tt class="xref py py-obj docutils literal"><span class="pre">layout_data</span></tt></a>(layout)</td>
+<td>Yields a dictionary of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> positions.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.dataset_endpoint" title="networks.views.dataset_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">dataset_endpoint</span></tt></a>(request,&nbsp;dataset_id)</td>
+<td>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.network_data" title="networks.views.network_data"><tt class="xref py py-obj docutils literal"><span class="pre">network_data</span></tt></a>(network_id)</td>
+<td>Generates data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> for a given</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.network_endpoint" title="networks.views.network_endpoint"><tt class="xref py py-obj docutils literal"><span class="pre">network_endpoint</span></tt></a>(request,&nbsp;network_id)</td>
+<td>Provides JSON describing Nodes and Edges for a specified Network.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.download_network" title="networks.views.download_network"><tt class="xref py py-obj docutils literal"><span class="pre">download_network</span></tt></a>(request,&nbsp;network_id[,&nbsp;...])</td>
+<td>Provides an XML representation of a network for download.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.network_projection" title="networks.views.network_projection"><tt class="xref py py-obj docutils literal"><span class="pre">network_projection</span></tt></a>(request,&nbsp;network_id,&nbsp;...)</td>
+<td>Provides JSON data about a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> that has been recast using a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.list_datasets" title="networks.views.list_datasets"><tt class="xref py py-obj docutils literal"><span class="pre">list_datasets</span></tt></a>(request)</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Dataset" title="networks.models.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> in JSON.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.list_networks" title="networks.views.list_networks"><tt class="xref py py-obj docutils literal"><span class="pre">list_networks</span></tt></a>(request)</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> in JSON.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.text_appellations" title="networks.views.text_appellations"><tt class="xref py py-obj docutils literal"><span class="pre">text_appellations</span></tt></a>(request[,&nbsp;text_id])</td>
+<td>Provides a list of all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>, optionally filtered by</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.text_network" title="networks.views.text_network"><tt class="xref py py-obj docutils literal"><span class="pre">text_network</span></tt></a>(request[,&nbsp;text_id,&nbsp;network_id])</td>
+<td>Provides JSON data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> rooted in a</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#networks.views.node_appellations" title="networks.views.node_appellations"><tt class="xref py py-obj docutils literal"><span class="pre">node_appellations</span></tt></a>(request,&nbsp;node_id)</td>
+<td>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> for a given</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#networks.views.edge_relations" title="networks.views.edge_relations"><tt class="xref py py-obj docutils literal"><span class="pre">edge_relations</span></tt></a>(request,&nbsp;edge_id)</td>
+<td>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a given</td>
+</tr>
+</tbody>
+</table>
+<dl class="function">
+<dt id="networks.views.appellation_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">appellation_data</tt><big>(</big><em>appellations</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#appellation_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.appellation_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>appellations</strong> : list</p>
+<blockquote>
+<div><p>A list of <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>app_dict</strong> : dict</p>
+<blockquote class="last">
+<div><p>A nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.dataset_endpoint">
+<tt class="descclassname">networks.views.</tt><tt class="descname">dataset_endpoint</tt><big>(</big><em>request</em>, <em>dataset_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#dataset_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.dataset_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a
+specified dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>dataset_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for a <a class="reference internal" href="models.html#networks.models.Dataset" title="networks.models.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.download_network">
+<tt class="descclassname">networks.views.</tt><tt class="descname">download_network</tt><big>(</big><em>request</em>, <em>network_id</em>, <em>format='graphml'</em>, <em>projection=None</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#download_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.download_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides an XML representation of a network for download.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>network_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>format</strong> : str</p>
+<blockquote>
+<div><p>(default: &#8220;graphml&#8221;) The output format for the network.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/xml</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.edge_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">edge_data</tt><big>(</big><em>edges</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#edge_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.edge_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a list of dictionaries describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>edges</strong> : list</p>
+<blockquote>
+<div><p>A list of <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>edge_data</strong> : list</p>
+<blockquote class="last">
+<div><p>A list of dictionaries describing a list of <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.edge_relations">
+<tt class="descclassname">networks.views.</tt><tt class="descname">edge_relations</tt><big>(</big><em>request</em>, <em>edge_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#edge_relations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.edge_relations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a> for a given 
+<a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>edge_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.json_response">
+<tt class="descclassname">networks.views.</tt><tt class="descname">json_response</tt><big>(</big><em>response_data</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#json_response"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.json_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields JSON data from a dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>response_data</strong> : dict</p>
+<blockquote>
+<div><p>A dictionary containing some data.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.layout_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">layout_data</tt><big>(</big><em>layout</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#layout_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.layout_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a dictionary of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> positions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>layout :</strong> :</p>
+<blockquote>
+<div><p>A <tt class="xref py py-class docutils literal"><span class="pre">NetworkLayout</span></tt> instance.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>postitions: dict</strong> :</p>
+<blockquote class="last">
+<div><p>A nested dictionary of x and y coordinates, indexed on <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> id.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.layout_endpoint">
+<tt class="descclassname">networks.views.</tt><tt class="descname">layout_endpoint</tt><big>(</big><em>request</em>, <em>layout_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#layout_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.layout_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON describing <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> positions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>layout_id</strong> : int</p>
+<blockquote>
+<div><p>Identifier for a <tt class="xref py py-class docutils literal"><span class="pre">NetworkLayout</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.list_datasets">
+<tt class="descclassname">networks.views.</tt><tt class="descname">list_datasets</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#list_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.list_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of all <a class="reference internal" href="models.html#networks.models.Dataset" title="networks.models.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> in JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.list_networks">
+<tt class="descclassname">networks.views.</tt><tt class="descname">list_networks</tt><big>(</big><em>request</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#list_networks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.list_networks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of all <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> in JSON.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.network_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">network_data</tt><big>(</big><em>network_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#network_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.network_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> for a given
+<a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+<p>Used primarily by <a class="reference internal" href="#networks.views.network_endpoint" title="networks.views.network_endpoint"><tt class="xref py py-func docutils literal"><span class="pre">network_endpoint()</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>network_id</strong> : int</p>
+<blockquote>
+<div><p>Identifier for a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>response_data</strong> : dict</p>
+<blockquote class="last">
+<div><p>A nested dictionary describing <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.network_endpoint">
+<tt class="descclassname">networks.views.</tt><tt class="descname">network_endpoint</tt><big>(</big><em>request</em>, <em>network_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#network_endpoint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.network_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON describing Nodes and Edges for a specified Network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>network_id</strong> : int</p>
+<blockquote>
+<div><p>Identifier for a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.network_projection">
+<tt class="descclassname">networks.views.</tt><tt class="descname">network_projection</tt><big>(</big><em>request</em>, <em>network_id</em>, <em>projection_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#network_projection"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.network_projection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON data about a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a> that has been recast using a
+<a class="reference internal" href="models.html#networks.models.NetworkProjection" title="networks.models.NetworkProjection"><tt class="xref py py-class docutils literal"><span class="pre">NetworkProjection</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>network_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>projection_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for a <a class="reference internal" href="models.html#networks.models.NetworkProjection" title="networks.models.NetworkProjection"><tt class="xref py py-class docutils literal"><span class="pre">NetworkProjection</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.node_appellations">
+<tt class="descclassname">networks.views.</tt><tt class="descname">node_appellations</tt><big>(</big><em>request</em>, <em>node_id</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#node_appellations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.node_appellations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON data about all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a> for a given 
+<a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>node_id</strong> : int</p>
+<blockquote>
+<div><p>An identifier for <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.node_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">node_data</tt><big>(</big><em>nodes</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#node_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.node_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>nodes</strong> : list</p>
+<blockquote>
+<div><p>A list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>node_data</strong> : dict</p>
+<blockquote class="last">
+<div><p>A nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.relation_data">
+<tt class="descclassname">networks.views.</tt><tt class="descname">relation_data</tt><big>(</big><em>relations</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#relation_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.relation_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Yields a nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>relations</strong> : list</p>
+<blockquote>
+<div><p>A list of <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>rel_dict</strong> : dict</p>
+<blockquote class="last">
+<div><p>A nested dictionary describing a list of <a class="reference internal" href="models.html#networks.models.Relation" title="networks.models.Relation"><tt class="xref py py-class docutils literal"><span class="pre">Relation</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.text_appellations">
+<tt class="descclassname">networks.views.</tt><tt class="descname">text_appellations</tt><big>(</big><em>request</em>, <em>text_id=None</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#text_appellations"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.text_appellations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of all <a class="reference internal" href="models.html#networks.models.Appellation" title="networks.models.Appellation"><tt class="xref py py-class docutils literal"><span class="pre">Appellation</span></tt></a>, optionally filtered by
+<a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text_id</strong> : int</p>
+<blockquote>
+<div><p>(optional) An identifier for a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="networks.views.text_network">
+<tt class="descclassname">networks.views.</tt><tt class="descname">text_network</tt><big>(</big><em>request</em>, <em>text_id=None</em>, <em>network_id=None</em><big>)</big><a class="reference internal" href="_modules/networks/views.html#text_network"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#networks.views.text_network" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides JSON data about <a class="reference internal" href="models.html#networks.models.Node" title="networks.models.Node"><tt class="xref py py-class docutils literal"><span class="pre">Node</span></tt></a> and <a class="reference internal" href="models.html#networks.models.Edge" title="networks.models.Edge"><tt class="xref py py-class docutils literal"><span class="pre">Edge</span></tt></a> rooted in a
+<a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters :</th><td class="field-body"><p class="first"><strong>text_id</strong> : int</p>
+<blockquote>
+<div><p>(optional) An identifier for a <a class="reference internal" href="models.html#texts.models.Text" title="texts.models.Text"><tt class="xref py py-class docutils literal"><span class="pre">Text</span></tt></a>.</p>
+</div></blockquote>
+<p><strong>network_id</strong> : int</p>
+<blockquote>
+<div><p>(optional) An identifier for a <a class="reference internal" href="models.html#networks.models.Network" title="networks.models.Network"><tt class="xref py py-class docutils literal"><span class="pre">Network</span></tt></a>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns :</th><td class="field-body"><p class="first"><strong>HttpResponse</strong> :</p>
+<blockquote class="last">
+<div><p>A Django <tt class="xref py py-class docutils literal"><span class="pre">HttpResponse</span></tt> object containing <tt class="docutils literal"><span class="pre">application/json</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Erick Peirson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
