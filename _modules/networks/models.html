@@ -1,0 +1,580 @@
+
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>networks.models &mdash; Genecology Project Webapp 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="Genecology Project Webapp 0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="fa fa-home"> Genecology Project Webapp</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../models.html">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#texts">Texts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#repositories">Repositories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../models.html#details">Details</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../views.html">Views</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#browser">Browser</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#concepts">Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#networks">Networks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html#details">Details</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">Genecology Project Webapp</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>networks.models</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <h1>Source code for networks.models</h1><div class="highlight"><pre>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Represents network entities and their evidence.</span>
+
+<span class="sd">.. autosummary::</span>
+
+<span class="sd">   Node</span>
+<span class="sd">   Edge</span>
+<span class="sd">   Network</span>
+<span class="sd">   Appellation</span>
+<span class="sd">   Relation</span>
+<span class="sd">   TextPosition</span>
+<span class="sd">   Dataset</span>
+<span class="sd">   Layout</span>
+<span class="sd">   NodePosition   </span>
+<span class="sd">   NetworkProjection</span>
+<span class="sd">   ProjectionMapping</span>
+<span class="sd">   NodeManager</span>
+<span class="sd">   NodeTypeManager</span>
+<span class="sd">   </span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">concepts.models</span> <span class="kn">import</span> <span class="n">Concept</span>
+<span class="kn">from</span> <span class="nn">django.core.exceptions</span> <span class="kn">import</span> <span class="n">ObjectDoesNotExist</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">()</span>
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="s">&#39;ERROR&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="NodeManager"><a class="viewcode-back" href="../../models.html#networks.models.NodeManager">[docs]</a><span class="k">class</span> <span class="nc">NodeManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for managing :class:`.Node`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="NodeManager.get_unique"><a class="viewcode-back" href="../../models.html#networks.models.NodeManager.get_unique">[docs]</a>    <span class="k">def</span> <span class="nf">get_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">concept</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or create a :class:`.Node` for a particular :class:`.Concept`\.</span>
+<span class="sd">        </span>
+<span class="sd">        If a :class:`.Node` already exists for ``concept``, then return it.</span>
+<span class="sd">        Otherwise, create a new :class:`.Node`\.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        concept : </span>
+<span class="sd">            A :class:`.Concept` instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">concept</span><span class="o">=</span><span class="n">concept</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Found node for {0}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">Node</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">u&#39;Node does not exist for {0}, creating.&#39;</span>
+                                                          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="n">concept</span><span class="o">=</span><span class="n">concept</span><span class="p">)</span>
+            <span class="n">node</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">node</span>
+</div></div>
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../models.html#networks.models.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A vertex in one or more :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    A :class:`.Node` can be associated with zero or more :class:`.Appellation` </span>
+<span class="sd">    instances, which represent the instantiation of its ``concept`` in a text.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    appellations :</span>
+<span class="sd">        ManyToMany reference to :class:`.Appellation`\.</span>
+<span class="sd">    concept : </span>
+<span class="sd">        ForeignKey reference to a :class:`.Concept`\.</span>
+<span class="sd">    type :</span>
+<span class="sd">        ForeignKey reference to a :class:`.NodeType` (optional).</span>
+<span class="sd">    objects :</span>
+<span class="sd">        :class:`.NodeManager` instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+    <span class="n">appellations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Appellation&#39;</span><span class="p">)</span>
+    <span class="n">concept</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;concepts.Concept&#39;</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.NodeType&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">NodeManager</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Node.save"><a class="viewcode-back" href="../../models.html#networks.models.Node.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        On creation, retrieves and associates a :class:`.NodeType` based on the</span>
+<span class="sd">        values of ``name`` and ``uri``.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get_unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                    <span class="bp">self</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">type</span><span class="o">.</span><span class="n">uri</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Node</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</div></div>
+<div class="viewcode-block" id="Network"><a class="viewcode-back" href="../../models.html#networks.models.Network">[docs]</a><span class="k">class</span> <span class="nc">Network</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A set of :class:`.Node` and :class:`.Edge`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        A human-readable name.</span>
+<span class="sd">    nodes : </span>
+<span class="sd">        ManyToMany reference to :class:`.Node`\.</span>
+<span class="sd">    edges : </span>
+<span class="sd">        ManyToMany reference to :class:`.Edge`\.</span>
+<span class="sd">    layout :</span>
+<span class="sd">        ManyToMany reference to :class:`.Layout`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="s">&#39;200&#39;</span><span class="p">)</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Node&#39;</span><span class="p">)</span>
+    <span class="n">edges</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Edge&#39;</span><span class="p">)</span>
+    
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Layout&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</div>
+<div class="viewcode-block" id="NodeTypeManager"><a class="viewcode-back" href="../../models.html#networks.models.NodeTypeManager">[docs]</a><span class="k">class</span> <span class="nc">NodeTypeManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class for managing :class:`.NodeType`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="NodeTypeManager.get_unique"><a class="viewcode-back" href="../../models.html#networks.models.NodeTypeManager.get_unique">[docs]</a>    <span class="k">def</span> <span class="nf">get_unique</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get or create a :class:`.NodeType`\.</span>
+<span class="sd">        </span>
+<span class="sd">        If :class:`.NodeType` already exists with that URI, return it. Otherwise</span>
+<span class="sd">        create a new one.</span>
+<span class="sd">        </span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            A human-readable name.</span>
+<span class="sd">        uri : str</span>
+<span class="sd">            A URI, presumably in the namespace of a :class:`.ConceptAuthority`\.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">NodeType</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;NodeType for {0} exists.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+        <span class="k">except</span> <span class="n">ObjectDoesNotExist</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;NodeType for {0} does not exist. Creating.&#39;</span>
+                                                                   <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">uri</span><span class="p">))</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="n">NodeType</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">uri</span><span class="o">=</span><span class="n">uri</span><span class="p">)</span>
+            <span class="n">instance</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">instance</span>
+</div></div>
+<div class="viewcode-block" id="NodeType"><a class="viewcode-back" href="../../models.html#networks.models.NodeType">[docs]</a><span class="k">class</span> <span class="nc">NodeType</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An ontological concept for classifying :class:`.Node`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Conventionally, but not exclusively, correponds to instances of </span>
+<span class="sd">    :class:`.ConceptType`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        A human-readable name.</span>
+<span class="sd">    uri : str</span>
+<span class="sd">        URI, presumably in the ``namespace`` of a :class:`.ConceptAuthority`\.</span>
+<span class="sd">    objects : </span>
+<span class="sd">        Instance of :class:`.NodeTypeManager`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="s">&#39;200&#39;</span><span class="p">)</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="s">&#39;500&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">objects</span> <span class="o">=</span> <span class="n">NodeTypeManager</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</div>
+<div class="viewcode-block" id="NetworkProjection"><a class="viewcode-back" href="../../models.html#networks.models.NetworkProjection">[docs]</a><span class="k">class</span> <span class="nc">NetworkProjection</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A set of rules for simplifying or abstracting networks.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        A human-readable name.</span>
+<span class="sd">    network : </span>
+<span class="sd">        ForeignKey reference to a :class:`.Network`\.</span>
+<span class="sd">    mappings : </span>
+<span class="sd">        ManyToMany reference to :class:`.ProjectionMapping`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="s">&#39;200&#39;</span><span class="p">)</span>
+    <span class="n">network</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Network&#39;</span><span class="p">)</span>
+    
+    <span class="n">mappings</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.ProjectionMapping&#39;</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    </div>
+<div class="viewcode-block" id="ProjectionMapping"><a class="viewcode-back" href="../../models.html#networks.models.ProjectionMapping">[docs]</a><span class="k">class</span> <span class="nc">ProjectionMapping</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A rule about how to collapse :class:`.Node` instances in a</span>
+<span class="sd">    :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    For example, we may wish to collapse all :class:`.Node` representing people</span>
+<span class="sd">    into a smaller set of :class:`.Node` representing the institutions with</span>
+<span class="sd">    which they are affiliated. In that case, ``primaryNode`` would refer to</span>
+<span class="sd">    a :class:`.NodeType` representing institutions, and ``secondaryNode`` would </span>
+<span class="sd">    refer to a :class:`.NodeType` representing persons.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    primaryNode : </span>
+<span class="sd">        ForeignKey relation to a :class:`.NodeType`\. The :class:`.Node` to subsume ``secondaryNodes``.</span>
+<span class="sd">    secondaryNodes :</span>
+<span class="sd">        ManyToMany relation to :class:`.NodeType`\. These :class:`.Node` are subsumed by ``primaryNode``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">primaryNode</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.NodeType&#39;</span><span class="p">,</span> 
+                                    <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;projection_nodeType&#39;</span><span class="p">)</span>
+    <span class="n">secondaryNodes</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.NodeType&#39;</span><span class="p">,</span>
+                                            <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;projection_collapse&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">u&#39;{0}: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">primaryNode</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                            <span class="p">[</span> <span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">secondaryNodes</span><span class="o">.</span><span class="n">all</span><span class="p">()</span> <span class="p">])</span>
+</div>
+<div class="viewcode-block" id="Edge"><a class="viewcode-back" href="../../models.html#networks.models.Edge">[docs]</a><span class="k">class</span> <span class="nc">Edge</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A directed link between two :class:`.Node`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : </span>
+<span class="sd">        ForeignKey reference to a :class:`.Node`\.</span>
+<span class="sd">    target :</span>
+<span class="sd">        ForeignKey reference to a :class:`.Node`\.</span>
+<span class="sd">    relations :</span>
+<span class="sd">        ManyToMany reference to :class:`.Relation`\, which are the instantiations of this edge in text(s).</span>
+<span class="sd">    concept : </span>
+<span class="sd">        ForeignKey reference to a :class:`.Concept`\. e.g. &quot;engaged with.&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">source</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Node&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;edge_source&#39;</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Node&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;edge_target&#39;</span><span class="p">)</span>
+
+    <span class="n">relations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Relation&#39;</span><span class="p">)</span>
+    <span class="n">concept</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;concepts.Concept&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="s">u&#39;{0} - {1} - {2}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="TextPosition"><a class="viewcode-back" href="../../models.html#networks.models.TextPosition">[docs]</a><span class="k">class</span> <span class="nc">TextPosition</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A position in a :class:`.Text` on which :class:`.Appellation` are anchored.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    startposition : int</span>
+<span class="sd">        The 0-based index where the position begins.</span>
+<span class="sd">    endtposition : int</span>
+<span class="sd">        The 0-based index where the position ends (exclusive).</span>
+<span class="sd">    text :</span>
+<span class="sd">        ForeignKey reference to the :class:`.Text` in which this :class:`.TextPosition` is found.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">startposition</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">endposition</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;texts.Text&#39;</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;text positions&quot;</span>
+</div>
+<div class="viewcode-block" id="Dataset"><a class="viewcode-back" href="../../models.html#networks.models.Dataset">[docs]</a><span class="k">class</span> <span class="nc">Dataset</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A set of :class:`.Appellation` and :class:`.Relation` and their associated :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        A human-readable name.</span>
+<span class="sd">    appellations :</span>
+<span class="sd">        ManyToMany reference to :class:`.Appellation`\.</span>
+<span class="sd">    relations :</span>
+<span class="sd">        ManyToMany reference to :class:`.Relation`\.</span>
+<span class="sd">    networks : </span>
+<span class="sd">        ManyToMany reference to :class:`.Network`\.</span>
+<span class="sd">    added : datetime</span>
+<span class="sd">        Datetime when :class:`.Dataset` was created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">appellations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Appellation&#39;</span><span class="p">)</span>
+    <span class="n">relations</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Relation&#39;</span><span class="p">)</span>
+
+    <span class="n">networks</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.Network&#39;</span><span class="p">,</span> <span class="n">through</span><span class="o">=</span><span class="s">&#39;NetworkLink&#39;</span><span class="p">)</span>
+
+    <span class="n">added</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+</div>
+<div class="viewcode-block" id="NetworkLink"><a class="viewcode-back" href="../../models.html#networks.models.NetworkLink">[docs]</a><span class="k">class</span> <span class="nc">NetworkLink</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Passthrough linkage for :class:`.Network` and :class:`Dataset`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    network :</span>
+<span class="sd">        ForeignKey relation to :class:`.Network`\.</span>
+<span class="sd">    dataset : </span>
+<span class="sd">        ForeignKey relation to :class:`.Dataset`\.</span>
+<span class="sd">    added : datetime</span>
+<span class="sd">        Datetime when :class:`.NetworkLink` was created.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">network</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Network&#39;</span><span class="p">,</span>
+                                <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;linked_network&#39;</span><span class="p">)</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Dataset&#39;</span><span class="p">,</span>
+                                <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;linked_dataset&#39;</span><span class="p">)</span>
+
+    <span class="n">added</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="s">u&#39;Network: {0}; Dataset: {1}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">network</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                             <span class="bp">self</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Appellation"><a class="viewcode-back" href="../../models.html#networks.models.Appellation">[docs]</a><span class="k">class</span> <span class="nc">Appellation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an instantiation of a :class:`.Concept` in a :class:`.Text`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    concept :</span>
+<span class="sd">        (optional) ForeignKey relation to a :class:`.Concept`\.</span>
+<span class="sd">    textposition : </span>
+<span class="sd">        (optional) ForeignKey relation to a :class:`.TextPosition`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">concept</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;concepts.Concept&#39;</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">textposition</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;TextPosition&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;appellations&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Relation"><a class="viewcode-back" href="../../models.html#networks.models.Relation">[docs]</a><span class="k">class</span> <span class="nc">Relation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents an instantiation of an association between two :class:`.Concept`</span>
+<span class="sd">    in a :class:`.Text`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    source : </span>
+<span class="sd">        ForeignKey relation to a :class:`.Appellation`\.</span>
+<span class="sd">    target :</span>
+<span class="sd">        ForeignKey relation to a :class:`.Appellation`\.</span>
+<span class="sd">    predicate :</span>
+<span class="sd">        ForeignKey relation to a :class:`.Appellation`\, representing the</span>
+<span class="sd">        evidentiary basis for the inferred association.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+        
+    <span class="n">source</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;Appellation&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;relation_source&#39;</span><span class="p">)</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;Appellation&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;relation_target&#39;</span><span class="p">)</span>
+    <span class="n">predicate</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;Appellation&#39;</span><span class="p">,</span>
+                                  <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;relation_predicate&#39;</span><span class="p">)</span>
+                                  
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">verbose_name_plural</span> <span class="o">=</span> <span class="s">&quot;relations&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="s">u&#39;{0} - {1} - {2}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">predicate</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                 <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Layout"><a class="viewcode-back" href="../../models.html#networks.models.Layout">[docs]</a><span class="k">class</span> <span class="nc">Layout</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A set of :class:`.NodePosition` describing the layout of a</span>
+<span class="sd">    :class:`.Network`\.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    name : str</span>
+<span class="sd">        A human-readable name.</span>
+<span class="sd">    positions :</span>
+<span class="sd">        ManyToMany reference to :class:`.NodePosition`\.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="n">positions</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ManyToManyField</span><span class="p">(</span><span class="s">&#39;networks.NodePosition&#39;</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                                                                <span class="n">blank</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="NodePosition"><a class="viewcode-back" href="../../models.html#networks.models.NodePosition">[docs]</a><span class="k">class</span> <span class="nc">NodePosition</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents the x,y position of a :class:`.Node` in a unit-less 2D space.</span>
+<span class="sd">    </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    node : </span>
+<span class="sd">        ForeignKey reference to :class:`.Node`</span>
+<span class="sd">    x : float</span>
+<span class="sd">        The position of ``node`` in the X dimension.</span>
+<span class="sd">    y : float</span>
+<span class="sd">        The position of ``node`` in the Y dimension.        </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">&#39;networks.Node&#39;</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s">&#39;layout_node&#39;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">decimal_places</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">max_digits</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DecimalField</span><span class="p">(</span><span class="n">decimal_places</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">max_digits</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__unicode__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">node</span><span class="o">.</span><span class="n">concept</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Erick Peirson.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
