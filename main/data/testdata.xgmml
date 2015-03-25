@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="test graph" directed="1" xmlns="http://www.cs.rpi.edu/XGMML">
+    <node id="0" label="J. Hughes">
+        <att name="concept" type="string" value="http://www.digitalhps.org/s/CONe0f39ff3-85f2-406f-8a4b-716a7724f2f9" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="text" type="string" value="Richards_ 1985 Isozyme inheritance in diploid Taraxacum Hybrids-cocr.txt" />
+        <att name="startposition" type="integer" value="50" />
+        <att name="endposition" type="integer" value="59" />
+    </node>
+    
+    <node id="1" label="A. J. Richards">
+        <att name="concept" type="string" value="http://www.digitalhps.org/s/CONaf7e9dcc-f94a-4cf8-b125-fdfd94c8d8fc" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="text" type="string" value="Richards_ 1985 Isozyme inheritance in diploid Taraxacum Hybrids-cocr.txt" />
+        <att name="startposition" type="integer" value="64" />
+        <att name="endposition" type="integer" value="78" />
+    </node>
+    
+    <node id="2" label="Newcastle University">
+        <att name="concept" type="string" value="http://www.digitalhps.org/s/CON37ef6315-cf9c-4ca9-b231-aa6067c22f0b" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="Richards_ 1985 Isozyme inheritance in diploid Taraxacum Hybrids-cocr.txt" />
+        <att name="startposition" type="integer" value="108" />
+        <att name="endposition" type="integer" value="131" />
+    </node>
+    
+    <edge source="2" target="0">
+        <att name="date" type="integer" value="1985" />
+        <att name="text" type="string" value="Richards_ 1985 Isozyme inheritance in diploid Taraxacum Hybrids-cocr.txt" />
+        <att name="label" type="string" value="employ" />
+        <att name="concept" type="string" value="http://www.digitalhps.org/s/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+    </edge>
+    
+    <edge source="2" target="1">
+        <att name="date" type="integer" value="1985" />
+        <att name="text" type="string" value="Richards_ 1985 Isozyme inheritance in diploid Taraxacum Hybrids-cocr.txt" />
+        <att name="label" type="string" value="employ" />
+        <att name="concept" type="string" value="http://www.digitalhps.org/s/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+    </edge>
+</graph>

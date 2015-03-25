@@ -1,0 +1,63 @@
+{% load static %}
+
+<div class="module">
+<h3>Preview</h3>
+<style>
+
+.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+.link {
+  stroke: #999;
+  stroke-opacity: .6;
+  stroke-width: 1.5px;  
+}
+
+</style>
+<script src="{% static 'main/js/d3.v3.min.js' %}"></script>
+<script>
+
+var width = 400,
+    width_scaler = 300,
+    height = 400,
+    height_scaler = 300;
+
+var color = d3.scale.category20();
+
+
+
+var svg = d3.select("div.module").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+d3.json("{% url 'admin:layout-json' object_id %}", function(error, graph) {
+  
+    var link = svg.selectAll(".link")
+        .data(graph.edges)
+        .enter().append("line")
+            .attr("class", "link");
+
+    var node = svg.selectAll(".node")
+        .data(graph.nodes)
+        .enter().append("circle")
+            .attr("class", "node")
+            .attr("r", 1);
+
+  node.append("title")
+      .text(function(d) { return d.label; });
+      
+    node.attr("cx", function(d) { return 50+d.x*width_scaler; })
+        .attr("cy", function(d) { return 50+d.y*height_scaler; });
+
+    link.attr("x1", function(d) { return 50+d.x1*width_scaler; })
+        .attr("y1", function(d) { return 50+d.y1*height_scaler; })
+        .attr("x2", function(d) { return 50+d.x2*width_scaler; })
+        .attr("y2", function(d) { return 50+d.y2*height_scaler; });
+console.log(link);
+
+});
+
+</script>
+</div>

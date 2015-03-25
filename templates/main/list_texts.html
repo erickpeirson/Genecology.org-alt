@@ -1,0 +1,12 @@
+{% extends "main/base_nosidebar.html" %}
+
+{% block maincontent %}
+<table class="main">
+
+    {% for text in texts %}
+    <tr>
+        <td><a href="{% url "text" text.id %}">{{ text.label }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

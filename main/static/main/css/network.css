@@ -1,0 +1,126 @@
+/*********************************************************************************/
+/* Network	                                                                     */
+/*********************************************************************************/	
+
+    .scrollable {
+        position: relative;
+        top: 0px;
+    }
+
+	div#network-visualization
+	{
+		/*border: 1px solid black;*/
+	}
+
+	line
+	{
+		stroke: #999;
+		stroke-width: 1px;
+		opacity: 0.2;
+	}
+
+        line.focal
+        {
+            stroke-width: 3px;
+            stroke: orange;            
+            opacity: 0.8;
+        }
+
+        line.hover {
+            stroke-width: 4px;
+            opacity: 1;
+        }
+
+        line.indirect_hover
+        {
+            stroke-width: 2px;
+            stroke: gray;            
+            opacity: 0.9;
+        }
+        
+        line.node_active
+        {
+            stroke-width: 3px;
+            stroke: orange;
+            opacity: 0.9;
+        }
+	
+	.node
+	{
+		/*visibility: hidden;*/
+		opacity: 0.7;
+		fill: rgb(0,79,123);
+		stroke-width: 0.5px;
+        stroke: gray;
+	}
+	
+		.node.focal
+		{
+			stroke: rgba(255,0,0,0.5);
+			stroke-width: 2px;
+		    opacity: 1.0;			
+		}
+	
+		.node.selected
+		{
+			visibility: visible;
+		}
+	
+		
+		.node.hovered
+		{
+		    opacity: 1.0;
+		}
+	
+	#network-link {
+		width: 100%;
+		text-align:center;
+	}
+	
+	.label
+	{
+        pointer-events: none;
+	   -moz-user-select: -moz-none;
+       -khtml-user-select: none;
+       -webkit-user-select: none;
+
+       /*
+         Introduced in IE 10.
+         See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+       */
+       -ms-user-select: none;
+       user-select: none;
+       opacity: 0.0;
+       
+    }
+    
+    .label.focal {
+        font-size: 10pt;
+        font-weight: normal;
+        opacity: 0.7;
+    }
+    
+    .label.hovered, .label.focal
+    {
+        font-size: 8pt;
+        font-weight: 800;
+        opacity: 1.0;
+    }
+    
+    .hidden
+    {
+        visibility: hidden;
+    }
+    
+/*********************************************************************************/
+/* Geographic	                                                                 */
+/*********************************************************************************/		
+	
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}	
+	
+	#network-link a {
+	}

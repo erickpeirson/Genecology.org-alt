@@ -1,0 +1,273 @@
+{% extends "main/base_leftsidebar.html" %}
+
+{% block sidebar %}
+    <div class='scrollable'>
+        <section>
+            <div id="network-visualization"></div>
+            <div id="network-link"></div>
+        </section>
+
+        <section>
+            <div id="element_details">
+                <h2 class="element_details_title"></h2>
+            </div>
+        </section>
+
+        <section>
+            <div id="element_app_texts">
+                <h3 class="element_app_texts_title"></h3>
+                <ul class="element_app_texts_list"></ul>
+            </div>
+        </section>
+    </div>
+ 
+ {% endblock %}
+
+{% block maincontent %}
+<h3 class="text_label">{{ text.label }}</h3>
+{% if text.uri %}<h4 class="text_uri">{{ text.uri }}</h4>{% endif %}
+
+{% for creator in text.creators.all %}
+<div class="creator_label">{{ creator.label }}</div>
+{% endfor %}
+
+<pre id="textcontent"> {{ text.content|safe }}</pre>
+{% endblock %}
+
+{% block endscripts %}
+
+
+<link rel="stylesheet" href="/static/main/css/leaflet.css" />
+<link rel="stylesheet" href="/static/main/css/network.css" />
+<script src="/static/main/js/network.js"> </script>
+<script type="text/javascript">
+
+var textTop = $('[id="main-wrapper"] .container').position().top;
+var footerTop = $('[id="main-wrapper"] .container').position().top + $('[id="main-wrapper"] .container').height();
+var windowHeight = $( window ).height();
+
+(function($) {
+    $.fn.goTo = function() {
+        var targetPos = $(this).offset().top;
+        var maxPos = footerTop - windowHeight;
+        if (targetPos > maxPos) {
+            targetPos = maxPos;
+        }
+        $('html, body').animate({
+            scrollTop: targetPos + 'px'
+        }, 'fast');
+        return this; // for chaining...
+    }
+})(jQuery);
+
+// Dimensions of the network visualization.
+var width = 300,
+    height = 300,
+    width_scaler = 275,
+    height_scaler = 275;
+var nodeSize = 4;
+var text_id = "{{ text.id }}";
+var active_node = "{{ active_node }}"
+var text_present = true;
+var app_list_url = "{% url 'appellation-list' %}";
+var text_list_url = "{% url 'text-list' %}";
+
+
+</script>
+
+<script src="/static/main/js/network_new.js"></script>				
+
+<script type="text/javascript">
+
+// Set up the visualization environment. 
+var svg = d3.select('#network-visualization').append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .attr("pointer-events", "all")
+    .append('svg:g')
+    .call(d3.behavior.zoom()    // This makes the visualization zoomable.
+        .scaleExtent([2, 4.5])  // For some reason going below 1 gives weird behavior.
+        .on("zoom", redraw))
+    .append('svg:g');
+    
+var links = svg.append('svg')
+                .classed('links', true);
+var nodes = svg.append('svg')
+                .classed('nodes', true);
+                
+var force = d3.layout.force()
+    .charge(-120)
+    .linkDistance(40)
+    .size([width, height]);
+
+var node_index = {};
+var node_by_concept = {};
+
+function activate_appellation(concept) {
+    // Activate in-text appellations.
+
+    var moved = false;
+
+    d3.selectAll('a[name="' + concept + '"]').classed("focal", true);
+    if (!moved) {   // Reposition page to first appellation.
+        moved = true;
+        $('a[name="'+concept+'"]').goTo();						    
+    }
+}
+
+$('body').ready(function() {
+    d3.json("{% url 'network-detail' 6 %}?text={{text.id}}", function(error, graph) { 
+      force
+          .nodes(graph.nodes)
+          .links(graph.edges)
+          .start();
+      
+        // Draw the links first, so that they are below the nodes.
+        var edge = links.selectAll(".link")
+            .data(graph.edges)
+            .enter().append("line")
+            .classed("edge", true)
+            .attr("id", function(d) { return d.id; })
+            .attr("source", function(d) { return d.source_id; })
+            .attr("target", function(d) { return d.target_id; });
+          
+        edge.on("click", edge_click);
+
+        // Now draw the nodes.
+        var node = nodes.selectAll(".node")
+            .data(graph.nodes)
+            .enter()//.append("g")    // The g element gets moved around.
+            .append("circle")       // The circle is what the user sees.
+            .classed("node", true)
+            .attr("id", function(d) { return d.id; })
+            .attr("r", nodeSize)    // Set node size based on context.
+            .attr("concept", function(d) { return d.concept; })
+            .call(force.drag);
+        
+
+        graph.nodes.forEach(function(node){
+            node_index[node.id] = node;
+            node_by_concept[node.concept] = node;
+        });
+
+
+         var label = nodes.selectAll('text')
+             .data(graph.nodes)
+             .enter()   // The g element gets moved around.
+             .append("text")       // The circle is what the user sees.
+             .classed("label", true) 
+             .attr("id", function(d) { return d.id; })
+             .text(function(d) { return d.label; })
+             .call(force.drag);
+    
+        $('.node').hover(mouseenter_node, mouseexit_node);
+        $('line').hover(mouseenter_edge, mouseexit_edge);
+    
+
+    
+        force.on("tick", function() {
+            edge.attr("x1", function(d) { return d.source.x; })
+                .attr("y1", function(d) { return d.source.y; })
+                .attr("x2", function(d) { return d.target.x; })
+                .attr("y2", function(d) { return d.target.y; });
+
+            node.attr("cx", function(d) { return d.x; })
+                .attr("cy", function(d) { return d.y; });
+                
+            label.attr("dx", function(d) { return d.x; })
+                .attr("dy", function(d) { return d.y; });
+                
+        });
+    
+        activate_node(node_index[active_node]);  
+        activate_appellation(node_index[active_node].concept);          
+
+        // When the user clicks a node, the node is highlighted, and information
+        //  about that node is displayed in a separate space on the page.
+        
+        node.on("click", function(d) {
+            node_click(d);
+            activate_appellation(d.concept);
+        });        
+    });
+    
+    
+    
+  
+});
+//network_visualization("{{ network_id }}");
+
+$(function(){
+    $(window).on('scroll', function () {
+        var scrollPos = $(document).scrollTop();
+        var scrollTop = $('.scrollable').position().top;
+        var scrollBottom = $('.scrollable').position().top + $('.scrollable').height();
+        if (scrollPos > textTop && (scrollPos + windowHeight) < footerTop) {
+            $('.scrollable').css({
+                top: (scrollPos - textTop) + 10
+            });
+        }
+    }).scroll();
+});
+
+
+rangy.init()
+
+// Adds an anchor element around each appellation's text-position.
+var add_appellation = function(node, appellation) {
+    try {
+        var range = rangy.createRange();
+        range.setStart(node.firstChild, appellation.start_position);
+        range.setEnd(node.firstChild, appellation.end_position);
+
+        var highlightNode = document.createElement('a');
+        highlightNode.className = 'appellation';
+        highlightNode.name = appellation.interpretation.id;
+        highlightNode.id = appellation.id;
+//        highlightNode.name = item.id;
+//        highlightNode.style.color = color(types[appellation.type]);
+        range.surroundContents(highlightNode);
+    } catch (err) {
+        // Ignore appellations that overlap with those already added to the 
+        //  text (handles cases where Rangy gets confused).
+        // TODO: Something smarter than this.
+        console.log(err);
+    }
+}
+
+// Given some appellation data, marks-up the text with anchors, and binds as appropriate.
+function process_appellations(data) {
+    // Weed out appellations without text positions.
+    var mappable = Array();
+    data.results.forEach(function(appellation) {
+        if ('start_position' in appellation) mappable.push(appellation)
+    });
+
+    // Sort appellations so that we can start adding them from the end of the text.
+    mappable.sort(function (a,b) {
+        if (a.start_position < b.start_position) return 1;
+        if (a.end_position > b.end_position) return -1;
+    });
+
+    // Add appellations to the text.
+    mappable.forEach(function(appellation) {
+        add_appellation(textcontent, appellation);
+     });
+
+
+    $('a.appellation').click(function(e) {
+        activate_node(node_by_concept[e.target.name]);
+        d3.selectAll('a[name="' + e.target.name + '"]').classed("focal", true);        
+    });
+
+}
+
+
+d3.json("{% url 'appellation-list' %}?text={{text.id}}", function(error, data) { 
+    process_appellations(data);
+});  
+
+</script>
+
+
+{% endblock %}

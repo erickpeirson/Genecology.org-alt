@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<graph label="test graph" directed="1" xmlns="http://www.cs.rpi.edu/XGMML">
+
+    <node id="0" label="John Caldwell">
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON32c1f76c-10af-41b5-be79-c67d765ba149" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="startposition" type="string" value="54" />
+        <att name="endposition" type="string" value="67" />
+    </node>
+    
+    <node id="1" label="University College Exeter">
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CONb3c24cf0-c39e-4733-8c55-62218bcd6a30" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_3fc436d0-26e7-472c-94de-0b712b66b3f3" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="startposition" type="string" value="90" />
+        <att name="endposition" type="string" value="116" />
+    </node>
+
+    <node id="7" label="Edwina Kissick">
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON1008d742-14d5-4b18-b516-e5f8c1c6268d" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="startposition" type="string" value="13340" />
+        <att name="endposition" type="string" value="13350" />
+    </node>
+    
+    <node id="8" label="John Wilkinson">
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON990c0508-f18c-4393-b892-d736ab21061c" />
+        <att name="type" type="string" value="http://www.digitalhps.org/types/TYPE_986a7cc9-c0c1-4720-b344-853f08c136ab" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="startposition" type="string" value="13358" />
+        <att name="endposition" type="string" value="13370" />
+    </node>
+
+    <edge source="1" target="0">
+        <att name="date" type="string" value="1952" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="label" type="string" value="employ" />
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON98a492aa-a41a-4015-adf8-f07df4fff120" />
+    </edge>
+    
+    <edge source="0" target="7">
+        <att name="date" type="string" value="1952" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="label" type="string" value="engage with" />
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+    </edge>
+    
+    <edge source="0" target="8">
+        <att name="date" type="string" value="1952" />
+        <att name="text" type="string" value="Caldwell 1952a-cocr.txt" />
+        <att name="label" type="string" value="engage with" />
+        <att name="concept" type="string" value="http://www.digitalhps.org/concepts/CON7971a85a-49e1-424d-84e6-697262bd2510" />
+    </edge>
+</graph>

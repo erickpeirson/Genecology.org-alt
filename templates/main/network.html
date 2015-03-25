@@ -1,0 +1,152 @@
+{% extends "main/base_rightsidebar.html" %}
+
+{% block sidebar %}
+
+<section>
+    <div><a id="force">force-directed</a> | <a id="geo">geographic</a></div>
+</section>
+
+<section>
+    <div id="instructions">Click on a node or edge for more information.</div>
+    <div id="element_details">
+        <h2 class="element_details_title"></h2>
+        <ul id="element_neighbors"></ul>
+    </div>
+</section>
+
+<section>
+    <div id="element_appellation_texts">
+        <h3 class="element_app_texts_title"></h3>
+        <ul class="element_app_texts_list"></ul>
+    </div>
+</section>
+
+<section>
+    <div id="element_texts">
+        <h3 class="element_texts_title"></h3>
+        <ul class="element_texts_list"></ul>
+    </div>
+</section>
+ 
+ {% endblock %}
+
+{% block maincontent %}
+			<div id="network-visualization"></div>
+			<div>
+			    <span style="display:inline-block;">click and drag to pan; zoom with your mousewheel</span>
+			    <span style="display:inline-block; float: right;"><a href="/networks/network/1/download/">download</a></span>
+			</div>
+			<div id="time-select"></div>
+			<!-- 
+<div id="stop-layout" paused="no"><span>(Un)Pause</span></div>
+			
+<div id="node-types"><span id="node-types-span">Node Types: <select multiple id="node-types-select"><option selected="selected">People</option><option selected="selected">Institutions</option></select></span>
+ -->
+{% endblock %}
+
+{% block endscripts %}
+<!-- <link rel="stylesheet" href="/static/main/css/leaflet.css" /> -->
+<link rel="stylesheet" href="/static/main/css/network.css" />
+
+<!-- <script src="/static/main/js/leaflet.js"></script> -->
+<!-- <script src="/static/main/js/network.js"></script> -->
+<!-- <script src="/static/main/js/map.js"></script> -->
+<script type="text/javascript">
+
+
+
+// Dimensions of the network visualization.
+var width = 600,
+    width_scaler = 500,
+    height = 500,
+    height_scaler = 400;
+var nodeSize = 2;
+
+var app_list_url = "{% url 'appellation-list' %}";
+var text_list_url = "{% url 'text-list' %}";
+</script>
+
+<script src="/static/main/js/network_new.js"></script>				
+
+<script type="text/javascript">
+// Set up the visualization environment. 
+var svg = d3.select('#network-visualization').append('svg')
+    .attr('width', width)
+    .attr('height', height)
+    .attr("pointer-events", "all")
+    .append('svg:g')
+    .call(d3.behavior.zoom()    // This makes the visualization zoomable.
+        .scaleExtent([2, 4.5])  // For some reason going below 1 gives weird behavior.
+        .on("zoom", redraw))
+    .append('svg:g');
+    
+var links = svg.append('svg')
+                .classed('links', true);
+var nodes = svg.append('svg')
+                .classed('nodes', true);
+
+// Load network layout data from the REST API, and draw nodes and edges.
+d3.json("{% url 'layout-detail' 2 %}", function(error, graph) { 
+    // Draw the links first, so that they are below the nodes.
+    var edge = links.selectAll(".link")
+        .data(graph.edges)
+        .enter().append("line")
+        .classed("edge", true)
+        .attr("id", function(d) { return d.id; })
+        .attr("source", function(d) { return d.source_id; })
+        .attr("target", function(d) { return d.target_id; });
+
+    // TODO: this should be more flexible.
+    edge.attr("x1", function(d) { return 50+d.x1*width_scaler; })
+        .attr("y1", function(d) { return 50+d.y1*height_scaler; })
+        .attr("x2", function(d) { return 50+d.x2*width_scaler; })
+        .attr("y2", function(d) { return 50+d.y2*height_scaler; });   
+    edge.on("click", edge_click);
+
+    // Now draw the nodes.
+    var node = nodes.selectAll(".node")
+        .data(graph.nodes)
+        .enter()//.append("g")    // The g element gets moved around.
+        .append("circle")       // The circle is what the user sees.
+        .classed("node", true)
+        .attr("id", function(d) { return d.id; })
+        .attr("r", nodeSize)    // Set node size based on context.
+        .attr("cx", function(d) { return 50 + d.x * width_scaler; })
+        .attr("cy", function(d) { return 50 + d.y * height_scaler; });
+    //    .call(node_drag);       // All of the nodes move along with a mouse drag.         
+
+    
+    var label = nodes.selectAll('text')
+        .data(graph.nodes)
+        .enter()   // The g element gets moved around.
+        .append("text")       // The circle is what the user sees.
+        .attr("dx", function(d) { return 50 + d.x * width_scaler; })
+        .attr("dy", function(d) { return 50 + d.y * height_scaler; })
+        .classed("label", true) 
+        .attr("id", function(d) { return d.id; })
+        .text(function(d) { return d.label; });
+    
+    $('.node').hover(mouseenter_node, mouseexit_node);
+    $('line').hover(mouseenter_edge, mouseexit_edge);
+    
+    // When the user clicks a node, the node is highlighted, and information
+    //  about that node is displayed in a separate space on the page.
+    node.on("click", node_click);   
+});
+
+</script>
+
+
+<!-- 
+<script>
+network_visualization("{{ network_id }}");
+
+$("#geo").click( function(d) {
+	geographic_visualization("{{ network_id }}");
+});
+$("#force").click( function(d) {
+	network_visualization("{{ network_id }}");
+});
+</script>
+ -->
+{% endblock %}

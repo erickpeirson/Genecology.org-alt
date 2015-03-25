@@ -1,0 +1,163 @@
+{% load static %}
+
+<!DOCTYPE HTML>
+<!--
+	Verti 2.5 by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+        <title>{% block title %}Genecology.org{% endblock %}</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,800" rel="stylesheet" type="text/css" />
+		<link href="http://fonts.googleapis.com/css?family=Oleo+Script:400" rel="stylesheet" type="text/css" />
+		<script src="/static/main/js/verti/jquery.min.js"></script>
+		<script src="/static/main/js/verti/config.js"></script>
+		<script src="/static/main/js/verti/skel.min.js"></script>
+		<script src="/static/main/js/verti/skel-panels.min.js"></script>
+		<script src="/static/main/js/rangy-1.2.3/rangy-core.js"></script>
+		<script src="/static/main/js/d3.min.js"></script>		
+
+		<noscript>
+			<link rel="stylesheet" href="/static/main/css/verti/skel-noscript.css" />
+
+			<link rel="stylesheet" href="/static/main/css/style.css" />			
+			<link rel="stylesheet" href="/static/main/css/verti/style-desktop.css" />
+		</noscript>
+        <!--[if lte IE 8]><script src="/static/main/js/html5shiv.js"></script><link rel="stylesheet" href="/static/main/css/verti/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="/static/main/css/verti/ie7.css" /><![endif]-->
+	</head>
+
+    <body class="{% block bodyclass %}homepage{% endblock %}">
+        {% block headerwrapper %}
+    		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="container">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Header -->
+								<header id="header">
+								
+									<!-- Logo -->
+										<div id="logo">
+										    {% block headerlogo %}
+										    <img src="{% static 'main/images/logo.png' %}" height="150"/>
+											<div id="tagline">A <span class="red">Digital History</span> of Evolutionary Population Ecology</div>
+											{% endblock %}
+										</div>
+									
+									<!-- Nav -->
+										<nav id="nav">
+										    {% block headernav %}
+											<ul>
+												<li{% if nav_active == 'home' %} class="current_page_item"{% endif %}><a href="/main/">Home</a></li>
+												<li{% if nav_active == 'network' %} class="current_page_item"{% endif %}><a href="/main/networks/">Network</a></li>
+												<li{% if nav_active == 'texts' %} class="current_page_item"{% endif %}><a href="/main/texts/">Texts</a></li>
+												<li{% if nav_active == 'data' %} class="current_page_item"{% endif %}><a href="/main/data/">Data</a></li>
+												<li{% if nav_active == 'participate' %} class="current_page_item"{% endif %}><a href="/main/participate/">Participate</a></li>												
+											</ul>
+                                            {% endblock %}
+										</nav>
+								
+								</header>
+
+						</div>
+					</div>
+				</div>
+			</div>	
+		{% endblock %}
+		
+    	{% block bodycontent %}
+        <h1>Hello world!</h1>
+        {% endblock %}
+        
+        {% block footer %}
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+				<footer id="footer" class="container">
+					<div class="row">
+					    {% block footerrow %}
+						<div class="3u">
+							<!-- Links -->
+								<section class="widget-links">
+								    {% block widgetlinks1 %}								
+									<h2>Random Stuff</h2>
+									<ul class="style2">
+										<li><a href="#">Etiam feugiat condimentum</a></li>
+										<li><a href="#">Aliquam imperdiet suscipit odio</a></li>
+										<li><a href="#">Sed porttitor cras in erat nec</a></li>
+										<li><a href="#">Felis varius pellentesque potenti</a></li>
+										<li><a href="#">Nullam scelerisque blandit leo</a></li>
+									</ul>
+									{% endblock %}									
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Links -->
+								<section class="widget-links">
+                                    {% block widgetlinks2 %}
+									<h2>Digital & Computational HPS</h2>
+									<p>We participate in the international <a href="http://digitalhps.org/">Digital History & Philosophy of Science Consortium</a>. The Genecology Project is part of a constellation of digital and computational HPS projects in the <a href="http://devo-evo.lab.asu.edu">Laubichler Lab</a> and the <a href="http://devo-evo.lab.asu.edu/diging">ASU Digital Innovation Group</a>.</p>
+									{% endblock %}									
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Links -->
+								<section class="widget-links">
+								    {% block widgetlinks3 %}
+									<h2>Funding</h2>
+									<img src="/static/main/images/logos/nsf1.gif" width="70" style="float:right;margin-left: 5px;" />
+									<p>This material is based upon work supported by the National Science Foundation Graduate Research Fellowship Program under Grant No. 2011131209, and NSF Doctoral Dissertation Research Improvement Grant No. 1256752.<br /><br />
+									<img src="/static/main/images/logos/gpsa_logo.gif" width="70" style="float:left;margin-right: 5px;" />
+									Funded in part by the ASU Graduate and Professional Students Association, under a Graduate Research Support grant, "Models of Phenotypic Plasticity in Ecology," and under multiple conference and research travel grants.</p>
+								
+									{% endblock %}
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Contact -->
+								<section class="widget-contact last">
+								    {% block contactus %}
+									<h2>Contact Us</h2>
+									<ul>
+										<li><a href="https://twitter.com/CaptBarbeRousse" class="fa fa-twitter solo"><span>Twitter</span></a></li>
+										<li><a href="https://www.facebook.com/digitalhps" class="fa fa-facebook solo"><span>Facebook</span></a></li>
+<!-- 
+										<li><a href="#" class="fa fa-dribbble solo"><span>Dribbble</span></a></li>
+										<li><a href="#" class="fa fa-google-plus solo"><span>Google+</span></a></li>
+ -->
+									</ul>
+									<p><a href="http://devo-evo.lab.asu.edu/diging">ASU Digital Innovation Group</a></p>
+								    {% endblock %}
+								</section>
+						
+						</div>
+					</div>
+					{% endblock %}
+					<div class="row">
+						<div class="12u">
+							<div id="copyright">
+							    {% block copyright %}
+								&copy; <a href="http://gradinfo.cbs.asu.edu/?page_id=49">Erick Peirson</a>, 2014. All rights reserved.
+								{% endblock %}
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>        
+            {% endblock %}
+            
+            {% block endscripts %}
+            <script></script>
+            {% endblock %}
+    </body>
+</html>
+		
