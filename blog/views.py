@@ -1,3 +1,7 @@
 from django.shortcuts import render
 
-# Create your views here.
+def home(request):
+    context = {
+        'nav_active': 'home',
+    }
+    return render(request, 'blog/base_home.html', context)

@@ -1,5 +1,4 @@
 import autocomplete_light
-autocomplete_light.autodiscover()
 from django.contrib import admin
 from texts.models import Text
 from django import forms
@@ -10,6 +9,7 @@ from texts.forms import AddTextForm, TextFormReadonly, \
                         SelectTextRepositoryForm, \
                         SelectTextRepositoryCollectionForm, \
                         SelectTextRepositoryItemsForm
+
 
 class TextAdmin(admin.ModelAdmin):
     list_display = ('title', 'uri', 'dateCreated')
